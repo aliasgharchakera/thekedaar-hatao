@@ -1,22 +1,113 @@
 \documentclass{article}
 
-% Set page size and margins
-% Replace `letterpaper' with `a4paper' for UK/EU standard size
-\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
-
-% Useful packages
-\usepackage{amsmath}
+%%%%%%% PACKAGES %%%%%%%%
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{blindtext}
+\usepackage{setspace}
 \usepackage{graphicx}
-\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{notoccite} %citation number ordering
+\usepackage{lscape} %landscape table
+\usepackage{caption} %add a newline in the table caption
+\usepackage{subfig}
+\usepackage{listings}
+% \usepackage[resetlabels,labeled]{biblatex}
 
-\title{CS/CE 353/374 Software Engineering}
-\author{Ali Asghar Yousuf \\ Azeem Haider \\ Musab Sattar \\ Shahid Mahmood}
+% \usepackage[
+% backend=biber,  % format (IEEE)
+% style=ieee,
+% sorting=none
+% ]{biblatex}
+
+\onehalfspace   % 1.5 line spacing
+\pagestyle{fancy}
+\setlength\headheight{50pt}
+\lhead{\large{CS/CE 353/374\\Software Engineering\\Abbas Akhtar}}
+\rhead{\includegraphics[width=2cm]{habiblogo.jpg}}
+\chead{\huge{Project Deliverable 1}}
 
 \begin{document}
-\maketitle
+\pagenumbering{roman}
 
-\section*{\begin{center}
-    Bruh
-\end{center}}
+\setcounter{page}{1}
+\begin{center}
+    \textbf{\large{
+            Thekedaar Hatao}}
+\end{center}
+\large{
+    Ali Asghar Yousuf - ay06993\\
+    Muhammad Azeem Haider - mh06858\\
+    Muhammad Shahid Mahmood - mm06600\\
+    Musab Sattar - ms06651}
+% \newpage
+\pagenumbering{arabic} % Start roman numbering
+% should we submit? also team join krlo please
+
+%%% CONTENT HERE %%%%
+\section{Team Name}
+\textbf{BruhBust Routine}
+
+\section{Product Name}
+% do you think we should add more datasets? like we have 13 and 2 to isi type k hn
+\textbf{Thekedaar Hatao}
+
+\section{Team Member}
+\begin{itemize}
+    \item Ali Asghar Yousuf - ay06993
+    \item Muhammad Azeem Haider - mh06858
+    \item Muhammad Shahid Mahmood - mm06600
+    \item Musab Sattar - ms06651
+\end{itemize}
+
+\section{Description}
+Aims to cut out the middle man while constructing your dream house by providing
+relevant information regarding the steps involved in the building process.
+
+\section{Problem the Product solves}
+At time during the process of constructing your house, the middle man (Thekedaar) usually uses cheap quality raw materials or makes decision on his own
+which ends up with a house that the customer did not dream off in the first
+place. Thaikay daar hatao makes sure that you have complete control over the
+construction of your house.
+
+\section{Intended Audience}
+Ambitious individuals with the dream to build their house as they want
+
+\section{Non Tech Dependencies}
+\begin{itemize}
+    \item Data regarding quantity of raw material needed for the development of the
+          house.
+    \item Google maps with the location of the vendors
+\end{itemize}
+
+\section{High Level Features}
+\begin{itemize}
+    \item \textbf{Week 1} Login and Profile of the Mobile Application
+    \item \textbf{Week 2} Google Maps Integration in the Mobile Application
+    \item \textbf{Week 3} Adding the community/user forum part of the Application
+    \item \textbf{Week 4} Vendors and Recommendations
+\end{itemize}
+
+\section{Technologies/Software Needed}
+We will be needing softwares for FrontEnd/BackEnd development as well as using
+software for communication and planning.
+\subsection{FrontEnd Development}
+    \begin{itemize}
+        \item Flutter
+        \item React
+    \end{itemize}
+\subsection{BackEnd Development}
+    \begin{itemize}
+        \item Node JS
+        \item Django
+    \end{itemize}
+\subsection{Other Softwares}
+    \begin{itemize}
+        \item Jira
+        \item Figma 
+    \end{itemize}
+
+\href{github.com/aliasgharchakera/SE-Spring23-Project}{\textbf{GitHub}}
 
 \end{document}
