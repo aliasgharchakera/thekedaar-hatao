@@ -76,15 +76,34 @@ registered on the application.
 \end{enumerate}
 
 \section*{Use Cases}
-\centering
-\begin{figure}[!h]
-    \includegraphics[width=1\linewidth]{Sequence diagram.png}
-    \caption{usecase}
-    \label{fig:seq}
-\end{figure}
-
 
 \subsubsection*{Explanation}
+
+There are two actors in our class diagram. Our primary actor in the class diagram is the user of the application. The admins of the application that will manage the application will be the secondary actors of the application. The users will be concerned with the five features of the application that are; 
+
+\begin{itemize}
+    \item Login and/or Signup
+    \item Raw Material Calculator 
+    \item Forum 
+    \item Private chat
+    \item Marketplace
+\end{itemize}
+
+The user will first sign up to the application, if the user is already registered to the application, he/she will login to the application. The user will also use raw material calculator in which one can input the amount of land in sq/ft and get an estimation on how much raw material might be needed. In addition, they will also be concerned with the marketplace. The users will be divided into two types in the marketplace. The vendors that will sell the raw material, and the consumers that will buy the raw material. The forum and the chat will be administered by the admins as to stop anyone from misbehaving on the public forums. The user will also have to set their profile and will have to verify. 
+
+\newpage
+
+\subsubsection*{UML Diagram}
+
+\begin{figure}[!h]
+    \begin{center}  
+        \includegraphics[width=1\linewidth]{usecase.png}
+        \caption{usecase}
+        \label{fig:UML}
+    \end{center}
+\end{figure}
+
+\newpage
 
 \section*{Class Diagrams}
 
