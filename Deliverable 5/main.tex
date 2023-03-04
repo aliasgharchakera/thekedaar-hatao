@@ -1,0 +1,120 @@
+\documentclass{article}
+%%%%%%% PACKAGES %%%%%%%%
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\title{Software Engineering Project Architecture}
+\author{Muhammad Azeem Haider $\mid$ Ali Asghar Yousuf \\
+      Muhammad Shahid Mehmood $\mid$ Musab Sattar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+THekeydaar hatao is an app that gives an estimate of the amount of raw material that might be needed to create your house based on how much land the house is to be built on. It provides several functions such as a login, signup, forum to communicate on, material estimator, and marketplace.
+
+\section{Material Estimator}
+
+\subsection{GET /estimate}
+
+\subsubsection{Description}
+
+This endpoint allows users to estimate the raw material required to build a house based on the area of land.
+
+\subsubsection{Parameters}
+
+\begin{itemize}
+  \item area (required) - The area of land in square feet.
+\end{itemize}
+
+\subsubsection{Example Request}
+
+\begin{verbatim}
+GET /estimate?area=1000
+\end{verbatim}
+
+\subsubsection{Example Response}
+
+\begin{verbatim}
+{
+    "materials": {
+        "bricks": 5000,
+        "cement": 20,
+        "sand": 1000,
+        "steel": 500,
+        "wood": 100
+    },
+    "cost": 45000
+}
+\end{verbatim}
+
+\subsection{POST /estimate}
+
+\subsubsection{Description}
+
+This endpoint allows users to estimate the raw material required to build a house based on the area of land, and store the estimate in the app.
+
+\subsubsection{Parameters}
+
+\begin{itemize}
+  \item area (required) - The area of land in square feet.
+\end{itemize}
+
+\subsubsection{Example Request}
+
+\begin{verbatim}
+POST /estimate
+{
+    "area": 1000,
+    "type": "bungalow",
+    "budget": 50000
+}
+\end{verbatim}
+
+\subsubsection{Example Response}
+
+\begin{verbatim}
+{
+    "id": 123,
+    "materials": {
+        "bricks": 5000,
+        "cement": 20,
+        "sand": 1000,
+        "steel": 500,
+        "wood": 100
+    },
+    "cost": 45000
+}
+\end{verbatim}
+
+\subsection{GET /estimate/:id}
+
+\subsubsection{Description}
+
+This endpoint allows users to retrieve a previously saved estimate.
+
+\subsubsection{Parameters}
+
+\begin{itemize}
+  \item id (required) - The ID of the saved estimate.
+\end{itemize}
+
+\subsubsection{Example Request}
+
+\begin{verbatim}
+GET /estimate/123
+\end{verbatim}
+
+\end{document}
