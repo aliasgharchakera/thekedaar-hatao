@@ -46,9 +46,9 @@ This endpoint allows users to create a new account on the app.
 \begin{verbatim}
 POST /signup
 {
-"email": "example@example.com",
-"password": "password123",
-"name": "John Doe"
+    "email": "example@example.com",
+    "password": "password123",
+    "name": "Babar Azam"
 }
 \end{verbatim}
 
@@ -56,8 +56,8 @@ POST /signup
 
 \begin{verbatim}
 {
-"user_id": 123,
-"message": "Account created successfully"
+    "user_id": 123,
+    "message": "Account created successfully"
 }
 \end{verbatim}
 
@@ -79,8 +79,8 @@ This endpoint allows users to log in to their account on the app.
 \begin{verbatim}
 POST /login
 {
-"email": "example@example.com",
-"password": "password123"
+    "email": "example@example.com",
+    "password": "password123"
 }
 \end{verbatim}
 
@@ -88,8 +88,8 @@ POST /login
 
 \begin{verbatim}
 {
-"user_id": 123,
-"message": "Login successful"
+    "user_id": 123,
+    "message": "Login successful"
 }
 \end{verbatim}
 
@@ -155,24 +155,24 @@ GET /forum?limit=20&offset=10
 
 \begin{verbatim}
 {
-"threads": [
-{
-"id": 1,
-"title": "Need advice on flooring",
-"author": "John Doe",
-"created_at": "2022-01-01T12:00:00Z",
-"last_post_at": "2022-01-02T08:00:00Z",
-"replies_count": 5
-},
-{
-"id": 2,
-"title": "Kitchen cabinet recommendations",
-"author": "Jane Smith",
-"created_at": "2022-01-03T10:00:00Z",
-"last_post_at": "2022-01-04T15:00:00Z",
-"replies_count": 3
-}
-]
+    "threads": [
+        {
+        "id": 1,
+        "title": "Need advice on flooring",
+        "author": "Babar Azam",
+        "created_at": "2022-01-01T12:00:00Z",
+        "last_post_at": "2022-01-02T08:00:00Z",
+        "replies_count": 5
+        },
+        {
+        "id": 2,
+        "title": "Kitchen cabinet recommendations",
+        "author": "Azam Khan",
+        "created_at": "2022-01-03T10:00:00Z",
+        "last_post_at": "2022-01-04T15:00:00Z",
+        "replies_count": 3
+        }
+    ]
 }
 \end{verbatim}
 
@@ -195,9 +195,9 @@ This endpoint allows users to create a new thread on the forum.
 \begin{verbatim}
 POST /forum
 {
-"title": "Need advice on roofing",
-"author": "John Doe",
-"content": "I'm planning to build a new house and I'm not sure what type of roofing to choose. Any recommendations?"
+    "title": "Need advice on roofing",
+    "author": "Babar Azam",
+    "content": "I'm planning to build a new house and I'm not sure what type of roofing to choose. Any recommendations?"
 }
 \end{verbatim}
 
@@ -205,16 +205,16 @@ POST /forum
 
 \begin{verbatim}
 {
-"id": 3,
-"title": "Need advice on roofing",
-"author": "John Doe",
-"created_at": "2022-01-05T09:00:00Z",
-"last_post_at": "2022-01-05T09:00:00Z",
-"replies_count": 0
+    "id": 3,
+    "title": "Need advice on roofing",
+    "author": "Babar Azam",
+    "created_at": "2022-01-05T09:00:00Z",
+    "last_post_at": "2022-01-05T09:00:00Z",
+    "replies_count": 0
 }
 \end{verbatim}
 
-\section{Personal Chat API}
+\section{Personal Chat}
 
 \subsection{GET /chat}
 
@@ -239,19 +239,19 @@ GET /chat?user_id=123
 \begin{verbatim}
 {
 "conversations": [
-{
-"id": 1,
-"name": "John Doe",
-"unread_count": 2,
-"last_message": "Hey, how are you doing?"
-},
-{
-"id": 2,
-"name": "Jane Smith",
-"unread_count": 0,
-"last_message": "See you tomorrow at 5 pm"
-}
-]
+        {
+        "id": 1,
+        "name": "Babar Azam",
+        "unread_count": 2,
+        "last_message": "Hey, how are you doing?"
+        },
+        {
+        "id": 2,
+        "name": "Azam Khan",
+        "unread_count": 0,
+        "last_message": "See you tomorrow at 5 pm"
+        }
+    ]
 }
 \end{verbatim}
 
@@ -280,28 +280,28 @@ GET /chat/2?user_id=123
 {
 "id": 2,
 "messages": [
-{
-"id": 1,
-"sender_id": 123,
-"receiver_id": 456,
-"content": "Hey, how are you doing?",
-"timestamp": "2023-03-04T15:00:00Z"
-},
-{
-"id": 2,
-"sender_id": 456,
-"receiver_id": 123,
-"content": "I'm good, thanks! How about you?",
-"timestamp": "2023-03-04T15:05:00Z"
-},
-{
-"id": 3,
-"sender_id": 123,
-"receiver_id": 456,
-"content": "I'm doing well too, thanks for asking.",
-"timestamp": "2023-03-04T15:10:00Z"
-}
-]
+        {
+        "id": 1,
+        "sender_id": 123,
+        "receiver_id": 456,
+        "content": "Hey, how are you doing?",
+        "timestamp": "2023-03-04T15:00:00Z"
+        },
+        {
+        "id": 2,
+        "sender_id": 456,
+        "receiver_id": 123,
+        "content": "I'm good, thanks! How about you?",
+        "timestamp": "2023-03-04T15:05:00Z"
+        },
+        {
+        "id": 3,
+        "sender_id": 123,
+        "receiver_id": 456,
+        "content": "I'm doing well too, thanks for asking.",
+        "timestamp": "2023-03-04T15:10:00Z"
+        }
+    ]
 }
 \end{verbatim}
 
