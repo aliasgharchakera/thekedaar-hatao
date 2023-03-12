@@ -1,46 +1,32 @@
-\documentclass{article}
-
+\documentclass[title page]{article}
 %%%%%%% PACKAGES %%%%%%%%
 \usepackage[utf8]{inputenc}
-\usepackage[margin=2cm]{geometry}
-\usepackage{blindtext}
-\usepackage{setspace}
 \usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
 \usepackage{hyperref}
-\usepackage{notoccite} %citation number ordering
-\usepackage{lscape} %landscape table
-\usepackage{caption} %add a newline in the table caption
-\usepackage{subfig}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
 
-\usepackage[
-backend=biber,  %references format (IEEE)
-style=ieee,
-sorting=none
-]{biblatex}
-\addbibresource{refs.bib} %rename this to your own bibliography
-\onehalfspace   % 1.5 line spacing
-
-\title{\huge{\textbf{Final Project Report}}\\
-\LARGE{Pipelined Processor}}
-\author{Ali Asghar Yousuf - ay06993\\
-        Abdul Majid - at06616\\
-        Muneeb Shafique - ms06373}
+\title{Software Engineering Project Test Strategy}
+\author{Muhammad Azeem Haider $\mid$ Ali Asghar Yousuf \\
+      Mohammad Shahid Mahmood $\mid$ Musab Sattar}
 \date{\today}
 
 \begin{document}
 \pagenumbering{roman} % Start roman numbering
 \clearpage\maketitle
 \thispagestyle{empty}
-\begin{center}
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=10cm]{pics/hulogo.png}
-        %\caption{Your caption here}
-        \label{fig:logo}
-    \end{figure}
-    \large{EE/CS 371L/330L Computer Architecture \\
-    Supervisors: Muhammad Umer Tariq - Aiman Najeeb}
-\end{center}
+    % \begin{center}
+    %     \vspace*{\fill}
+    %     \Large{Thekedaar Hatao \\
+    %     Babar Azam Hamood CS}
+    %     \vspace*{\fill}
+    % \end{center}
 \newpage
 \setcounter{page}{1}
 \tableofcontents
@@ -50,255 +36,112 @@ sorting=none
 \pagenumbering{arabic} % Start roman numbering
 
 %%% CONTENT HERE %%%%
-\section{Task 1}
-\subsection{Assembly code}
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=11cm]{riscv-1.png}
-        \caption{Risc-V assembly code}
-        \label{fig: User flow Diagram}
-    \end{figure}
-\end{center}
+
+\maketitle
+
+\section{Scope}
+\subsection{Introduction}
+
+Thekedaar Hatao is an app that gives an estimate of the amount of raw material that might be needed to create your house based on how much land the house is to be built on. It provides several functions such as login, sign up, forum to communicate on, material estimator, and marketplace.
+
+The objective of our product is to allow users, the best necessary tools, conditions, and work-specific thought calculations to ensure they achieve what they plan to accomplish. The app is proposed to people wanting to establish a new area of residence for current or future planning. 
+
+\subsection{Testing Area}
+In the testing phase, we aim to test as many possible areas as we can, 
 
 
 
-\subsection{Equivalent Python code}
-The following is the Sorting Algorithm in Python:
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=12cm]{python code.png}
-        \caption{Sorting Algorithm in Python}
-        \label{Sorting Algorithm in Python}
-    \end{figure}
-\end{center}
+\section{Test Approach}
 
-\subsection{Testing Assembly on Venus Simulator}
+\subsection{Testing process}
+The process of testing our app will majorly depend on manual and automated testing. We will also conduct a beta test within the Habib community
 
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=12cm, height=8cm]{venus_testing.png}
-        \caption{Snapshot of Memory}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\subsection{Work Division}
+\begin{enumerate}
+    \item \textbf{Manual testing:} Musab Sattar and Azeem Haider
+    \item\textbf{Automated testing:} Ali Asghar and Shahid Mehmood
+\end{enumerate}
 
-\subsection{Explanation: Testing Sorting Algorithm on Single Cycle Processor}
-The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two sub-arrays in a given array, the sub-array which is already sorted, remaining sub-array which is unsorted. In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted sub-array is picked and moved to the sorted sub-array.
+\subsection{Types of testing}
 
-To implement this algorithm in assembly the following approach has been used. Firstly, we initialize an array in the memory with arbitrary values which has been done using the initial loop. Once the array is populated with values two loops have been made use of to sort the already present values in the array. The minimum (min-index) to is initialized to location 0 after the array is traversed to locate the min element. While traversing if and element is found to be smaller that min-index both values have been swapped. At this stage min-index is incremented to point to the next element. This process has been repeated until the entire array is sorted. 
+\subsubsection{Load testing}
+We will be using the following to test our applications load endurance;
+\begin{itemize}
+    \item Jmeter
+    \item Loadster
+    \item Ladrunner
+\end{itemize}
 
-To test the working of this assembly code on our processor alterations were made to the module Instruction Memory. Hex codes for each instruction were found and loaded into the subsequent locations of the array(Figure 5). To verify our results additional registers in our case 6 (number of values stored in the array) were defined in the module Data Memory and their values were compared which demonstrated sorting by showcasing each switch of element in the array. (Figure 6) The following is demonstrated in the following snapshot of the EP-wave generated after running the code. \\\\ EDA playground Link for Task 1:\\https://www.edaplayground.com/x/k9ej
+\subsubsection{Security testing}
+We will perform some low-level security tests using SQL injections.
+\subsubsection{Performance testing}
+We will be performing manual performance testing amongst the four members of the group. 
 
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=18cm, height=3cm]{check.png}
-        \caption{Snapshot of EP-Wave: Result Testing}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\subsubsection{Unit testing}
+The following are important points to keep in mind regarding the unit testing;
+\begin{itemize}
+    \item Unit tests will be written by the developers of the group project before merging the code into the main branch to use for unit testing.
+    \item These developers will also be looking after the smooth running of the unit tests that they have submitted.
+\end{itemize}
 
-\newpage
+\subsubsection{Integration testing}
+Integration tests will be carried out manually. This will be done by the team leading the manual testing for our mobile application. 
 
-\subsection{Changes in Architecture}
-
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=14cm, ]{instruction_memory.png}
-        \caption{Changes in Instruction Memory Module}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
-
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=10cm]{data_memory.png}
-        \caption{Changes in Data Memory Module}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
-
-Further Changes in Control Unit: \\ As shown in Figure 1 the assembly code includes a blt instruction which is used to find the minimum value from the entire array. The following modifications were made the to the Control Unit to cater for this additional type of assembly. Along with the 7 outputs leaving the Control Unit an eighth one was added by the name of branch-blt. This signal is activated, and inputted into an AND gate along with the output from the ALU whose most significant is 1 is the first value is lesser than the second. After passing through the AND gate it further enters the OR gate with the regular signal before it goes into the MUX.
-
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=14cm]{pics/control unit.png}
-        \caption{Changes in Control Unit for  blt }
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\subsection{Approach \& Automation Tools}
+We will be using \textbf{PyTest} for automated testing as it is the most proficient for the use at the moment. 
 
 
-\newpage
-
-\section{Task 2: Modifying Processor: Pipelined Processor }
-\subsection{{Pipeline Registers} }
-The following figures represent pipeline registers which are used to store values between stages. They take their new values on the positive edge of the clk and if "reset" equals 1 then their values are initialized to 0. Connections have been made between these 4 different register to include control information and circuitry.
-
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=14cm]{pics/mem_wb.png}
-        \caption{Changes in MEM/Write Back Register }
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
-
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=12cm]{pics/IF_ID.png}
-        \caption{Changes in instruction Fetch/Instruction Decode Register}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\subsection{Bug Monitoring}
+\textbf{Jira} will be our main tool for bug tracking and monitoring during and before the release of the application. 
 
 
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=19cm]{pics/ID_EX.png}
-        \caption{Changes in Instruction Decode/Execute Register}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\section{Test Platform \& Environment}
+The following test platforms will be used to ensure that our application does not fail at the time of release. These platforms and environments we believe are ideal for properly testing our application. 
 
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=19cm]{pics/Ex_MEM.jpeg}
-        \caption{Changes in Execute/Mem Register}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\subsection{Test Platform}
+Since our backend will be developed using \texttt{Django} framework we will perform our automated testing using \texttt{PyTest}.
 
-\subsection{{Forwarding Unit}}
-The Forward Unit is responsible for comparing the rd values of the EX-MEM and MEM-WB instructions with rs1 and rs2 values of ID-EX. If they equal each other, the value of the regwrite is observed for EX-MEM and MEM-WB. In the case where it is 1 i.e. the next instructions is writng to the register Forward A and Forward B signals are sent accordingly to resolve the haazard.
+\subsection{Test Environment}
+\begin{itemize}
+    \item \textbf{Operating System:} Android 12 and IOS 15
+    \item \textbf{Browser:} Chrome, Windows 10, Windows 11
+\end{itemize}
 
-Figure 13 shows the different requirements that must be fulfilled to generate the required forwarding signals. Once the necessary Forwarding signals have been generated they are sent to the MUX (Figure 14) which is responsible for deciding the signals that are to be used as inputs in the ALU unit. 
+\section{Release Control}
+We will use Git as our version control system. Code changes will be reviewed and approved by a code reviewer before merging into the main branch. The team will give the "go" signal once the code reviewer has checked for any potential bugs. 
 
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=19cm]{pics/Forwarding_unit.png}
-        \caption{Fowarding Unit}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\section{Risk Analysis}
+\begin{itemize}
+    \item Data Security Risks
+    \item Performance Issues 
+    \item Compatability issues 
+    \item Code violations threatening stability 
+    \item Resource Constraints
+\end{itemize}
 
-\newpage
+\section{Test Plan}
+The test plan is extremely important to give a shape to the scope of testing. It also explains the objectives of testing and what types of tests the team has to perform to get the correct results given the limited amount of resources. 
 
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=12cm]{pics/table.jpeg}
-        \caption{Mux Control Signals}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\subsection{Test Case ID}
+Each test case will be assigned a unique identifier, such as a number or a code given by the testing team, that distinguishes it from other test cases. This allows for easy tracking of the test case's status and results. This will help in identifying any issues or failures that occur during testing.
 
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=17cm]{pics/MUX.jpeg}
-        \caption{Mux}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\subsection{Test Case Name}
+The test case name should be a clear and concise description of the functionality or feature being tested. This will accurately reflect the purpose of the test case and make it easy for testers to understand what is being tested.
 
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=15cm]{testcases.jpeg}
-        \caption{Test Cases used to test forwarding}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\subsection{Test Case Objective}
+The objective of the test case will be defined before writing the test case or running it, so the development team knows what metrics the test case has to be developed and what metrics the applications has to pass in order for the test case to be passed. 
 
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=15cm]{last_wave.jpg}
-        \caption{Test Cases used to test forwarding}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
+\subsection{Prerequisites}
+The prerequisites section outlines any conditions or requirements that must be met before the test case can be executed. This may include setting up test data, configuring the testing environment, or executing other tests first.
 
+It is important to clearly define the prerequisites to ensure that the test case is executed correctly and that accurate results are obtained.
 
-TASK 2:\\
-EDA playground link: https://edaplayground.com/x/jBrB
+\subsection{Test Steps}
+The test steps should outline the sequence of actions to be taken to execute the test case. This includes any inputs that need to be provided, any buttons that need to be clicked, or any pages that need to be navigated to.
 
+\subsection{Expected Results}
+The expected results should clearly state what outcome is expected from the test case. This may include displaying specific information on the screen, generating an error message, or navigating to a different page.
 
-\newpage
-\section{Task 3: Detecting Hazards}
-\subsection{{Hazard Detection Module}}
-
-The hazard detection(Figure 15) has the ability to introduce the effect equivalent to that of a bubble. This is done when the next instruction is a load hence a valid hazard. To achieve this result the mux controller is set to zero thereby setting the control signals to zero making the instruction an effective zero. Along with this unit, a seperate mux (Figure16) is used which takes input as the mux controller pin and changes them to zero if the need be. Furthermore, pc-write and if-write signals which prevent writing to pc and pipeline registers when the hazard detection unit is activated to introduce the bubble effect. 
-
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=19cm]{Hazard_Detection.jpeg}
-        \caption{Hazard Detection}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
-
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=15cm]{MUX2.jpeg}
-        \caption{Hazard Detection Mux}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
-
-This section of the code present in the module IF-ID specifically prevents it from writing back.
-
-
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=10cm]{writing.jpeg}
-        \caption{Hazard Detection Mux}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
-
-
-\subsection{{Testing Performance of Modules}}
-
-The EP\textunderscore Wave shows that the final result is 17 in hexadecimal i.e 23 which is the expected result hence proving that the alterations made to modules in section 3.1 are correct. Despite the apparent hazard in the assembly our pipelined processor resolves the issue. 
-
-
-\begin{figure}
-    \centering
-    \subfloat[Assembly Code]{{\includegraphics[width=5cm]{testing.jpeg} }}
-    \qquad
-    \subfloat[Data-Memory]{{\includegraphics[width=7cm]{data_memory.jpeg} }}
-    \caption{Testing}
-    \label{fig:example}
-\end{figure}
-
-\newpage
-
-\begin{center}
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=18.5cm]{results.jpeg}
-        \caption{EP-Wave results}
-        \label{Snapshot of Memory}
-    \end{figure}
-\end{center}
-
-TASK 3:\\
-EDA playground link: https://edaplayground.com/x/Xg\textunderscore i
-
+It is important to clearly define the expected results to ensure that the tester knows what to look for when executing the test case, and to ensure that the test results are meaningful and accurate.
 
 \end{document}
