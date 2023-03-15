@@ -2,32 +2,34 @@
 %%%%%%% PACKAGES %%%%%%%%
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
+\usepackage[margin=3cm]{geometry}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
     filecolor=magenta,      
     urlcolor=cyan,
-}
-
-\title{Software Engineering Project Test Strategy}
-\author{Muhammad Azeem Haider $\mid$ Ali Asghar Yousuf \\
-      Mohammad Shahid Mahmood $\mid$ Musab Sattar}
+    }
+\usepackage{bookmark}
+    
+\title{Software Engineering Project Test Strategy\\
+        Thekedaar Hatao}
+\author{Babar Azam Hamood CS\\
+        Muhammad Azeem Haider $\mid$ Ali Asghar Yousuf \\
+        Mohammad Shahid Mahmood $\mid$ Musab Sattar}
 \date{\today}
 
 \begin{document}
 \pagenumbering{roman} % Start roman numbering
 \clearpage\maketitle
-\thispagestyle{empty}
+% \thispagestyle{empty}
     % \begin{center}
     %     \vspace*{\fill}
     %     \Large{Thekedaar Hatao \\
     %     Babar Azam Hamood CS}
     %     \vspace*{\fill}
     % \end{center}
-\newpage
+% \newpage
 \setcounter{page}{1}
 \tableofcontents
 
@@ -108,7 +110,7 @@ Since our backend will be developed using \texttt{Django} framework we will perf
 \end{itemize}
 
 \section{Release Control}
-We will use Git as our version control system. Code changes will be reviewed and approved by a code reviewer before merging into the main branch. The team will give the "go" signal once the code reviewer has checked for any potential bugs. 
+We will use \texttt{Git} as our version control system. Code changes will be reviewed and approved by a code reviewer before merging into the main branch. The team will give the ``go'' signal once the code reviewer has checked for any potential bugs. 
 
 \section{Risk Analysis}
 \begin{itemize}
