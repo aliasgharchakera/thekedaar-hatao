@@ -1,0 +1,11 @@
+version: "Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)"
+options: "9a1a92567da5ba281853eeb8aa848932366c22d4c906cd6a3183548b7eafb970"
+build_start_time: [1679229470, 560261011]
+build_end_time: [1679229486, 240944862]
+inputs:
+  ? "/Users/murtaza/OneDrive - Habib University/HABIB/Semester 6/SE/Project/App/frontend/flutterfrontend/macos/Flutter/GeneratedPluginRegistrant.swift"
+  : [1679229408, 493166923]
+  ? "/Users/murtaza/OneDrive - Habib University/HABIB/Semester 6/SE/Project/App/frontend/flutterfrontend/macos/Runner/AppDelegate.swift"
+  : [1677511201, 610897064]
+  ? "/Users/murtaza/OneDrive - Habib University/HABIB/Semester 6/SE/Project/App/frontend/flutterfrontend/macos/Runner/MainFlutterWindow.swift"
+  : [1677511201, 613069057]
