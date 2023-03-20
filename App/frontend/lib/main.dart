@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   Future<http.Response> buttonPressed() async {
     http.Response returnedResult = await http.get(
-      Uri.parse('http://localhost:8000/api/hello'),
+      Uri.parse('http://localhost:8000/api/hello/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset-UTF-8',
       });
