@@ -8,3 +8,5 @@ auto/
 solution/
 __pycache__/
 resources/
+App/frontend/.dart_tool/
+App/frontend/build/
