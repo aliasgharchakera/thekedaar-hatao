@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-<<<<<<< HEAD
 import 'signup.dart';
 import 'homescreen.dart';
-=======
->>>>>>> 668355b1ae773c96b753321e5cb5a1498f5a6197
 
 final logger = Logger();
 
@@ -13,12 +10,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-<<<<<<< HEAD
   const MyApp({Key? key}) : super(key: key);
 
-=======
-  const MyApp({super.key});
->>>>>>> 668355b1ae773c96b753321e5cb5a1498f5a6197
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,14 +23,8 @@ class MyApp extends StatelessWidget {
 class LoginScreen extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-<<<<<<< HEAD
 
   LoginScreen({Key? key}) : super(key: key);
-=======
-  static final navigatorKey = GlobalKey<NavigatorState>();
-
-  LoginScreen({super.key});
->>>>>>> 668355b1ae773c96b753321e5cb5a1498f5a6197
 
   @override
   Widget build(BuildContext context) {
@@ -97,13 +84,10 @@ class LoginScreen extends StatelessWidget {
                       final String username = _usernameController.text;
                       final String password = _passwordController.text;
                       logger.d('Username: $username, Password: $password');
-<<<<<<< HEAD
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HomeScreen()),
                       );
-=======
->>>>>>> 668355b1ae773c96b753321e5cb5a1498f5a6197
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
@@ -153,7 +137,6 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-<<<<<<< HEAD
 
 // import 'package:flutter/material.dart';
 // import 'package:logger/logger.dart';
@@ -181,92 +164,11 @@ class LoginScreen extends StatelessWidget {
 //   static final navigatorKey = GlobalKey<NavigatorState>();
 
 //   LoginScreen({super.key});
-=======
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.orange,
-      appBar: AppBar(title: const Text('Sign Up')),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 32.0),
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Full Name',
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Email Address',
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              const TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Contact Number',
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              const TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Confirm Password',
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-              ),
-              const SizedBox(height: 32.0),
-              Center(
-                child: SizedBox(
-                  // width: 91.5,
-                  // height: 12.0,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Create Account'),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-// class SignUpScreen extends StatelessWidget {
-//   const SignUpScreen({Key? key}) : super(key: key);
->>>>>>> 668355b1ae773c96b753321e5cb5a1498f5a6197
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       backgroundColor: Colors.orange,
-<<<<<<< HEAD
 //       body: Padding(
 //         padding: const EdgeInsets.all(16.0),
 //         child: Column(
@@ -284,56 +186,21 @@ class SignUpScreen extends StatelessWidget {
 //             TextField(
 //               controller: _usernameController,
 //               decoration: const InputDecoration(
-=======
-//       appBar: AppBar(title: const Text('Sign Up')),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             const SizedBox(height: 20),
-//             const Text(
-//               'SIGN UP',
-//               style: TextStyle(
-//                 fontSize: 24,
-//                 fontWeight: FontWeight.bold,
-//                 color: Colors.black,
-//               ),
-//               textAlign: TextAlign.center,
-//             ),
-//             const SizedBox(height: 20),
-//             const TextField(
-//               decoration: InputDecoration(
->>>>>>> 668355b1ae773c96b753321e5cb5a1498f5a6197
 //                 labelText: 'Username',
 //                 labelStyle: TextStyle(color: Colors.white),
 //                 border: OutlineInputBorder(),
 //               ),
 //             ),
 //             const SizedBox(height: 20),
-<<<<<<< HEAD
 //             TextField(
 //               controller: _passwordController,
 //               obscureText: true,
 //               decoration: const InputDecoration(
-=======
-//             const TextField(
-//               decoration: InputDecoration(
-//                 labelText: 'Email Address',
-//                 labelStyle: TextStyle(color: Colors.white),
-//                 border: OutlineInputBorder(),
-//               ),
-//             ),
-//             const SizedBox(height: 20),
-//             const TextField(
-//               decoration: InputDecoration(
->>>>>>> 668355b1ae773c96b753321e5cb5a1498f5a6197
 //                 labelText: 'Password',
 //                 labelStyle: TextStyle(color: Colors.white),
 //                 border: OutlineInputBorder(),
 //               ),
 //             ),
-<<<<<<< HEAD
 //             Column(
 //               children: [
 //                 const SizedBox(height: 2),
@@ -397,55 +264,6 @@ class SignUpScreen extends StatelessWidget {
 //                   ),
 //                 ),
 //               ],
-=======
-//             const SizedBox(height: 20),
-//             const TextField(
-//               decoration: InputDecoration(
-//                 labelText: 'Confirm Password',
-//                 labelStyle: TextStyle(color: Colors.white),
-//                 border: OutlineInputBorder(),
-//               ),
-//             ),
-//             const SizedBox(height: 20),
-//             const TextField(
-//               decoration: InputDecoration(
-//                 labelText: 'Contact Number',
-//                 labelStyle: TextStyle(color: Colors.white),
-//                 border: OutlineInputBorder(),
-//               ),
-//             ),
-//             const SizedBox(height: 20),
-//             Row(
-//               children: [
-//                 Checkbox(value: false, onChanged: (bool? value) {}),
-//                 const Text(
-//                   'I have read and agreed to the terms and conditions',
-//                   style: TextStyle(
-//                     color: Colors.white,
-//                     fontSize: 14,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             const SizedBox(height: 40),
-//             Center(
-//               child: ElevatedButton(
-//                 onPressed: () {
-//                   logger.d('Sign up');
-//                 },
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: Colors.lightBlue,
-//                   padding: const EdgeInsets.symmetric(
-//                       vertical: 12, horizontal: 91.5),
-//                 ),
-//                 child: const Text(
-//                   'Create Account',
-//                   style: TextStyle(
-//                     fontSize: 20,
-//                   ),
-//                 ),
-//               ),
->>>>>>> 668355b1ae773c96b753321e5cb5a1498f5a6197
 //             ),
 //           ],
 //         ),
@@ -453,7 +271,6 @@ class SignUpScreen extends StatelessWidget {
 //     );
 //   }
 // }
-<<<<<<< HEAD
 
 
 // // class SignUpScreen extends StatelessWidget {
@@ -557,5 +374,3 @@ class SignUpScreen extends StatelessWidget {
 // //     );
 // //   }
 // // }
-=======
->>>>>>> 668355b1ae773c96b753321e5cb5a1498f5a6197
