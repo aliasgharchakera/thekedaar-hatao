@@ -1,0 +1,13 @@
+*~
+*.aux
+*.out
+*.log
+*.pdf
+.DS_Store
+auto/
+solution/
+__pycache__/
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+.dart_tool/
