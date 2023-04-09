@@ -1,12 +1,16 @@
 from django.db import models
+from django.utils.timezone import now
 
 # Create your models here.
-class User(models.Model):
-    # username: models.TextField()
-    email: models.TextField()
-    password: models.TextField()
-    contact: models.TextField()
+class Uuser(models.Model):
+    email= models.TextField()
+    password= models.TextField()
+    contact= models.TextField()
     
+
     def __str__(self):
-        return self.email 
+        return f"{self.email}" 
+    
+
+    
      
