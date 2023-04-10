@@ -86,6 +86,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "logger",
+      "rootUri": "file:///Users/murtaza/.pub-cache/hosted/pub.dev/logger-1.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///Users/murtaza/.pub-cache/hosted/pub.dev/matcher-0.12.13",
       "packageUri": "lib/",
@@ -170,7 +176,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-03-19T15:19:51.772253Z",
+  "generated": "2023-04-09T19:11:39.318321Z",
   "generator": "pub",
   "generatorVersion": "2.19.2"
 }

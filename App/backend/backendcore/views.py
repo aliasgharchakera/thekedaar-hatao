@@ -7,6 +7,9 @@ from .models import Uuser
 # from django.contrib.auth.models import Uuser
 from .serializers import Uuserserializer
 
+from .models import User
+
+
 # Create your views here.
 
 @api_view(['GET'],)
