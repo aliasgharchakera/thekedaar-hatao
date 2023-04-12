@@ -7,7 +7,7 @@ from .models import Uuser
 # from django.contrib.auth.models import Uuser
 from .serializers import Uuserserializer
 
-from .models import User
+# from .models import User
 
 
 # Create your views here.
@@ -36,7 +36,7 @@ def createUuser(request):
         contact = data['contact'],
     )
     serializer = Uuserserializer(user,many=False)
-    return Response(serializer.data)
+    return Response(serializer.data, status=201)
 
 
 

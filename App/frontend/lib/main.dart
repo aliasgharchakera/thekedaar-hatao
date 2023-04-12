@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:http/http.dart' as http;
 import 'signup.dart';
 import 'homescreen.dart';
 
@@ -25,6 +26,16 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
 
   LoginScreen({Key? key}) : super(key: key);
+
+  Future<http.Response> buttonPressed() async {
+    http.Response returnedResult = await http.get(
+      Uri.parse('http://localhost:8000/hello/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset-UTF-8',
+      });
+      print(returnedResult.body);
+      return returnedResult;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +95,10 @@ class LoginScreen extends StatelessWidget {
                       final String username = _usernameController.text;
                       final String password = _passwordController.text;
                       logger.d('Username: $username, Password: $password');
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => HomeScreen()),
+                      // );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
@@ -125,6 +136,17 @@ class LoginScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                       ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                SizedBox(
+                  width: double.infinity, // Make button wider
+                  child: ElevatedButton(
+                    onPressed: buttonPressed,
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(fontSize: 20), // Increase the font size
                     ),
                   ),
                 ),
