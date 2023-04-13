@@ -10,9 +10,14 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() {
+    return SignUpScreen();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +25,16 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: LoginScreen(),
+//     );
+//   }
+// }
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
@@ -122,7 +137,7 @@ class LoginScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const SignUpScreen(),
+                          builder: (context) => SignUpScreen(),
                         ),
                       );
                     },

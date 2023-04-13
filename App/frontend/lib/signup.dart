@@ -41,10 +41,11 @@ class Email {
   }
 }
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends State<MyApp> {
   final TextEditingController _emailController = TextEditingController();
+  Future<Email>? _futureEmail;
 
-  SignUpScreen({Key? key}) : super(key: key);
+  // SignUpScreen({Key? key}) : super(key: key);
 
 //   Future<http.Response> createUser(String email) {
 //   return http.post(
@@ -78,7 +79,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16.0),
-              const TextField(
+              TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
                   hintText: 'Email Address',
@@ -120,29 +121,31 @@ class SignUpScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        _futureEmail = createEmail(_emailcontroller.text);
+                        _futureEmail = createEmail(_emailController.text);
                       });
                     },
                     child: const Text('Create User'),
                   ),
-                      // show a pop-up message
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (BuildContext context) {
-                      //     return AlertDialog(
-                      //       title: const Text('Account Successfully Created!'),
-                      //       actions: <Widget>[
-                      //         TextButton(
-                      //           onPressed: createUser,
-                      //           child: const Text('OK'),
-                      //         ),
-                      //       ],
-                      //     );
-                      //   },
-                      // );
-                    },
-                    child: const Text('Create Account'),
-                  ),
+                  // child: ElevatedButton(
+                  //   onPressed: () {
+                  //     // show a pop-up message
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (BuildContext context) {
+                  //         return AlertDialog(
+                  //           title: const Text('Account Successfully Created!'),
+                  //           actions: <Widget>[
+                  //             TextButton(
+                  //               onPressed: createUser,
+                  //               child: const Text('OK'),
+                  //             ),
+                  //           ],
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  //   child: const Text('Create Account'),
+                  // ),
                 ),
               ),
             ],
