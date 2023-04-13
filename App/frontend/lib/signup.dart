@@ -1,63 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
-import 'dart:convert';
 import 'homescreen.dart';
 import 'main.dart';
 
-Future<Email> createEmail(String email) async {
-  final response = await http.post(
-    Uri.parse('http://localhost:8000/user/create/'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'email': email,
-    }),
-  );
-
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-    return Email.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to create user.');
-  }
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
+  @override
+  _SignUpScreen createState() => _SignUpScreen();
 }
 
-class Email {
-  final int id;
-  final String email;
-
-  const Email({required this.id, required this.email});
-
-  factory Email.fromJson(Map<String, dynamic> json) {
-    return Email(
-      id: json['id'],
-      email: json['email'],
-    );
-  }
+void signup(fullname, emailaddress, contactnumber, password, confirmpassword) {
+  // final url = "dsadasdasdas";
 }
 
-class SignUpScreen extends State<MyApp> {
-  final TextEditingController _emailController = TextEditingController();
-  Future<Email>? _futureEmail;
-
-  // SignUpScreen({Key? key}) : super(key: key);
-
-//   Future<http.Response> createUser(String email) {
-//   return http.post(
-//     Uri.parse('http://localhost:8000/user/create/'),
-//     headers: <String, String>{
-//       'Content-Type': 'application/json; charset=UTF-8',
-//     },
-//     body: jsonEncode(<String, String>{
-//       'email': email,
-//     }),
-//   );
-// }
+class _SignUpScreen extends State<SignUpScreen> {
+  final TextEditingController _fullnameController = TextEditingController();
+  final TextEditingController _emailaddressController = TextEditingController();
+  final TextEditingController _contactnumberController =
+      TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmpasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +33,9 @@ class SignUpScreen extends State<MyApp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 32.0),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _fullnameController,
+                decoration: const InputDecoration(
                   hintText: 'Full Name',
                   fillColor: Colors.white,
                   filled: true,
@@ -80,35 +43,38 @@ class SignUpScreen extends State<MyApp> {
               ),
               const SizedBox(height: 16.0),
               TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
+                controller: _emailaddressController,
+                decoration: const InputDecoration(
                   hintText: 'Email Address',
                   fillColor: Colors.white,
                   filled: true,
                 ),
               ),
               const SizedBox(height: 16.0),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _contactnumberController,
+                decoration: const InputDecoration(
                   hintText: 'Contact Number',
                   fillColor: Colors.white,
                   filled: true,
                 ),
               ),
               const SizedBox(height: 16.0),
-              const TextField(
+              TextField(
                 obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Password',
+                controller: _passwordController,
+                decoration: const InputDecoration(
+                  hintText: 'password',
                   fillColor: Colors.white,
                   filled: true,
                 ),
               ),
               const SizedBox(height: 16.0),
-              const TextField(
+              TextField(
                 obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Confirm Password',
+                controller: _confirmpasswordController,
+                decoration: const InputDecoration(
+                  hintText: 'Confirm password',
                   fillColor: Colors.white,
                   filled: true,
                 ),
@@ -120,32 +86,36 @@ class SignUpScreen extends State<MyApp> {
                   // height: 12.0,
                   child: ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        _futureEmail = createEmail(_emailController.text);
-                      });
+                      final String fullname = _fullnameController.text;
+                      final String emailaddress = _emailaddressController.text;
+                      final String contactnumber =
+                          _contactnumberController.text;
+                      final String password = _passwordController.text;
+                      final String confirmpassword =
+                          _confirmpasswordController.text;
+                      signup(fullname, emailaddress, contactnumber, password,
+                          confirmpassword);
+                      // show a pop-up message
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Account Successfully Created!'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
-                    child: const Text('Create User'),
+                    child: const Text('Create Account'),
                   ),
-                  // child: ElevatedButton(
-                  //   onPressed: () {
-                  //     // show a pop-up message
-                  //     showDialog(
-                  //       context: context,
-                  //       builder: (BuildContext context) {
-                  //         return AlertDialog(
-                  //           title: const Text('Account Successfully Created!'),
-                  //           actions: <Widget>[
-                  //             TextButton(
-                  //               onPressed: createUser,
-                  //               child: const Text('OK'),
-                  //             ),
-                  //           ],
-                  //         );
-                  //       },
-                  //     );
-                  //   },
-                  //   child: const Text('Create Account'),
-                  // ),
                 ),
               ),
             ],

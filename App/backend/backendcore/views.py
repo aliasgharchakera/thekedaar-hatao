@@ -33,8 +33,9 @@ def createUuser(request):
     user = Uuser.objects.create(
         email = data['email'],
         password = data['password'],
-        contact = data['contact'],
+        # contact = data['contact'],
     )
+    print(user.email, '\n', user.password)
     serializer = Uuserserializer(user,many=False)
     return Response(serializer.data, status=201)
 
