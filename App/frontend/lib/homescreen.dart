@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'Marketplace.dart';
 import 'main.dart';
 import 'Calculator.dart';
 import 'Forum.dart';
-// import 'Marketplace.dart';
+import 'Marketplace.dart';
 import 'Profile.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -26,15 +27,15 @@ class HomeScreen extends StatelessWidget {
           },
         ),
         actions: [
-          // IconButton(
-          //   icon: const Icon(Icons.logout),
-          //   onPressed: () {
-          //     Navigator.pushReplacement(
-          //       context,
-          //       MaterialPageRoute(builder: (context) => LoginScreen()),
-          //     );
-          //   },
-          // )
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MyApp()),
+              );
+            },
+          )
         ],
       ),
       body: Center(
@@ -43,11 +44,11 @@ class HomeScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CalculatorScreen()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => const CalculatorScreen()),
+                // );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -65,10 +66,10 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ForumScreen()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const ForumScreen()),
+                // );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -83,28 +84,28 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
             ),
-            // const SizedBox(height: 30),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (context) => const MarketplaceScreen()),
-            //     );
-            //   },
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       const Icon(Icons.shopping_basket),
-            //       const SizedBox(width: 8),
-            //       const Text('Marketplace'),
-            //     ],
-            //   ),
-            //   style: ElevatedButton.styleFrom(
-            //     fixedSize: const Size(300, 60),
-            //     padding: const EdgeInsets.symmetric(vertical: 16),
-            //   ),
-            // ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => const MarketplaceScreen()),
+                // );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.shopping_basket),
+                  const SizedBox(width: 8),
+                  const Text('Marketplace'),
+                ],
+              ),
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(300, 60),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+            ),
           ],
         ),
       ),
@@ -141,10 +142,10 @@ class HomeScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => const ProfileScreen()),
-                  );
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const ProfileScreen()),
+                  // );
                   // Navigator.pop(context); // added statement
                 },
                 child: Row(
@@ -157,10 +158,10 @@ class HomeScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => const ProfileScreen()),
-                  );
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const ProfileScreen()),
+                  // );
                   // Navigator.pop(context); // added statement
                 },
                 child: Row(
@@ -173,10 +174,10 @@ class HomeScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => const ProfileScreen()),
-                  );
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const ProfileScreen()),
+                  // );
                   // Navigator.pop(context); // added statement
                 },
                 child: Row(
@@ -189,10 +190,10 @@ class HomeScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => const ProfileScreen()),
-                  );
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const ProfileScreen()),
+                  // );
                   // Navigator.pop(context); // added statement
                 },
                 child: Row(
