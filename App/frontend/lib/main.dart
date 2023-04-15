@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'signup.dart';
 import 'homescreen.dart';
 
 final logger = Logger();
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MaterialApp(
+      home: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -18,40 +22,43 @@ class MyApp extends StatefulWidget {
   _LoginScreen createState() => _LoginScreen();
 }
 
-void login(username, password) async {
-  // final url = "dsadasdasdas";
+Future<User> login(username, password) async {
   final response = await http.post(
-    Uri.parse('http://127.0.0.1:8000/user/create/'),
+    Uri.parse('http://127.0.0.1:8000/login'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-      'email': username,
+      'username': username,
       'password': password,
     }),
   );
-}
-// Future<Album> createAlbum(String title) async {
-//   final response = await http.post(
-//     Uri.parse('https://jsonplaceholder.typicode.com/albums'),
-//     headers: <String, String>{
-//       'Content-Type': 'application/json; charset=UTF-8',
-//     },
-//     body: jsonEncode(<String, String>{
-//       'title': title,
-//     }),
-//   );
 
-//   if (response.statusCode == 201) {
-//     // If the server did return a 201 CREATED response,
-//     // then parse the JSON.
-//     return Album.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 201 CREATED response,
-//     // then throw an exception.
-//     throw Exception('Failed to create album.');
-//   }
-// }
+  if (response.statusCode == 201) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+    logger.d("Login successful");
+    return User.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to login user.');
+  }
+}
+
+class User {
+  final String username;
+  final String password;
+
+  const User({required this.username, required this.password});
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      username: json['username'],
+      password: json['password'],
+    );
+  }
+}
 
 class _LoginScreen extends State<MyApp> {
   final TextEditingController _usernameController = TextEditingController();
@@ -114,12 +121,12 @@ class _LoginScreen extends State<MyApp> {
                     onPressed: () {
                       final String username = _usernameController.text;
                       final String password = _passwordController.text;
-                      logger.d('Username: $username, Password: $password');
-                      login(username, password);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                      );
+                      // logger.d('Username: $username, Password: $password');
+                      logger.d(login(username, password));
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => HomeScreen()),
+                      // );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
