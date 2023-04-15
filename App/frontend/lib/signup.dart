@@ -7,6 +7,7 @@ import 'homescreen.dart';
 import 'main.dart';
 
 final logger = Logger();
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
   @override
@@ -16,7 +17,7 @@ class SignUpScreen extends StatefulWidget {
 // void signup(fullname, emailaddress, contactnumber, password, confirmpassword) {
 //   // final url = "dsadasdasdas";
 // }
-Future<User>signup(username, password, email, first_name, last_name) async {
+Future<String> signup(username, password, email, first_name, last_name) async {
   final response = await http.post(
     Uri.parse('http://localhost:8000/signup'),
     headers: <String, String>{
@@ -34,11 +35,11 @@ Future<User>signup(username, password, email, first_name, last_name) async {
   if (response.statusCode == 201) {
     // If the server did return a 201 CREATED response,
     // then parse the JSON.
-    return User.fromJson(jsonDecode(response.body));
+    return "User created successfully";
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
-    throw Exception('Failed to create user.');
+    return "Failed to create user";
   }
 }
 
@@ -146,7 +147,8 @@ class _SignUpScreen extends State<SignUpScreen> {
                       final String password = _passwordController.text;
                       final String confirmpassword =
                           _confirmpasswordController.text;
-                      logger.d(signup(username, password, emailaddress, firstname, lastname));
+                      signup(username, password, emailaddress, firstname,
+                          lastname);
                       // show a pop-up message
                       showDialog(
                         context: context,
