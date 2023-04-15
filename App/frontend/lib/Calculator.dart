@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'Forum.dart';
 import 'homescreen.dart';
 import './main.dart';
+import 'Profile.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({Key? key}) : super(key: key);
@@ -47,15 +49,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           },
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginScreen()),
-              );
-            },
-          )
+          // IconButton(
+          //   icon: const Icon(Icons.logout),
+          //   onPressed: () {
+          //     Navigator.pushReplacement(
+          //       context,
+          //       MaterialPageRoute(builder: (context) => LoginScreen()),
+          //     );
+          //   },
+          // )
         ],
       ),
       body: Center(
@@ -111,7 +113,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             ),
             IconButton(
               icon: const Icon(Icons.forum),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ForumScreen()),
+                );
+              },
             ),
             IconButton(
               icon: const Icon(Icons.shopping_cart),
@@ -151,25 +158,69 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   ],
                 ),
               ),
-              ListTile(
-                leading: const Icon(Icons.person),
-                title: const Text('Profile'),
-                onTap: () {},
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()),
+                  );
+                  // Navigator.pop(context); // added statement
+                },
+                child: Row(
+                  children: const [
+                    Icon(Icons.person),
+                    SizedBox(width: 10),
+                    Text('Profile'),
+                  ],
+                ),
               ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                onTap: () {},
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()),
+                  );
+                  // Navigator.pop(context); // added statement
+                },
+                child: Row(
+                  children: const [
+                    Icon(Icons.person),
+                    SizedBox(width: 10),
+                    Text('Settings'),
+                  ],
+                ),
               ),
-              ListTile(
-                leading: const Icon(Icons.privacy_tip),
-                title: const Text('Privacy'),
-                onTap: () {},
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()),
+                  );
+                  // Navigator.pop(context); // added statement
+                },
+                child: Row(
+                  children: const [
+                    Icon(Icons.person),
+                    SizedBox(width: 10),
+                    Text('Privacy'),
+                  ],
+                ),
               ),
-              ListTile(
-                leading: const Icon(Icons.help),
-                title: const Text('Help Center'),
-                onTap: () {},
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()),
+                  );
+                  // Navigator.pop(context); // added statement
+                },
+                child: Row(
+                  children: const [
+                    Icon(Icons.person),
+                    SizedBox(width: 10),
+                    Text('Help Center'),
+                  ],
+                ),
               ),
             ],
           ),
