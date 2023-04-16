@@ -80,6 +80,12 @@
       "languageVersion": "2.16"
     },
     {
+      "name": "json_annotation",
+      "rootUri": "file:///Users/murtaza/.pub-cache/hosted/pub.dev/json_annotation-0.2.9+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///Users/murtaza/.pub-cache/hosted/pub.dev/lints-2.0.1",
       "packageUri": "lib/",
@@ -176,7 +182,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-04-09T19:11:39.318321Z",
+  "generated": "2023-04-15T11:26:58.988478Z",
   "generator": "pub",
   "generatorVersion": "2.19.2"
 }
