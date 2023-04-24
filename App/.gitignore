@@ -17,6 +17,8 @@ __pycache__/
 .web/
 .windows/
 .flutter/
+frontend/.dart_tool/
+frontend/build/
 
 # Miscellaneous
 *.class
