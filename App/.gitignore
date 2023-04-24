@@ -10,15 +10,15 @@ __pycache__/
 *.synctex.gz
 *.fdb_latexmk
 *.fls
-.dart_tool/
-.build/
-.macos/
+# .dart_tool/
+# .build/
+# .macos/
 .linux/
 .web/
 .windows/
 .flutter/
-frontend/.dart_tool/
-frontend/build/
+# frontend/.dart_tool/
+# frontend/build/
 
 # Miscellaneous
 *.class
@@ -51,7 +51,7 @@ frontend/build/
 .packages
 .pub-cache/
 .pub/
-/build/
+# /build/
 
 # Web related
 lib/generated_plugin_registrant.dart
