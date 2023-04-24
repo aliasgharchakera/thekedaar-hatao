@@ -22,7 +22,7 @@ class MyApp extends StatefulWidget {
   _LoginScreen createState() => _LoginScreen();
 }
 
-Future<User> login(username, password) async {
+Future<bool> login(username, password) async {
   final response = await http.post(
     Uri.parse('http://127.0.0.1:8000/login/'),
     headers: <String, String>{
@@ -37,12 +37,14 @@ Future<User> login(username, password) async {
   if (response.statusCode == 201) {
     // If the server did return a 201 CREATED response,
     // then parse the JSON.
-    logger.d("Login successful");
-    return User.fromJson(jsonDecode(response.body));
+    // logger.d("Login successful");
+    // return User.fromJson(jsonDecode(response.body));
+    return true;
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
-    throw Exception('Failed to login user.');
+    // throw Exception('Failed to login user.');
+    return false;
   }
 }
 
@@ -63,6 +65,24 @@ class User {
 class _LoginScreen extends State<MyApp> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  String? _errorMessage;
+  void _login() async {
+    final String username = _usernameController.text;
+    final String password = _passwordController.text;
+    final user = await login(username, password);
+    logger.d(user);
+    if (user == true) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    } else {
+      setState(() {
+        _errorMessage = 'Invalid username or password';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +120,14 @@ class _LoginScreen extends State<MyApp> {
                 border: OutlineInputBorder(),
               ),
             ),
+            if (_errorMessage != null)
+              Text(
+                _errorMessage!,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             Column(
               children: [
                 const SizedBox(height: 2),
@@ -118,16 +146,16 @@ class _LoginScreen extends State<MyApp> {
                 SizedBox(
                   width: double.infinity, // Make button wider
                   child: ElevatedButton(
-                    onPressed: () {
-                      final String username = _usernameController.text;
-                      final String password = _passwordController.text;
-                      // logger.d('Username: $username, Password: $password');
-                      logger.d(login(username, password));
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => HomeScreen()),
-                      // );
-                    },
+                    onPressed: _login,
+                    // final String username = _usernameController.text;
+                    // final String password = _passwordController.text;
+                    // // logger.d('Username: $username, Password: $password');
+                    // logger.d(login(username, password));
+                    // // Navigator.push(
+                    // //   context,
+                    // //   MaterialPageRoute(builder: (context) => HomeScreen()),
+                    // // );
+                    // },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
                           Colors.lightBlue, // Set the background color
