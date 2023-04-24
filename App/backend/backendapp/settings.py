@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'backendcore.apps.BackendcoreConfig',
     # External apps
     'rest_framework',
-    # 'rest_framework.authtoken',
+    'rest_framework.authtoken',
     'corsheaders',
 ]
 

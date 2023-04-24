@@ -21,17 +21,21 @@ def home(request):
               'discussions':discussions}
     return render(request,'home.html',context)
  
-def addInPost(request):
+@api_view(['POST'])
+@permission_classes([AllowAny],)
+def createPost(request):
     form = CreateInPost()
     if request.method == 'POST':
         form = CreateInPost(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return Response({'post created successfully'}, status = 201)
     context ={'form':form}
-    return render(request,'addInForum.html',context)
- 
-def addInComment(request):
+    return Response({'post created failed'}, status = 401)
+    
+@api_view(['POST'])
+@permission_classes([AllowAny],)
+def createComment(request):
     form = CreateInComment()
     if request.method == 'POST':
         form = CreateInComment(request.POST)
