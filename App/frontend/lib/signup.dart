@@ -73,7 +73,7 @@ class _SignUpScreen extends State<SignUpScreen> {
       appBar: AppBar(title: const Text('Sign Up')),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(32.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -104,7 +104,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   filled: true,
                 ),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 32.0),
               TextField(
                 controller: _emailaddressController,
                 decoration: const InputDecoration(
@@ -113,7 +113,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   filled: true,
                 ),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 32.0),
               TextField(
                 obscureText: true,
                 controller: _passwordController,
@@ -123,7 +123,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   filled: true,
                 ),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 32.0),
               TextField(
                 obscureText: true,
                 controller: _confirmpasswordController,

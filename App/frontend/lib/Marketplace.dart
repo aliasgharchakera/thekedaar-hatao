@@ -6,6 +6,7 @@ import 'homescreen.dart';
 import './Calculator.dart';
 import './main.dart';
 import 'Profile.dart';
+import './HelpCenter.dart';
 
 class MarketplaceScreen extends StatefulWidget {
   const MarketplaceScreen({Key? key}) : super(key: key);
@@ -102,35 +103,48 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
         itemCount: _items.length,
         itemBuilder: (BuildContext context, int index) {
           final item = _items[index];
-          return ListTile(
-            title: Text(item.name),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(item.description,
-                    style: const TextStyle(
-                        color: Colors.black54, fontWeight: FontWeight.bold)),
-                Text(
-                  'Price: ${item.price.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                  ),
+          return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 2,
                 ),
-              ],
-            ),
-            trailing: IconButton(
-              icon: Icon(item.isFavorite ? Icons.star : Icons.star_border),
-              onPressed: () {
-                setState(() {
-                  item.isFavorite = !item.isFavorite;
-                });
-              },
-            ),
-            onTap: () {
-              // TODO: navigate to item details screen
-            },
-          );
+              ),
+              margin: const EdgeInsets.all(10),
+              child: ListTile(
+                title: Text(item.name),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.description,
+                      style: const TextStyle(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Price: ${item.price.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ],
+                ),
+                trailing: IconButton(
+                  icon: Icon(item.isFavorite ? Icons.star : Icons.star_border),
+                  onPressed: () {
+                    setState(() {
+                      item.isFavorite = !item.isFavorite;
+                    });
+                  },
+                ),
+                onTap: () {
+                  // TODO: navigate to item details screen
+                },
+              ));
         },
       ),
       bottomNavigationBar: BottomAppBar(
@@ -150,24 +164,35 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
             IconButton(
               icon: const Icon(Icons.calculate),
               onPressed: () {
-                // Navigator.pushReplacement(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => const CalculatorScreen()),
-                // );
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CalculatorScreen()),
+                );
               },
             ),
             IconButton(
               icon: const Icon(Icons.forum),
               onPressed: () {
-                // Navigator.pushReplacement(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const ForumScreen()),
-                // );
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ForumScreen()),
+                );
               },
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // TODO: Implement the action to sell an item
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SellItemScreen()),
+          );
+        },
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.black,
       ),
       drawer: Drawer(
         child: Container(
@@ -200,69 +225,30 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('Profile'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ),
+                  );
+                  // Navigator.pop(context);
                 },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Profile'),
-                  ],
-                ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.help),
+                title: const Text('Help Center'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const HelpCenterScreen(),
+                    ),
+                  );
+                  // Navigator.pop(context);
                 },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Settings'),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
-                },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Privacy'),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
-                },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Help Center'),
-                  ],
-                ),
               ),
             ],
           ),

@@ -6,6 +6,7 @@ import 'homescreen.dart';
 import './Calculator.dart';
 import './main.dart';
 import 'Profile.dart';
+import 'HelpCenter.dart';
 
 class ForumScreen extends StatefulWidget {
   const ForumScreen({Key? key}) : super(key: key);
@@ -39,7 +40,8 @@ class _ForumScreen extends State<ForumScreen> {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const AddNewPostScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const AddNewPostScreen()),
               );
             },
           )
@@ -170,69 +172,30 @@ class _ForumScreen extends State<ForumScreen> {
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('Profile'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ),
+                  );
+                  // Navigator.pop(context);
                 },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Profile'),
-                  ],
-                ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.help),
+                title: const Text('Help Center'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const HelpCenterScreen(),
+                    ),
+                  );
+                  // Navigator.pop(context);
                 },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Settings'),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
-                },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Privacy'),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
-                },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Help Center'),
-                  ],
-                ),
               ),
             ],
           ),

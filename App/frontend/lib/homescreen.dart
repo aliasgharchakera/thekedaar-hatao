@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfrontend/HelpCenter.dart';
 import 'Marketplace.dart';
 import 'main.dart';
 import 'Calculator.dart';
@@ -140,69 +141,30 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('Profile'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ),
+                  );
+                  // Navigator.pop(context);
                 },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Profile'),
-                  ],
-                ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.help),
+                title: const Text('Help Center'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const HelpCenterScreen(),
+                    ),
+                  );
+                  // Navigator.pop(context);
                 },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Settings'),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
-                },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Privacy'),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
-                },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Help Center'),
-                  ],
-                ),
               ),
             ],
           ),
