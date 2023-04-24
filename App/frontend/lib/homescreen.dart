@@ -44,11 +44,11 @@ class HomeScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => const CalculatorScreen()),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CalculatorScreen()),
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
