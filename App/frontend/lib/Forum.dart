@@ -21,7 +21,7 @@ class ForumScreen extends StatefulWidget {
 
 Future<Forum> getForumAll(authToken) async {
   final response = await http.get(
-    Uri.parse('http://127.0.0.1:8000/forumpost/1/'),
+    Uri.parse('http://127.0.0.1:8000/forum/1/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Token $authToken'
@@ -43,16 +43,16 @@ Future<Forum> getForumAll(authToken) async {
 class Forum {
   final String title;
   final String content;
-  final int author;
+  final String username;
 
   const Forum(
-      {required this.title, required this.content, required this.author});
+      {required this.title, required this.content, required this.username});
 
   factory Forum.fromJson(Map<String, dynamic> json) {
     return Forum(
       title: json['title'],
       content: json['content'],
-      author: json['author'],
+      username: json['username'],
     );
   }
 }

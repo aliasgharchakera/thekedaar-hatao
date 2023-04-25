@@ -6,5 +6,6 @@ urlpatterns = [
     path('example/',example_view),
     path('forum/create/', create_forum_post),
     path('forum/', get_forum_posts),
-    path('forumpost/<str:pk>/', get_forum_post)
+    path('forum/<str:pk>/', get_forum_post),
+    path('forum/<str:pk>/create/', create_post_comment),
 ]

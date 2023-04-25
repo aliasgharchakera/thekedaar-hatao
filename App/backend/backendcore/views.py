@@ -96,7 +96,21 @@ def create_forum_post(request):
         author = request.user
         )
     serializer = ForumPostSerializer(forumPost,many=False)
-    return Response(serializer.data)
+    return Response(serializer.data, status = 201)
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def create_post_comment(request, pk):
+    data = request.data
+    postComment= Comment.objects.create(
+        # this needs fixing
+        Post = int(pk),
+        comment = data['comment'],
+        user_id = request.user
+        )
+    serializer = PostCommentSerializer(postComment,many=False)
+    return Response(serializer.data, status = 201)
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
@@ -107,11 +121,19 @@ def get_forum_posts(request):
     return Response(serializer.data, status = 200)
 
 
-
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_forum_post(request,pk):
     forumPost= ForumPost.objects.get(id=pk)
     serializer = ForumPostSerializer(forumPost,many=False)
+    return Response(serializer.data, status = 200)
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_post_comment(request, pk, ck):
+    forumPost= ForumPost.objects.get(id=pk)
+    postComment = Comment.objects.get(id=ck)
+    serializer = PostCommentSerializer(postComment,many=False)
     return Response(serializer.data, status = 200)
