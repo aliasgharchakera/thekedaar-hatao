@@ -18,31 +18,12 @@ from .serializers import *
 #     for i in posts:
 #         discussions.append(i.discussion_set.all())
  
-    context={'posts':posts,
-              'count':count,
-              'discussions':discussions}
-    return render(request,'home.html',context)
+    # context={'posts':posts,
+    #           'count':count,
+    #           'discussions':discussions}
+    # return render(request,'home.html',context)
  
-def addInPost(request):
-    form = CreateInPost()
-    if request.method == 'POST':
-        form = CreateInPost(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    context ={'form':form}
-    return render(request,'addInForum.html',context)
- 
-def addInComment(request):
-    form = CreateInComment()
-    if request.method == 'POST':
-        form = CreateInComment(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    context ={'form':form}
-    return render(request,'addInDiscussion.html',context)
-  
+                                                                                     
 @api_view(['POST'])
 @permission_classes([AllowAny],)
 def login_view(request):
