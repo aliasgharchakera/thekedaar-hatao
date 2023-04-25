@@ -21,7 +21,7 @@ class MyApp extends StatefulWidget {
   @override
   _LoginScreen createState() => _LoginScreen();
 }
-
+String authToken = "";
 Future<bool> login(username, password) async {
   final response = await http.post(
     Uri.parse('http://127.0.0.1:8000/login/'),
@@ -39,6 +39,33 @@ Future<bool> login(username, password) async {
     // then parse the JSON.
     // logger.d("Login successful");
     // return User.fromJson(jsonDecode(response.body));
+    return true;
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    // throw Exception('Failed to login user.');
+    return false;
+  }
+}
+Future<bool> auth(username, password) async {
+  final response = await http.post(
+    Uri.parse('http://127.0.0.1:8000/api-token-auth/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'username': username,
+      'password': password,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+    // logger.d("Login successful");
+    // return User.fromJson(jsonDecode(response.body));
+    authToken = jsonDecode(response.body)['token'];
+    logger.d(authToken);
     return true;
   } else {
     // If the server did not return a 201 CREATED response,
@@ -71,11 +98,12 @@ class _LoginScreen extends State<MyApp> {
     final String username = _usernameController.text;
     final String password = _passwordController.text;
     final user = await login(username, password);
+    await auth(username, password);
     logger.d(user);
     if (user == true) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen(authToken: authToken,)),
       );
     } else {
       setState(() {
