@@ -19,29 +19,44 @@ class ForumScreen extends StatefulWidget {
   _ForumScreen createState() => _ForumScreen();
 }
 
-Future<bool> forum(username, password) async {
-  final response = await http.post(
-    Uri.parse('http://127.0.0.1:8000/login/'),
+Future<Forum> getForumAll(authToken) async {
+  final response = await http.get(
+    Uri.parse('http://127.0.0.1:8000/forumpost/1/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Token $authToken'
     },
-    body: jsonEncode(<String, String>{
-      'username': username,
-      'password': password,
-    }),
   );
 
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
+  if (response.statusCode == 200) {
+    // If the server did return a 200 SENT response,
     // then parse the JSON.
     // logger.d("Login successful");
     // return User.fromJson(jsonDecode(response.body));
-    return true;
+    logger.d(response.body);
+    return Forum.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
     // throw Exception('Failed to login user.');
-    return false;
+    throw Exception('Failed to load forum');
+  }
+}
+
+class Forum {
+  final String title;
+  final String content;
+  final int author;
+
+  const Forum(
+      {required this.title, required this.content, required this.author});
+
+  factory Forum.fromJson(Map<String, dynamic> json) {
+    return Forum(
+      title: json['title'],
+      content: json['content'],
+      author: json['author'],
+    );
   }
 }
 
@@ -71,7 +86,9 @@ class _ForumScreen extends State<ForumScreen> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>  AddNewPostScreen(authToken: authToken,)),
+                    builder: (context) => AddNewPostScreen(
+                          authToken: authToken,
+                        )),
               );
             },
           )
@@ -121,6 +138,7 @@ class _ForumScreen extends State<ForumScreen> {
                           // setState(() {
                           //   _likesCount[index]++;
                           // });
+                          getForumAll(authToken);
                         },
                         icon: const Icon(Icons.comment),
                       ),
@@ -144,7 +162,10 @@ class _ForumScreen extends State<ForumScreen> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeScreen(authToken: authToken,)),
+                  MaterialPageRoute(
+                      builder: (context) => HomeScreen(
+                            authToken: authToken,
+                          )),
                 );
               },
             ),
@@ -154,7 +175,9 @@ class _ForumScreen extends State<ForumScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  CalculatorScreen(authToken: authToken,)),
+                      builder: (context) => CalculatorScreen(
+                            authToken: authToken,
+                          )),
                 );
               },
             ),
@@ -164,7 +187,9 @@ class _ForumScreen extends State<ForumScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MarketplaceScreen(authToken: authToken,)),
+                      builder: (context) => MarketplaceScreen(
+                            authToken: authToken,
+                          )),
                 );
               },
             ),

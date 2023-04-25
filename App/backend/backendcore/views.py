@@ -104,7 +104,7 @@ def create_forum_post(request):
 def get_forum_posts(request):
     forumPosts= ForumPost.objects.all()
     serializer = ForumPostSerializer(forumPosts,many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status = 200)
 
 
 
@@ -114,4 +114,4 @@ def get_forum_posts(request):
 def get_forum_post(request,pk):
     forumPost= ForumPost.objects.get(id=pk)
     serializer = ForumPostSerializer(forumPost,many=False)
-    return Response(serializer.data)
+    return Response(serializer.data, status = 200)
