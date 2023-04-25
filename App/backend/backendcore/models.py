@@ -31,8 +31,10 @@ class Post(models.Model):
  
 #child model
 class Comment(models.Model):
-    Post = models.ForeignKey(Post,blank=True,on_delete=models.CASCADE)
+    Post = models.ForeignKey(Post,blank=False,on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User,blank=False,on_delete=models.CASCADE)
     comment = models.CharField(max_length=1000)
+    created_at = models.DateTimeField(auto_now_add=True)
  
     def __str__(self):
         return str(self.Post)
@@ -41,7 +43,7 @@ class Comment(models.Model):
 class ForumPost(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     # modified_at = models.DateTimeField(auto_now=True)
 
