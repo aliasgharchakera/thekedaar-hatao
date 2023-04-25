@@ -43,16 +43,16 @@ Future<Forum> getForumAll(authToken) async {
 class Forum {
   final String title;
   final String content;
-  final int author;
+  final String username;
 
   const Forum(
-      {required this.title, required this.content, required this.author});
+      {required this.title, required this.content, required this.username});
 
   factory Forum.fromJson(Map<String, dynamic> json) {
     return Forum(
       title: json['title'],
       content: json['content'],
-      author: json['author'],
+      username: json['username'],
     );
   }
 }
