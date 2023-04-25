@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfrontend/main.dart';
 import 'Forum.dart';
 
 class AddNewPostScreen extends StatefulWidget {
-  const AddNewPostScreen({Key? key}) : super(key: key);
+  final String authToken;
+  const AddNewPostScreen({Key? key, required this.authToken}) : super(key: key);
 
   @override
   _AddNewPostScreenState createState() => _AddNewPostScreenState();
@@ -29,7 +31,7 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ForumScreen(),
+        builder: (context) =>  ForumScreen(authToken: authToken,),
       ),
     );
     // Navigator.pop(context);

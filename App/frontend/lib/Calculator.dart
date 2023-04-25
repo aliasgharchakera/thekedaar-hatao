@@ -6,7 +6,8 @@ import 'Profile.dart';
 import 'HelpCenter.dart';
 
 class CalculatorScreen extends StatefulWidget {
-  const CalculatorScreen({Key? key}) : super(key: key);
+  final String authToken;
+  const CalculatorScreen({Key? key, required this.authToken}) : super(key: key);
 
   @override
   _CalculatorScreenState createState() => _CalculatorScreenState();
@@ -134,7 +135,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => HomeScreen(
+                            authToken: authToken,
+                          )),
                 );
               },
             ),
@@ -143,7 +147,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const ForumScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => ForumScreen(
+                            authToken: authToken,
+                          )),
                 );
               },
             ),

@@ -29,7 +29,7 @@ class CustomAuthToken(ObtainAuthToken):
             'token': token.key,
             'user_first_name': user.first_name,
             'email': user.email
-        })
+        }, status=201)
         
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
