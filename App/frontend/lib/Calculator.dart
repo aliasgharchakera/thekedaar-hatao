@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfrontend/Marketplace.dart';
 import 'Forum.dart';
 import 'homescreen.dart';
 import 'main.dart';
@@ -63,7 +64,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 20),
+            const Icon(
+              Icons.calculate,
+              size: 80,
+            ),
+            const Text(
+              'CALCULATOR',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 30),
             SizedBox(
               width: 200,
               child: TextField(
@@ -71,56 +80,175 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Quantity in sq/ft',
+                  labelText: 'Quantity in SQ/FT',
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                final double quantity = double.parse(_quantityController.text);
-                setState(() {
-                  _brickQuantity = quantity * 2.5;
-                  _cementQuantity = quantity * 0.5;
-                  _woodQuantity = quantity * 0.5;
-                  _sandQuantity = quantity * 0.5;
-                  _metalQuantity = quantity * 0.5;
-                });
-              },
-              child: const Text('Calculate'),
+            const SizedBox(
+              height: 20,
             ),
+            const SizedBox(height: 5),
+            SizedBox(
+              height: 20.0,
+              child: ElevatedButton(
+                onPressed: () {
+                  final double quantity =
+                      double.parse(_quantityController.text);
+                  setState(() {
+                    _brickQuantity = quantity * 2.5;
+                    _cementQuantity = quantity * 0.5;
+                    _woodQuantity = quantity * 0.5;
+                    _sandQuantity = quantity * 0.5;
+                    _metalQuantity = quantity * 0.5;
+                  });
+                },
+                child: const Text('Calculate'),
+              ),
+            ),
+            SizedBox(height: 30.0),
             Table(
-              defaultColumnWidth: FixedColumnWidth(120.0),
+              defaultColumnWidth: const FixedColumnWidth(200.0),
               border: TableBorder.all(
-                  color: Colors.black, style: BorderStyle.solid, width: 2),
+                color: Colors.black,
+                style: BorderStyle.solid,
+                width: 2,
+              ),
               children: [
-                TableRow(children: [
-                  Column(children: const [
-                    Text('Material', style: TextStyle(fontSize: 20.0))
-                  ]),
-                  Column(children: const [
-                    Text('Quantity', style: TextStyle(fontSize: 20.0))
-                  ]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Brick (pcs)')]),
-                  Column(children: [Text('$_brickQuantity')]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Cement (kg)')]),
-                  Column(children: [Text('$_cementQuantity')]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Metal (sqft)')]),
-                  Column(children: [Text('$_metalQuantity')]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Sand (kg)')]),
-                  Column(children: [Text('$_sandQuantity')]),
-                ]),
+                TableRow(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                  ),
+                  children: const [
+                    TableCell(
+                      child: Center(
+                        child: Text(
+                          'MATERIAL',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Center(
+                        child: Text(
+                          'QUANTITY',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    const TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          'Brick (pcs)',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          '$_brickQuantity',
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    const TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          'Cement',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          '$_cementQuantity',
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    const TableCell(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          'Metal',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          '$_metalQuantity',
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    const TableCell(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          'Sand',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          '$_sandQuantity',
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             )
-            // final int quantity = int.parse(_quantityController.text);
           ],
         ),
       ),
@@ -149,7 +277,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             ),
             IconButton(
               icon: const Icon(Icons.shopping_cart),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MarketplaceScreen()),
+                );
+              },
             ),
           ],
         ),
