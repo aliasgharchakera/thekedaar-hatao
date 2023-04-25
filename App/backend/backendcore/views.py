@@ -3,43 +3,35 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from rest_framework import generics, permissions
 
 from django.shortcuts import render,redirect
 from .models import * 
-from .forms import * 
+# from .forms import * 
+from .serializers import *
 # Create your views here.
  
-def home(request):
-    posts=Post.objects.all()
-    count=posts.count()
-    discussions=[]
-    for i in posts:
-        discussions.append(i.discussion_set.all())
+# def home(request):
+#     # posts=Post.objects.all()
+#     count=posts.count()
+#     discussions=[]
+#     for i in posts:
+#         discussions.append(i.discussion_set.all())
  
-    context={'posts':posts,
-              'count':count,
-              'discussions':discussions}
-    return render(request,'home.html',context)
- 
+#     context={'posts':posts,
+#               'count':count,
+#               'discussions':discussions}
+#     return render(request,'home.html',context)
+
+@api_view(['POST'])
+@permission_classes([AllowAny],)
 def addInPost(request):
-    form = CreateInPost()
-    if request.method == 'POST':
-        form = CreateInPost(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    context ={'form':form}
-    return render(request,'addInForum.html',context)
+    data = request.data
+    username = data['username']
+    topic = data['topic']
+    description = data['description']
+
  
-def addInComment(request):
-    form = CreateInComment()
-    if request.method == 'POST':
-        form = CreateInComment(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    context ={'form':form}
-    return render(request,'addInDiscussion.html',context)
   
 @api_view(['POST'])
 @permission_classes([AllowAny],)
@@ -71,3 +63,30 @@ def signup_view(request):
         return Response({'user created successfully'}, status = 200)
     return Response({'user created failed'}, status = 201)
 
+
+@api_view(['GET'])
+@permission_classes([AllowAny],)
+def getForumPosts(request):
+    forumPosts= ForumPost.objects.all()
+    serializer = ForumPostSerializer(forumPosts,many=True)
+    return Response(serializer.data)
+    
+# @api_view(['GET'])
+# @permission_classes([AllowAny],)
+# def getForumPost(request,pk):
+#     forumPost= ForumPost.objects.get(id=pk)
+#     serializer = ForumPostSerializer(forumPost,many=False)
+#     return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([AllowAny],)
+def createForumPost(request):
+    data = request.data
+    forumPost= ForumPost.objects.create(
+        title = data['title'],
+        content = data['content'],
+        author = request.user
+        )
+    serializer = ForumPostSerializer(forumPost,many=False)
+    return Response(serializer.data)
+   
