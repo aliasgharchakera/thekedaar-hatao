@@ -29,16 +29,13 @@ Future<Forum> getForumAll(authToken) async {
   );
 
   if (response.statusCode == 200) {
-    // If the server did return a 200 SENT response,
+    // If the server did return a 200 OK response,
     // then parse the JSON.
-    // logger.d("Login successful");
-    // return User.fromJson(jsonDecode(response.body));
     logger.d(response.body);
     return Forum.fromJson(jsonDecode(response.body));
   } else {
-    // If the server did not return a 201 CREATED response,
+    // If the server did not return a 200 OK response,
     // then throw an exception.
-    // throw Exception('Failed to login user.');
     throw Exception('Failed to load forum');
   }
 }

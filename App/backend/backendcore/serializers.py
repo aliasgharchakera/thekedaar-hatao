@@ -49,3 +49,4 @@ class ForumPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = ForumPost
         fields = '__all__'
+        user = UserSerializer(User.objects.get(id=ForumPost.author.field))
