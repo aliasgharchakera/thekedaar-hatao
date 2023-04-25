@@ -3,6 +3,7 @@ import 'Forum.dart';
 import 'homescreen.dart';
 import 'main.dart';
 import 'Profile.dart';
+import 'HelpCenter.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({Key? key}) : super(key: key);
@@ -12,14 +13,6 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
-  final List<String> _materials = [
-    'Select material',
-    'Brick',
-    'Wood',
-    'Cement',
-    'Sand',
-    'Metal'
-  ];
   String? _selectedMaterial;
   final TextEditingController _quantityController = TextEditingController();
 
@@ -70,20 +63,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            DropdownButton<String>(
-              value: _selectedMaterial,
-              items: _materials.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedMaterial = newValue;
-                });
-              },
-            ),
             const SizedBox(height: 20),
             SizedBox(
               width: 200,
@@ -116,27 +95,27 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   color: Colors.black, style: BorderStyle.solid, width: 2),
               children: [
                 TableRow(children: [
-                  Column(children: [
+                  Column(children: const [
                     Text('Material', style: TextStyle(fontSize: 20.0))
                   ]),
-                  Column(children: [
+                  Column(children: const [
                     Text('Quantity', style: TextStyle(fontSize: 20.0))
                   ]),
                 ]),
                 TableRow(children: [
-                  Column(children: [Text('Brick (pcs)')]),
+                  Column(children: const [Text('Brick (pcs)')]),
                   Column(children: [Text('$_brickQuantity')]),
                 ]),
                 TableRow(children: [
-                  Column(children: [Text('Cement (kg)')]),
+                  Column(children: const [Text('Cement (kg)')]),
                   Column(children: [Text('$_cementQuantity')]),
                 ]),
                 TableRow(children: [
-                  Column(children: [Text('Metal (sqft)')]),
+                  Column(children: const [Text('Metal (sqft)')]),
                   Column(children: [Text('$_metalQuantity')]),
                 ]),
                 TableRow(children: [
-                  Column(children: [Text('Sand (kg)')]),
+                  Column(children: const [Text('Sand (kg)')]),
                   Column(children: [Text('$_sandQuantity')]),
                 ]),
               ],
@@ -162,10 +141,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             IconButton(
               icon: const Icon(Icons.forum),
               onPressed: () {
-                // Navigator.pushReplacement(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const ForumScreen()),
-                // );
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ForumScreen()),
+                );
               },
             ),
             IconButton(
@@ -206,69 +185,30 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('Profile'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ),
+                  );
+                  // Navigator.pop(context);
                 },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Profile'),
-                  ],
-                ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.help),
+                title: const Text('Help Center'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const HelpCenterScreen(),
+                    ),
+                  );
+                  // Navigator.pop(context);
                 },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Settings'),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
-                },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Privacy'),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ProfileScreen()),
-                  // );
-                  // Navigator.pop(context); // added statement
-                },
-                child: Row(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text('Help Center'),
-                  ],
-                ),
               ),
             ],
           ),

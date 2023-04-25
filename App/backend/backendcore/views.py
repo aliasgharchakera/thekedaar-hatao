@@ -42,17 +42,17 @@ def example_view(request, format=None):
     return Response(content)
 
  
-def home(request):
-    posts=Post.objects.all()
-    count=posts.count()
-    discussions=[]
-    for i in posts:
-        discussions.append(i.discussion_set.all())
+# def home(request):
+#     posts=ForumPost.objects.all()
+#     count=posts.count()
+#     discussions=[]
+#     for i in posts:
+#         discussions.append(i.discussion_set.all())
  
-    context={'posts':posts,
-              'count':count,
-              'discussions':discussions}
-    return render(request,'home.html',context)
+#     context={'posts':posts,
+#               'count':count,
+#               'discussions':discussions}
+#     return render(request,'home.html',context)
  
 @api_view(['POST'])
 @permission_classes([AllowAny],)
@@ -88,7 +88,7 @@ def signup_view(request):
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def createForumPost(request):
+def create_forum_post(request):
     data = request.data
     forumPost= ForumPost.objects.create(
         title = data['title'],
