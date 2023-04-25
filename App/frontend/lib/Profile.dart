@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'HelpCenter.dart';
+import 'homescreen.dart';
+import 'Calculator.dart';
+import 'Marketplace.dart';
+import 'Forum.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -302,6 +306,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onTap: _editPassword,
           ),
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.orange,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.calculate),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CalculatorScreen()),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.forum),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ForumScreen()),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.shop),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MarketplaceScreen()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       drawer: Drawer(
         child: Container(
