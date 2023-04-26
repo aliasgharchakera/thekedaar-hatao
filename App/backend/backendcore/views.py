@@ -103,9 +103,12 @@ def create_forum_post(request):
 @permission_classes([IsAuthenticated])
 def create_post_comment(request, pk):
     data = request.data
+    forum_post = ForumPost.objects.get(id=pk)
+    if not forum_post:
+        return Response({'error': 'ForumPost does not exist'}, status=404)
     postComment= Comment.objects.create(
         # this needs fixing
-        Post = int(pk),
+        post_id = forum_post,
         comment = data['comment'],
         user_id = request.user
         )
@@ -134,6 +137,14 @@ def get_forum_post(request,pk):
 @permission_classes([IsAuthenticated])
 def get_post_comment(request, pk, ck):
     forumPost= ForumPost.objects.get(id=pk)
-    postComment = Comment.objects.get(id=ck)
+    postComment = Comment.objects.get(id=ck, post_id=pk)
     serializer = PostCommentSerializer(postComment,many=False)
+    return Response(serializer.data, status = 200)
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_post_comments(request, pk):
+    postComments = Comment.objects.all().filter(post_id=pk)
+    serializer = PostCommentSerializer(postComments,many=True)
     return Response(serializer.data, status = 200)

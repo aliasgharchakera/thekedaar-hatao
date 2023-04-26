@@ -30,17 +30,9 @@ class Post(models.Model):
         return str(self.topic)
  
 #child model
-class Comment(models.Model):
-    Post = models.ForeignKey(Post,blank=False,on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User,blank=False,on_delete=models.CASCADE)
-    comment = models.CharField(max_length=1000)
-    created_at = models.DateTimeField(auto_now_add=True)
- 
-    def __str__(self):
-        return str(self.Post)
-    
 
 class ForumPost(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     content = models.TextField()
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -50,3 +42,14 @@ class ForumPost(models.Model):
     def __str__(self):
         return self.title
      
+
+class Comment(models.Model):
+    id = models.AutoField(primary_key=True)
+    post_id = models.ForeignKey(ForumPost,blank=False,on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User,blank=False,on_delete=models.CASCADE)
+    comment = models.CharField(max_length=1000)
+    created_at = models.DateTimeField(auto_now_add=True)
+ 
+    def __str__(self):
+        return str(self.Post)
+    

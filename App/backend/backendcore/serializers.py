@@ -49,10 +49,11 @@ class ForumPostSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user_id.username')
     class Meta:
         model = ForumPost
-        fields = ['title', 'content', 'user_id', 'username']
+        fields = ['id', 'title', 'content', 'user_id', 'username']
         
 class PostCommentSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user_id.username')
+    # post = serializers.CharField(source='post_id.title')
     class Meta:
         model = Comment
-        fields = ['Post', 'comment', 'user_id', 'username']
+        fields = ['id', 'post_id', 'comment', 'user_id', 'username']
