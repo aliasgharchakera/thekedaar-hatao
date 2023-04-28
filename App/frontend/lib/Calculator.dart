@@ -262,7 +262,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  MaterialPageRoute(builder: (context) => HomeScreen(authToken: authToken,)),
                 );
               },
             ),
@@ -271,7 +271,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const ForumScreen()),
+                  MaterialPageRoute(builder: (context) => ForumScreen(authToken: authToken,)),
                 );
               },
             ),
@@ -281,7 +281,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const MarketplaceScreen()),
+                      builder: (context) => MarketplaceScreen(authToken: authToken,)),
                 );
               },
             ),

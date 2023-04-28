@@ -49,9 +49,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => CalculatorScreen(
-                            authToken: authToken,
-                          )),
+                      builder: (context) => CalculatorScreen()),
                 );
               },
               child: Row(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './AddNewPost.dart';
+import './Addnewpost.dart';
 import './Calculator.dart';
 import './Marketplace.dart';
 import 'homescreen.dart';
@@ -86,9 +86,7 @@ class _ForumScreen extends State<ForumScreen> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AddNewPostScreen(
-                          authToken: authToken,
-                        )),
+                    builder: (context) => AddnewpostScreen()),
               );
             },
           )
@@ -175,9 +173,7 @@ class _ForumScreen extends State<ForumScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => CalculatorScreen(
-                            authToken: authToken,
-                          )),
+                      builder: (context) => CalculatorScreen()),
                 );
               },
             ),
@@ -187,10 +183,12 @@ class _ForumScreen extends State<ForumScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MarketplaceScreen(
-                );
+                      builder: (context) => MarketplaceScreen(authToken: authToken,)
+                  )
+            );
               },
             ),
+          ]
         ),
       ),
       drawer: Drawer(

@@ -189,11 +189,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // add functionality
                   Navigator.pop(context);
                 },
-                leading: const Icon(Icons.lock),
-                onTap: () {
-                  // add functionality
-                  Navigator.pop(context);
-                },
+                // leading: const Icon(Icons.lock),
+                // onTap: () {
+                //   // add functionality
+                //   Navigator.pop(context);
+                // },
               ),
               const Divider(),
               ListTile(

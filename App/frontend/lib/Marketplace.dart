@@ -168,7 +168,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  CalculatorScreen(authToken: authToken,)),
+                      builder: (context) =>  CalculatorScreen()),
                 );
               },
             ),
