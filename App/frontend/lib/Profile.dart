@@ -177,8 +177,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
+                            onPressed: () async {
+                              final success = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => EditProfileScreen(
@@ -186,6 +186,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                               );
+                              if (success == true) {
+                                setState(() {
+                                  getUser();
+                                });
+                              }
                             },
                             child: Text('Edit Details'),
                           ),

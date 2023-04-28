@@ -60,7 +60,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Future<void> _updateUser() async {
     try {
       final response = await http.put(
-        Uri.parse('http://127.0.0.1:8000/user/'),
+        Uri.parse('http://127.0.0.1:8000/user/update/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Token ${widget.authToken}',
@@ -87,32 +87,91 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> _updatePassword() async {
-    try {
-      final response = await http.put(
-        Uri.parse('http://127.0.0.1:8000/user/update_password/'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Token ${widget.authToken}',
-        },
-        body: jsonEncode(<String, String>{
-          'old_password': _oldPasswordController.text,
-          'new_password': _newPasswordController.text,
-        }),
-      );
+  String? newPassword;
 
-      if (response.statusCode == 200) {
-        Navigator.pop(context, true);
-      } else {
-        setState(() {
-          _errorMessage = json.decode(response.body)['message'];
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _errorMessage = 'An error occurred: $e';
-      });
-    }
-  }
+  await showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Change Password'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              controller: _oldPasswordController,
+              decoration: InputDecoration(
+                hintText: 'Old Password',
+              ),
+              obscureText: true,
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              onChanged: (value) => newPassword = value,
+              decoration: InputDecoration(
+                hintText: 'New Password',
+              ),
+              obscureText: true,
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              decoration: InputDecoration(
+                hintText: 'Confirm New Password',
+              ),
+              obscureText: true,
+              validator: (value) {
+                if (value != newPassword) {
+                  return 'Passwords do not match';
+                }
+                return null;
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              if (_formKey.currentState!.validate()) {
+                try {
+                  final response = await http.put(
+                    Uri.parse('http://127.0.0.1:8000/user/update_password/'),
+                    headers: <String, String>{
+                      'Content-Type': 'application/json; charset=UTF-8',
+                      'Authorization': 'Token ${widget.authToken}',
+                    },
+                    body: jsonEncode(<String, String>{
+                      'old_password': _oldPasswordController.text,
+                      'new_password': newPassword!,
+                    }),
+                  );
+
+                  if (response.statusCode == 200) {
+                    Navigator.pop(context, true);
+                  } else {
+                    setState(() {
+                      _errorMessage = json.decode(response.body)['message'];
+                    });
+                  }
+                } catch (e) {
+                  setState(() {
+                    _errorMessage = 'An error occurred: $e';
+                  });
+                }
+              }
+            },
+            child: Text('Save'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -153,6 +212,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 controller: _lastNameController,
                 decoration: InputDecoration(
                   labelText: 'Last Name',
+                  
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -161,18 +221,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   return null;
                 },
               ),
-              Text(
-                'Email',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 5),
+              // Text(
+              //   'Email',
+              //   style: TextStyle(
+              //     fontSize: 16,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(
-                  hintText: 'Enter your email',
+                  labelText: 'Enter your email',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
@@ -185,66 +245,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
-              Text(
-                'Password',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 5),
-              TextFormField(
-                controller: _newPasswordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Enter your password',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Password is required';
-                  }
-                  if (value.length < 6) {
-                    return 'Password should be at least 6 characters';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Confirm Password',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 5),
-              TextFormField(
-                controller: _confirmPasswordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Enter your password again',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please confirm your password';
-                  }
-                  if (value != _newPasswordController.text) {
-                    return 'Passwords do not match';
-                  }
-                  return null;
-                },
-              ),
-              
+              const SizedBox(height: 16.0),
+              ElevatedButton(onPressed: _updatePassword,
+              child: const Text('Change Password')),
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     //TODO: implement update profile logic
                     _updateUser();
-                    _updatePassword();
                   }
                 },
                 child: Text('Update Profile'),
