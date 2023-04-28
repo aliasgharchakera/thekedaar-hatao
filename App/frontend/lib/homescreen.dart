@@ -8,7 +8,8 @@ import 'Marketplace.dart';
 import 'Profile.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final String authToken;
+  const HomeScreen({Key? key, required this.authToken}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,9 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const CalculatorScreen()),
+                      builder: (context) => CalculatorScreen(
+                            authToken: authToken,
+                          )),
                 );
               },
               child: Row(
@@ -69,7 +72,10 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ForumScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => ForumScreen(
+                            authToken: authToken,
+                          )),
                 );
               },
               child: Row(
@@ -91,7 +97,9 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const MarketplaceScreen()),
+                      builder: (context) => MarketplaceScreen(
+                            authToken: authToken,
+                          )),
                 );
               },
               child: Row(

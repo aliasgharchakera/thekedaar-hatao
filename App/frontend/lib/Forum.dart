@@ -7,12 +7,57 @@ import './Calculator.dart';
 import './main.dart';
 import 'Profile.dart';
 import 'HelpCenter.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ForumScreen extends StatefulWidget {
-  const ForumScreen({Key? key}) : super(key: key);
+  final String authToken;
+  const ForumScreen({Key? key, required this.authToken}) : super(key: key);
 
   @override
   _ForumScreen createState() => _ForumScreen();
+}
+
+Future<Forum> getForumAll(authToken) async {
+  final response = await http.get(
+    Uri.parse('http://127.0.0.1:8000/forumpost/1/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Token $authToken'
+    },
+  );
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 SENT response,
+    // then parse the JSON.
+    // logger.d("Login successful");
+    // return User.fromJson(jsonDecode(response.body));
+    logger.d(response.body);
+    return Forum.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    // throw Exception('Failed to login user.');
+    throw Exception('Failed to load forum');
+  }
+}
+
+class Forum {
+  final String title;
+  final String content;
+  final int author;
+
+  const Forum(
+      {required this.title, required this.content, required this.author});
+
+  factory Forum.fromJson(Map<String, dynamic> json) {
+    return Forum(
+      title: json['title'],
+      content: json['content'],
+      author: json['author'],
+    );
+  }
 }
 
 class _ForumScreen extends State<ForumScreen> {
@@ -41,7 +86,9 @@ class _ForumScreen extends State<ForumScreen> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const AddNewPostScreen()),
+                    builder: (context) => AddNewPostScreen(
+                          authToken: authToken,
+                        )),
               );
             },
           )
@@ -91,6 +138,7 @@ class _ForumScreen extends State<ForumScreen> {
                           // setState(() {
                           //   _likesCount[index]++;
                           // });
+                          getForumAll(authToken);
                         },
                         icon: const Icon(Icons.comment),
                       ),
@@ -114,7 +162,10 @@ class _ForumScreen extends State<ForumScreen> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => HomeScreen(
+                            authToken: authToken,
+                          )),
                 );
               },
             ),
@@ -124,7 +175,9 @@ class _ForumScreen extends State<ForumScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const CalculatorScreen()),
+                      builder: (context) => CalculatorScreen(
+                            authToken: authToken,
+                          )),
                 );
               },
             ),
@@ -134,11 +187,10 @@ class _ForumScreen extends State<ForumScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const MarketplaceScreen()),
+                      builder: (context) => MarketplaceScreen(
                 );
               },
             ),
-          ],
         ),
       ),
       drawer: Drawer(

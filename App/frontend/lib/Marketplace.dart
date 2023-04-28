@@ -9,7 +9,8 @@ import 'Profile.dart';
 import './HelpCenter.dart';
 
 class MarketplaceScreen extends StatefulWidget {
-  const MarketplaceScreen({Key? key}) : super(key: key);
+  final String authToken;
+  const MarketplaceScreen({Key? key, required this.authToken}) : super(key: key);
 
   @override
   _MarketplaceScreenState createState() => _MarketplaceScreenState();
@@ -157,7 +158,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  MaterialPageRoute(builder: (context) =>  HomeScreen(authToken: authToken,)),
                 );
               },
             ),
@@ -167,7 +168,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const CalculatorScreen()),
+                      builder: (context) =>  CalculatorScreen(authToken: authToken,)),
                 );
               },
             ),
@@ -176,7 +177,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const ForumScreen()),
+                  MaterialPageRoute(builder: (context) => ForumScreen(authToken: authToken,)),
                 );
               },
             ),
