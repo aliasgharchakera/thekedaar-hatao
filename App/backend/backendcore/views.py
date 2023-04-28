@@ -27,7 +27,7 @@ class CustomAuthToken(ObtainAuthToken):
         token, created = Token.objects.get_or_create(user=user)
         return Response({
             'token': token.key,
-            'user_first_name': user.first_name,
+            'first_name': user.first_name,
             'email': user.email
         }, status=201)
         
@@ -41,19 +41,6 @@ def example_view(request, format=None):
     }
     return Response(content)
 
- 
-# def home(request):
-#     posts=ForumPost.objects.all()
-#     count=posts.count()
-#     discussions=[]
-#     for i in posts:
-#         discussions.append(i.discussion_set.all())
- 
-#     context={'posts':posts,
-#               'count':count,
-#               'discussions':discussions}
-#     return render(request,'home.html',context)
- 
 @api_view(['POST'])
 @permission_classes([AllowAny],)
 def login_view(request):
@@ -149,6 +136,14 @@ def get_post_comments(request, pk):
     serializer = PostCommentSerializer(postComments,many=True)
     return Response(serializer.data, status = 200)
 
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_user_posts(request):
+    forumPosts= ForumPost.objects.all().filter(user_id=request.user)
+    serializer = ForumPostSerializer(forumPosts,many=True)
+    return Response(serializer.data, status = 200)
+
 '''Market Place Views'''
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
@@ -171,3 +166,38 @@ def create_marketplace_post(request):
         )
     serializer = MarketPlacePostSerializer(marketPlacePost,many=False)
     return Response(serializer.data, status = 201)
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_user(request):
+    user= request.user
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data, status = 200)
+
+@api_view(['PUT'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def update_user(request):
+    user = request.user
+    serializer = UserSerializer(user, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=200)
+    return Response(serializer.errors, status=400)
+
+@api_view(['PUT'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def update_password(request):
+    user = request.user
+    data = request.data
+    old_password = data['old_password']
+    new_password = data['new_password']
+    if user.check_password(old_password):
+        user.set_password(new_password)
+        user.save()
+        return Response({'message': 'Password updated successfully.'}, status=200)
+    else:
+        return Response({'message': 'Old password is incorrect.'}, status=400)
+

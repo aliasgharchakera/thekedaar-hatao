@@ -258,7 +258,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const ProfileScreen(),
+                      builder: (context) => ProfileScreen(authToken: authToken,),
                     ),
                   );
                   // Navigator.pop(context);

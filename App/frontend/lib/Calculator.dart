@@ -207,7 +207,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const ProfileScreen(),
+                      builder: (context) => ProfileScreen(authToken: authToken,),
                     ),
                   );
                   // Navigator.pop(context);
