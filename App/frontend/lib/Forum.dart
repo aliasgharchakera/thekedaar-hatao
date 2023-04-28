@@ -18,6 +18,7 @@ class ForumScreen extends StatefulWidget {
   _ForumScreen createState() => _ForumScreen();
 }
 
+List<ForumPost> posts = [];
 Future<List<ForumPost>> getForumAll(authToken) async {
   final response = await http.get(
     Uri.parse('http://127.0.0.1:8000/forum/'),
@@ -30,10 +31,10 @@ Future<List<ForumPost>> getForumAll(authToken) async {
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    logger.d(response.body);
+    // logger.d(response.body);
     Iterable l = json.decode(response.body);
-    List<ForumPost> posts =
-        List<ForumPost>.from(l.map((model) => ForumPost.fromJson(model)));
+    posts = List<ForumPost>.from(l.map((model) => ForumPost.fromJson(model)));
+    // logger.d(posts[0].title);
     return posts;
   } else {
     // If the server did not return a 200 OK response,
@@ -42,25 +43,50 @@ Future<List<ForumPost>> getForumAll(authToken) async {
   }
 }
 
+class Comment {
+  final String comment;
+  final String username;
+
+  const Comment({required this.comment, required this.username});
+
+  factory Comment.fromJson(Map<String, dynamic> json) {
+    return Comment(
+      comment: json['comment'],
+      username: json['username'],
+    );
+  }
+}
+
 class ForumPost {
   final String title;
   final String content;
   final String username;
+  final List<Comment> comments;
 
-  const ForumPost(
-      {required this.title, required this.content, required this.username});
+  const ForumPost({
+    required this.title,
+    required this.content,
+    required this.username,
+    required this.comments,
+  });
 
   factory ForumPost.fromJson(Map<String, dynamic> json) {
+    Iterable l = json['comments'];
+    List<Comment> comments =
+        List<Comment>.from(l.map((model) => Comment.fromJson(model)));
+
     return ForumPost(
       title: json['title'],
       content: json['content'],
       username: json['username'],
+      comments: comments,
     );
   }
 }
 
 class _ForumScreen extends State<ForumScreen> {
   List<int> _likesCount = List.generate(20, (index) => 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,62 +119,85 @@ class _ForumScreen extends State<ForumScreen> {
           )
         ],
       ),
-      body: ListView.builder(
-        itemCount: 2, // number of posts
-
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            margin: const EdgeInsets.all(8.0),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    // '$index. Highly Recommended',
-                    'Highly Recommended',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Bath and Beyond should be your go-to place for tiles in this city',
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _likesCount[index]++;
-                          });
-                        },
-                        icon: const Icon(Icons.thumb_up),
-                      ),
-                      Text('${_likesCount[index]} likes'),
-                      IconButton(
-                        onPressed: () {
-                          // ADD A TEXTBOX FOR COMMENT AND KEEP COUNT OF COMMENTS
-                          // setState(() {
-                          //   _likesCount[index]++;
-                          // });
-                          getForumAll(authToken);
-                        },
-                        icon: const Icon(Icons.comment),
-                      ),
-                      const Text('3 comments'),
-                      // Text('${_commentsCount[index]} comments'),
-                    ],
-                  ),
-                ],
-              ),
+      body: FutureBuilder<List<ForumPost>>(
+        future: getForumAll(widget.authToken),
+        builder:
+            (BuildContext context, AsyncSnapshot<List<ForumPost>> snapshot) {
+          if (snapshot.hasData) {
+            List<ForumPost> posts = snapshot.data!;
+            return ListView.builder(
+              itemCount: posts.length,
+              itemBuilder: (BuildContext context, int index) {
+                ForumPost post = posts[index];
+                return GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PostScreen(post: post),
+      ),
+    );
+  },
+  child: Card(
+    margin: const EdgeInsets.all(8.0),
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            post.title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
             ),
-          );
+          ),
+          const SizedBox(height: 8),
+          Text(
+            post.content,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _likesCount[index]++;
+                  });
+                },
+                icon: const Icon(Icons.thumb_up),
+              ),
+              Text('${_likesCount[index]} likes'),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PostScreen(post: post),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.comment),
+              ),
+              Text('${post.comments.length} comments'),
+            ],
+          ),
+        ],
+      ),
+    ),
+  ),
+);
+
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Failed to load forum'));
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
         },
       ),
       bottomNavigationBar: BottomAppBar(
@@ -163,7 +212,7 @@ class _ForumScreen extends State<ForumScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => HomeScreen(
-                            authToken: authToken,
+                            authToken: widget.authToken,
                           )),
                 );
               },
@@ -254,6 +303,50 @@ class _ForumScreen extends State<ForumScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class PostScreen extends StatefulWidget {
+  final ForumPost post;
+
+  const PostScreen({required this.post, Key? key}) : super(key: key);
+
+  @override
+  _PostScreenState createState() => _PostScreenState();
+}
+
+class _PostScreenState extends State<PostScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.post.title),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(widget.post.content),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text("Comments"),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: widget.post.comments.length,
+              itemBuilder: (BuildContext context, int index) {
+                Comment comment = widget.post.comments[index];
+                return ListTile(
+                  title: Text(comment.username),
+                  subtitle: Text(comment.comment),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -47,9 +47,15 @@ class RegisterSerializer(serializers.ModelSerializer):
   
 class ForumPostSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user_id.username')
+    comments = serializers.SerializerMethodField()
+
     class Meta:
         model = ForumPost
-        fields = ['id', 'title', 'content', 'user_id', 'username']
+        fields = ['id', 'title', 'content', 'user_id', 'username', 'comments']
+
+    def get_comments(self, obj):
+        comments = Comment.objects.filter(post_id=obj.id)
+        return PostCommentSerializer(comments, many=True).data
         
 class PostCommentSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user_id.username')
