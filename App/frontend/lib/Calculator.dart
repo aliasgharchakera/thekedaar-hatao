@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfrontend/Marketplace.dart';
 import 'Forum.dart';
 import 'homescreen.dart';
 import 'main.dart';
@@ -156,7 +157,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             ),
             IconButton(
               icon: const Icon(Icons.shopping_cart),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MarketplaceScreen(
+                            authToken: authToken,
+                          )),
+                );
+              },
             ),
           ],
         ),
