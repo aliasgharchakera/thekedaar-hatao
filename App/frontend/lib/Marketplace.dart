@@ -71,60 +71,7 @@ class MarketPlacePost {
   }
 }
 
-class MarketplaceItem {
-  final String name;
-  final String description;
-  final double price;
-  bool isFavorite;
-
-  MarketplaceItem({
-    required this.name,
-    required this.description,
-    required this.price,
-    this.isFavorite = false,
-  });
-}
-
 class _MarketplaceScreenState extends State<MarketplaceScreen> {
-  List<MarketplaceItem> _items = [];
-
-  @override
-  // void initState() {
-  //   super.initState();
-  //   // Create dynamic items here
-  //   _items = [
-  //     MarketplaceItem(
-  //       name: 'Cement',
-  //       description: 'A bag of cement for construction.',
-  //       price: 10.0,
-  //     ),
-  //     MarketplaceItem(
-  //       name: 'Bricks',
-  //       description: 'A bundle of bricks for construction.',
-  //       price: 20.0,
-  //     ),
-  //     MarketplaceItem(
-  //       name: 'Sand',
-  //       description: 'A truckload of sand for construction.',
-  //       price: 50.0,
-  //     ),
-  //     MarketplaceItem(
-  //       name: 'Metal',
-  //       description: 'A sheet of metal for construction.',
-  //       price: 100.0,
-  //     ),
-  //     MarketplaceItem(
-  //       name: 'Wood',
-  //       description: 'A bundle of wood for construction.',
-  //       price: 30.0,
-  //     ),
-  //     MarketplaceItem(
-  //       name: 'Sand',
-  //       description: 'A truckload of Sand for construction.',
-  //       price: 30.0,
-  //     ),
-  //   ];
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -211,48 +158,6 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
           else {
             return const Center(child: CircularProgressIndicator());
           }
-          // return Container(
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(10),
-          //       border: Border.all(
-          //         color: Colors.black,
-          //         width: 2,
-          //       ),
-          //     ),
-          //     margin: const EdgeInsets.all(10),
-          //     child: ListTile(
-          //       title: Text(item.name),
-          //       subtitle: Column(
-          //         crossAxisAlignment: CrossAxisAlignment.start,
-          //         children: [
-          //           Text(
-          //             item.description,
-          //             style: const TextStyle(
-          //               color: Colors.black54,
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           ),
-          //           Text(
-          //             'Price: ${item.price.toStringAsFixed(2)}',
-          //             style: const TextStyle(
-          //               fontWeight: FontWeight.bold,
-          //               fontSize: 16.0,
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //       trailing: IconButton(
-          //         icon: Icon(item.isFavorite ? Icons.star : Icons.star_border),
-          //         onPressed: () {
-          //           setState(() {
-          //             item.isFavorite = !item.isFavorite;
-          //           });
-          //         },
-          //       ),
-          //       onTap: () {
-          //         // TODO: navigate to item details screen
-          //       },
-          //     ));
         },
       ),
       bottomNavigationBar: BottomAppBar(

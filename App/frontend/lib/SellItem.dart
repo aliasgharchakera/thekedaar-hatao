@@ -18,6 +18,7 @@ class SellItemScreenState extends State<SellItemScreen> {
   String material = '';
   String quantity = '';
   String price = '';
+  String dropdownValue = 'Metal';
 
   @override
   Widget build(BuildContext context) {
@@ -28,103 +29,114 @@ class SellItemScreenState extends State<SellItemScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
-            key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 32.0),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Material',
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a material';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  material = value!;
-                },
-                maxLines: 1,
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Price',
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a price';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  price = value!;
-                },
-                maxLines: 3,
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Quantity',
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a title';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  quantity = value!;
-                },
-                maxLines: 1,
-              ),
-              const SizedBox(height: 32.0),
-              Center(
-                child: SizedBox(
-                  // width: 91.5,
-                  // height: 12.0,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    final response = await http.post(
-                      Uri.parse('http://127.0.0.1:8000/marketplace/create/'),
-                      headers: <String, String>{
-                        'Content-Type': 'application/json; charset=UTF-8',
-                        'Authorization': 'Token $authToken',
-                      },
-                      body: jsonEncode(<String, String>{
-                        'material': material,
-                        'quantity': quantity,
-                        'price': price,
-                      }),
-                    );
-                    if (response.statusCode == 201) {
-                      Navigator.pop(context, true);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text('Failed to create post'),
-                        ),
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 32.0),
+                  DropdownButton<String>(
+                    value: dropdownValue, // Added this line to specify value
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        // if (newValue == null ||
+                        //     newValue.isEmpty ||
+                        //     newValue == 'Select Material') {
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     const SnackBar(
+                        //       content: Text('Please select a material'),
+                        //     ),
+                        //   );
+                        //   return;
+                        // }
+                        dropdownValue = newValue!;
+                        material =
+                            newValue; // Added this line to update material value
+                      });
+                    },
+                    items: <String>['Metal', 'Sand', 'Brick', 'Cement']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
                       );
-                    }
-                  }
-                },
-                    child: const Text('Add item'),
+                    }).toList(),
                   ),
-                ),
-              ),
-            ],
-            )
-          ),
+                  const SizedBox(height: 16.0),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Price',
+                      fillColor: Colors.white,
+                      filled: true,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a price';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      price = value!;
+                    },
+                    maxLines: 1,
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Quantity',
+                      fillColor: Colors.white,
+                      filled: true,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a title';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      quantity = value!;
+                    },
+                    maxLines: 1,
+                  ),
+                  const SizedBox(height: 32.0),
+                  Center(
+                    child: SizedBox(
+                      // width: 91.5,
+                      // height: 12.0,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            final response = await http.post(
+                              Uri.parse(
+                                  'http://127.0.0.1:8000/marketplace/create/'),
+                              headers: <String, String>{
+                                'Content-Type':
+                                    'application/json; charset=UTF-8',
+                                'Authorization': 'Token $authToken',
+                              },
+                              body: jsonEncode(<String, String>{
+                                'material': material,
+                                'quantity': quantity,
+                                'price': price,
+                              }),
+                            );
+                            if (response.statusCode == 201) {
+                              Navigator.pop(context, true);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Text('Failed to create post'),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                        child: const Text('Add item'),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
         ),
       ),
     );
