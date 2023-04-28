@@ -43,6 +43,7 @@ Future<List<ForumPost>> getForumAll(authToken) async {
   }
 }
 
+
 class Comment {
   final String comment;
   final String username;
@@ -58,12 +59,14 @@ class Comment {
 }
 
 class ForumPost {
+  final int id;
   final String title;
   final String content;
   final String username;
   final List<Comment> comments;
 
   const ForumPost({
+    required this.id,
     required this.title,
     required this.content,
     required this.username,
@@ -76,6 +79,7 @@ class ForumPost {
         List<Comment>.from(l.map((model) => Comment.fromJson(model)));
 
     return ForumPost(
+      id: json['id'],
       title: json['title'],
       content: json['content'],
       username: json['username'],
@@ -130,67 +134,66 @@ class _ForumScreen extends State<ForumScreen> {
               itemBuilder: (BuildContext context, int index) {
                 ForumPost post = posts[index];
                 return GestureDetector(
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PostScreen(post: post),
-      ),
-    );
-  },
-  child: Card(
-    margin: const EdgeInsets.all(8.0),
-    child: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            post.title,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            post.content,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _likesCount[index]++;
-                  });
-                },
-                icon: const Icon(Icons.thumb_up),
-              ),
-              Text('${_likesCount[index]} likes'),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PostScreen(post: post),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PostScreen(post: post),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    margin: const EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            post.title,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            post.content,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _likesCount[index]++;
+                                  });
+                                },
+                                icon: const Icon(Icons.thumb_up),
+                              ),
+                              Text('${_likesCount[index]} likes'),
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PostScreen(post: post),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.comment),
+                              ),
+                              Text('${post.comments.length} comments'),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  );
-                },
-                icon: const Icon(Icons.comment),
-              ),
-              Text('${post.comments.length} comments'),
-            ],
-          ),
-        ],
-      ),
-    ),
-  ),
-);
-
+                  ),
+                );
               },
             );
           } else if (snapshot.hasError) {
@@ -318,6 +321,8 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
+  String comment = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -330,8 +335,8 @@ class _PostScreenState extends State<PostScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Text(widget.post.content),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Text("Comments"),
           ),
           Expanded(
@@ -345,6 +350,42 @@ class _PostScreenState extends State<PostScreen> {
                 );
               },
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  comment = value;
+                });
+              },
+              decoration: const InputDecoration(
+                hintText: 'Add a comment...',
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              if (comment.isNotEmpty) {
+                // call your API endpoint to create a comment
+                int id = widget.post.id;
+                final response = await http.post(
+                  Uri.parse('http://127.0.0.1:8000/forum/$id/create/'),
+                  headers: <String, String>{
+      'Authorization': 'Token $authToken'
+    },
+                  body: {
+                    'comment': comment,
+                  },
+                );
+                comment = '';
+                // refresh the page to show the new comment
+                setState(() {
+                  widget.post.comments.add(Comment.fromJson(json.decode(response.body)));
+                });
+              }
+            },
+            child: const Text('Comment'),
           ),
         ],
       ),
