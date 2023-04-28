@@ -26,5 +26,8 @@
         "*.nav",
         "*.vrb",
         "*.synctex.gz"
+    ],
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "master"
     ]
 }
