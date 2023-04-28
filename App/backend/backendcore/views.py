@@ -32,14 +32,9 @@ class CustomAuthToken(ObtainAuthToken):
         }, status=201)
         
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
-def example_view(request, format=None):
-    content = {
-        'user': str(request.user),  # `django.contrib.auth.User` instance.
-        'auth': str(request.auth),  # None
-    }
-    return Response(content)
+@permission_classes([AllowAny],)
+def example_view(request):
+    return Response({'Welcome to Thekedaar Hatao'}, status=200)
 
 @api_view(['POST'])
 @permission_classes([AllowAny],)

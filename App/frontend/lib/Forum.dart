@@ -22,7 +22,7 @@ class ForumScreen extends StatefulWidget {
 List<ForumPost> posts = [];
 Future<List<ForumPost>> getForumAll(authToken) async {
   final response = await http.get(
-    Uri.parse('http://127.0.0.1:8000/forum/'),
+    Uri.parse('$URL/forum/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Token $authToken'
@@ -387,7 +387,7 @@ class _PostScreenState extends State<PostScreen> {
                 // call your API endpoint to create a comment
                 int id = widget.post.id;
                 final response = await http.post(
-                  Uri.parse('http://127.0.0.1:8000/forum/$id/create/'),
+                  Uri.parse('$URL/forum/$id/create/'),
                   headers: <String, String>{
       'Authorization': 'Token $authToken'
     },

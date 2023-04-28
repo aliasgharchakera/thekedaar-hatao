@@ -18,7 +18,7 @@ class ProfileScreen extends StatefulWidget {
 List<UserPost> posts = [];
 Future<List<UserPost>> getUserPosts(authToken) async {
   final response = await http.get(
-    Uri.parse('http://127.0.0.1:8000/user/posts/'),
+    Uri.parse('$URL/user/posts/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Token $authToken'
@@ -42,7 +42,7 @@ Future<List<UserPost>> getUserPosts(authToken) async {
 
 Future<User> getUser() async {
     final response = await http.get(
-      Uri.parse('http://127.0.0.1:8000/user/'),
+      Uri.parse('$URL/user/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Token $authToken',
@@ -218,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return GestureDetector(
                   onTap: () async {
                     final response = await http.get(
-                      Uri.parse('http://127.0.0.1:8000/forum/${post.id}/'),
+                      Uri.parse('$URL/forum/${post.id}/'),
                       headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Token $authToken'

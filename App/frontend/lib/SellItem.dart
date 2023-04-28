@@ -108,7 +108,7 @@ class SellItemScreenState extends State<SellItemScreen> {
                             _formKey.currentState!.save();
                             final response = await http.post(
                               Uri.parse(
-                                  'http://127.0.0.1:8000/marketplace/create/'),
+                                  '$URL/marketplace/create/'),
                               headers: <String, String>{
                                 'Content-Type':
                                     'application/json; charset=UTF-8',

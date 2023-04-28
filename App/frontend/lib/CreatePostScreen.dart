@@ -72,7 +72,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
                     final response = await http.post(
-                      Uri.parse('http://127.0.0.1:8000/forum/create/'),
+                      Uri.parse('$URL/forum/create/'),
                       headers: <String, String>{
                         'Content-Type': 'application/json; charset=UTF-8',
                         'Authorization': 'Token $authToken',

@@ -23,7 +23,7 @@ class MarketplaceScreen extends StatefulWidget {
 List<MarketPlacePost> posts = [];
 Future<List<MarketPlacePost>> getMarketPlace(authToken) async {
   final response = await http.get(
-    Uri.parse('http://127.0.0.1:8000/marketplace/'),
+    Uri.parse('$URL/marketplace/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Token $authToken'

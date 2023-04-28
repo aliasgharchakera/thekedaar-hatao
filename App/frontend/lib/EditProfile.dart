@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'main.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -33,7 +34,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Future<void> _loadUserProfile() async {
     try {
       final response = await http.get(
-        Uri.parse('http://127.0.0.1:8000/user/'),
+        Uri.parse('$URL/user/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Token ${widget.authToken}',
@@ -60,7 +61,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Future<void> _updateUser() async {
     try {
       final response = await http.put(
-        Uri.parse('http://127.0.0.1:8000/user/update/'),
+        Uri.parse('$URL/user/update/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Token ${widget.authToken}',
@@ -87,91 +88,90 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> _updatePassword() async {
-  String? newPassword;
+    String? newPassword;
 
-  await showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text('Change Password'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFormField(
-              controller: _oldPasswordController,
-              decoration: InputDecoration(
-                hintText: 'Old Password',
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Change Password'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: _oldPasswordController,
+                decoration: InputDecoration(
+                  hintText: 'Old Password',
+                ),
+                obscureText: true,
               ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              onChanged: (value) => newPassword = value,
-              decoration: InputDecoration(
-                hintText: 'New Password',
+              const SizedBox(height: 16),
+              TextFormField(
+                onChanged: (value) => newPassword = value,
+                decoration: InputDecoration(
+                  hintText: 'New Password',
+                ),
+                obscureText: true,
               ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Confirm New Password',
+              const SizedBox(height: 16),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: 'Confirm New Password',
+                ),
+                obscureText: true,
+                validator: (value) {
+                  if (value != newPassword) {
+                    return 'Passwords do not match';
+                  }
+                  return null;
+                },
               ),
-              obscureText: true,
-              validator: (value) {
-                if (value != newPassword) {
-                  return 'Passwords do not match';
-                }
-                return null;
-              },
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Cancel'),
+            ],
           ),
-          TextButton(
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                try {
-                  final response = await http.put(
-                    Uri.parse('http://127.0.0.1:8000/user/update_password/'),
-                    headers: <String, String>{
-                      'Content-Type': 'application/json; charset=UTF-8',
-                      'Authorization': 'Token ${widget.authToken}',
-                    },
-                    body: jsonEncode(<String, String>{
-                      'old_password': _oldPasswordController.text,
-                      'new_password': newPassword!,
-                    }),
-                  );
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  try {
+                    final response = await http.put(
+                      Uri.parse('$URL/user/update_password/'),
+                      headers: <String, String>{
+                        'Content-Type': 'application/json; charset=UTF-8',
+                        'Authorization': 'Token ${widget.authToken}',
+                      },
+                      body: jsonEncode(<String, String>{
+                        'old_password': _oldPasswordController.text,
+                        'new_password': newPassword!,
+                      }),
+                    );
 
-                  if (response.statusCode == 200) {
-                    Navigator.pop(context, true);
-                  } else {
+                    if (response.statusCode == 200) {
+                      Navigator.pop(context, true);
+                    } else {
+                      setState(() {
+                        _errorMessage = json.decode(response.body)['message'];
+                      });
+                    }
+                  } catch (e) {
                     setState(() {
-                      _errorMessage = json.decode(response.body)['message'];
+                      _errorMessage = 'An error occurred: $e';
                     });
                   }
-                } catch (e) {
-                  setState(() {
-                    _errorMessage = 'An error occurred: $e';
-                  });
                 }
-              }
-            },
-            child: Text('Save'),
-          ),
-        ],
-      );
-    },
-  );
-}
-
+              },
+              child: Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +212,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 controller: _lastNameController,
                 decoration: InputDecoration(
                   labelText: 'Last Name',
-                  
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -246,8 +245,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 },
               ),
               const SizedBox(height: 16.0),
-              ElevatedButton(onPressed: _updatePassword,
-              child: const Text('Change Password')),
+              ElevatedButton(
+                  onPressed: _updatePassword,
+                  child: const Text('Change Password')),
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {

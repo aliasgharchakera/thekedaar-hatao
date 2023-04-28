@@ -7,6 +7,7 @@ import 'signup.dart';
 import 'homescreen.dart';
 
 final logger = Logger();
+const URL = 'https://aliasgharchakera.pythonanywhere.com/';
 
 void main() {
   runApp(
@@ -21,10 +22,11 @@ class MyApp extends StatefulWidget {
   @override
   _LoginScreen createState() => _LoginScreen();
 }
+
 String authToken = "";
 Future<bool> login(username, password) async {
   final response = await http.post(
-    Uri.parse('http://127.0.0.1:8000/login/'),
+    Uri.parse('$URL/login/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -47,9 +49,10 @@ Future<bool> login(username, password) async {
     return false;
   }
 }
+
 Future<bool> auth(username, password) async {
   final response = await http.post(
-    Uri.parse('http://127.0.0.1:8000/api-token-auth/'),
+    Uri.parse('$URL/api-token-auth/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -103,7 +106,10 @@ class _LoginScreen extends State<MyApp> {
     if (user == true) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen(authToken: authToken,)),
+        MaterialPageRoute(
+            builder: (context) => HomeScreen(
+                  authToken: authToken,
+                )),
       );
     } else {
       setState(() {

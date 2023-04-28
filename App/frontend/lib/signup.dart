@@ -19,7 +19,7 @@ class SignUpScreen extends StatefulWidget {
 // }
 Future<String> signup(username, password, email, first_name, last_name) async {
   final response = await http.post(
-    Uri.parse('http://localhost:8000/signup/'),
+    Uri.parse('$URL/signup/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
