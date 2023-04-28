@@ -3,7 +3,6 @@ import './AddNewPost.dart';
 import './Calculator.dart';
 import './Marketplace.dart';
 import 'homescreen.dart';
-import './Calculator.dart';
 import './main.dart';
 import 'Profile.dart';
 import 'HelpCenter.dart';
@@ -19,9 +18,9 @@ class ForumScreen extends StatefulWidget {
   _ForumScreen createState() => _ForumScreen();
 }
 
-Future<Forum> getForumAll(authToken) async {
+Future<List<ForumPost>> getForumAll(authToken) async {
   final response = await http.get(
-    Uri.parse('http://127.0.0.1:8000/forum/1/'),
+    Uri.parse('http://127.0.0.1:8000/forum/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Token $authToken'
@@ -32,7 +31,10 @@ Future<Forum> getForumAll(authToken) async {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     logger.d(response.body);
-    return Forum.fromJson(jsonDecode(response.body));
+    Iterable l = json.decode(response.body);
+    List<ForumPost> posts =
+        List<ForumPost>.from(l.map((model) => ForumPost.fromJson(model)));
+    return posts;
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -40,16 +42,16 @@ Future<Forum> getForumAll(authToken) async {
   }
 }
 
-class Forum {
+class ForumPost {
   final String title;
   final String content;
   final String username;
 
-  const Forum(
+  const ForumPost(
       {required this.title, required this.content, required this.username});
 
-  factory Forum.fromJson(Map<String, dynamic> json) {
-    return Forum(
+  factory ForumPost.fromJson(Map<String, dynamic> json) {
+    return ForumPost(
       title: json['title'],
       content: json['content'],
       username: json['username'],
