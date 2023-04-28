@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'homescreen.dart';
 import 'main.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class SellItemScreen extends StatefulWidget {
-  const SellItemScreen({Key? key}) : super(key: key);
+  final String authToken;
+  const SellItemScreen({Key? key, required this.authToken}) : super(key: key);
 
   @override
   State<SellItemScreen> createState() => SellItemScreenState();
 }
 
 class SellItemScreenState extends State<SellItemScreen> {
-  String name = '';
-  String description = '';
+  final _formKey = GlobalKey<FormState>();
+  String material = '';
+  String quantity = '';
   String price = '';
 
   @override
@@ -22,34 +27,63 @@ class SellItemScreenState extends State<SellItemScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 32.0),
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Item Name',
+              TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Material',
                   fillColor: Colors.white,
                   filled: true,
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a material';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  material = value!;
+                },
                 maxLines: 1,
               ),
               const SizedBox(height: 16.0),
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Description',
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-                maxLines: 3,
-              ),
-              const SizedBox(height: 16.0),
-              const TextField(
-                decoration: InputDecoration(
+              TextFormField(
+                decoration: const InputDecoration(
                   hintText: 'Price',
                   fillColor: Colors.white,
                   filled: true,
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a price';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  price = value!;
+                },
+                maxLines: 3,
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Quantity',
+                  fillColor: Colors.white,
+                  filled: true,
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a title';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  quantity = value!;
+                },
                 maxLines: 1,
               ),
               const SizedBox(height: 32.0),
@@ -58,31 +92,38 @@ class SellItemScreenState extends State<SellItemScreen> {
                   // width: 91.5,
                   // height: 12.0,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // show a pop-up message
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Item Successfully added!'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          );
-                        },
+                    onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                    final response = await http.post(
+                      Uri.parse('http://127.0.0.1:8000/marketplace/create/'),
+                      headers: <String, String>{
+                        'Content-Type': 'application/json; charset=UTF-8',
+                        'Authorization': 'Token $authToken',
+                      },
+                      body: jsonEncode(<String, String>{
+                        'material': material,
+                        'quantity': quantity,
+                        'price': price,
+                      }),
+                    );
+                    if (response.statusCode == 201) {
+                      Navigator.pop(context, true);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text('Failed to create post'),
+                        ),
                       );
-                    },
+                    }
+                  }
+                },
                     child: const Text('Add item'),
                   ),
                 ),
               ),
             ],
+            )
           ),
         ),
       ),

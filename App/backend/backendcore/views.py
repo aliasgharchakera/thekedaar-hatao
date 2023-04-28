@@ -148,3 +148,26 @@ def get_post_comments(request, pk):
     postComments = Comment.objects.all().filter(post_id=pk)
     serializer = PostCommentSerializer(postComments,many=True)
     return Response(serializer.data, status = 200)
+
+'''Market Place Views'''
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_marketplace_posts(request):
+    marketPlacePosts= MarketPlacePost.objects.all()
+    serializer = MarketPlacePostSerializer(marketPlacePosts,many=True)
+    return Response(serializer.data, status = 200)
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def create_marketplace_post(request):
+    data = request.data
+    marketPlacePost= MarketPlacePost.objects.create(
+        material = data['material'],
+        price = data['price'],
+        quantity = data['quantity'],
+        user_id = request.user
+        )
+    serializer = MarketPlacePostSerializer(marketPlacePost,many=False)
+    return Response(serializer.data, status = 201)

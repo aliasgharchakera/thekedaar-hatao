@@ -63,3 +63,9 @@ class PostCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ['id', 'post_id', 'comment', 'user_id', 'username']
+
+class MarketPlacePostSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user_id.username')
+    class Meta:
+        model = MarketPlacePost
+        fields = ['id', 'material', 'user_id', 'username', 'price', 'quantity']

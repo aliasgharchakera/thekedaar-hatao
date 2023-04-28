@@ -10,4 +10,6 @@ urlpatterns = [
     path('forum/<int:pk>/create/', create_post_comment),
     path('forum/<int:pk>/<int:ck>/', get_post_comment),
     path('forum/<int:pk>/comments/', get_post_comments),
+    path('marketplace/', get_marketplace_posts),
+    path('marketplace/create/', create_marketplace_post),
 ]
