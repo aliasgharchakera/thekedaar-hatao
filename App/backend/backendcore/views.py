@@ -93,7 +93,7 @@ def create_forum_post(request):
     forumPost= ForumPost.objects.create(
         title = data['title'],
         content = data['content'],
-        author = request.user
+        user_id = request.user
         )
     serializer = ForumPostSerializer(forumPost,many=False)
     return Response(serializer.data, status = 201)

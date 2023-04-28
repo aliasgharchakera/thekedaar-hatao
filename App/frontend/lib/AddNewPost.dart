@@ -28,6 +28,7 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
 
   void _onPostButtonPressed() {
     // Implement your post button functionality here
+    
     Navigator.push(
       context,
       MaterialPageRoute(

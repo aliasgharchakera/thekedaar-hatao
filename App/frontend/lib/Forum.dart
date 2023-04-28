@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './AddNewPost.dart';
+import 'CreatePostScreen.dart';
 import './Calculator.dart';
 import './Marketplace.dart';
 import 'homescreen.dart';
@@ -120,7 +121,7 @@ class _ForumScreen extends State<ForumScreen> {
                         )),
               );
             },
-          )
+          ),
         ],
       ),
       body: FutureBuilder<List<ForumPost>>(
@@ -306,6 +307,22 @@ class _ForumScreen extends State<ForumScreen> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final success = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CreatePostScreen(authToken: widget.authToken),
+            ),
+          );
+          if (success == true) {
+            setState(() {
+              posts.clear();
+            });
+          }
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
