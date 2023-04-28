@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './AddNewPost.dart';
 import 'CreatePostScreen.dart';
 import './Calculator.dart';
 import './Marketplace.dart';
@@ -43,7 +42,6 @@ Future<List<ForumPost>> getForumAll(authToken) async {
     throw Exception('Failed to load forum');
   }
 }
-
 
 class Comment {
   final String comment;
@@ -109,20 +107,20 @@ class _ForumScreen extends State<ForumScreen> {
             );
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AddNewPostScreen(
-                          authToken: authToken,
-                        )),
-              );
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.add),
+        //     onPressed: () {
+        //       Navigator.pushReplacement(
+        //         context,
+        //         MaterialPageRoute(
+        //             builder: (context) => AddNewPostScreen(
+        //                   authToken: authToken,
+        //                 )),
+        //       );
+        //     },
+        //   ),
+        // ],
       ),
       body: FutureBuilder<List<ForumPost>>(
         future: getForumAll(widget.authToken),
@@ -181,7 +179,8 @@ class _ForumScreen extends State<ForumScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => PostScreen(post: post),
+                                      builder: (context) =>
+                                          PostScreen(post: post),
                                     ),
                                   );
                                 },
@@ -285,7 +284,9 @@ class _ForumScreen extends State<ForumScreen> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ProfileScreen(authToken: authToken,),
+                      builder: (context) => ProfileScreen(
+                        authToken: authToken,
+                      ),
                     ),
                   );
                   // Navigator.pop(context);
@@ -313,7 +314,8 @@ class _ForumScreen extends State<ForumScreen> {
           final success = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CreatePostScreen(authToken: widget.authToken),
+              builder: (context) =>
+                  CreatePostScreen(authToken: widget.authToken),
             ),
           );
           if (success == true) {
@@ -343,20 +345,28 @@ class _PostScreenState extends State<PostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.orange,
       appBar: AppBar(
-        title: Text(widget.post.title),
-      ),
+          // title: Text(widget.post.title),
+          title: const Text('Comment Section')),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(widget.post.content),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text("Comments"),
-          ),
+          Card(
+              margin: const EdgeInsets.all(8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                // Padding(
+                //   padding: const EdgeInsets.all(16.0),
+                child: Text(widget.post.content),
+                // )
+              )),
+          // const Padding(
+          //   padding: EdgeInsets.all(16.0),
+          //   child: Text("Comment Section"),
+          // ),
           Expanded(
+              child: Card(
+            margin: const EdgeInsets.all(8.0),
             child: ListView.builder(
               itemCount: widget.post.comments.length,
               itemBuilder: (BuildContext context, int index) {
@@ -367,7 +377,7 @@ class _PostScreenState extends State<PostScreen> {
                 );
               },
             ),
-          ),
+          )),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
@@ -389,8 +399,8 @@ class _PostScreenState extends State<PostScreen> {
                 final response = await http.post(
                   Uri.parse('$URL/forum/$id/create/'),
                   headers: <String, String>{
-      'Authorization': 'Token $authToken'
-    },
+                    'Authorization': 'Token $authToken'
+                  },
                   body: {
                     'comment': comment,
                   },
@@ -398,7 +408,8 @@ class _PostScreenState extends State<PostScreen> {
                 comment = '';
                 // refresh the page to show the new comment
                 setState(() {
-                  widget.post.comments.add(Comment.fromJson(json.decode(response.body)));
+                  widget.post.comments
+                      .add(Comment.fromJson(json.decode(response.body)));
                 });
               }
             },

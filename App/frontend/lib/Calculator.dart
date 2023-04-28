@@ -91,37 +91,219 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               },
               child: const Text('Calculate'),
             ),
-            Table(
-              defaultColumnWidth: FixedColumnWidth(120.0),
-              border: TableBorder.all(
-                  color: Colors.black, style: BorderStyle.solid, width: 2),
-              children: [
-                TableRow(children: [
-                  Column(children: const [
-                    Text('Material', style: TextStyle(fontSize: 20.0))
-                  ]),
-                  Column(children: const [
-                    Text('Quantity', style: TextStyle(fontSize: 20.0))
-                  ]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Brick (pcs)')]),
-                  Column(children: [Text('$_brickQuantity')]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Cement (kg)')]),
-                  Column(children: [Text('$_cementQuantity')]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Metal (sqft)')]),
-                  Column(children: [Text('$_metalQuantity')]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Sand (kg)')]),
-                  Column(children: [Text('$_sandQuantity')]),
-                ]),
-              ],
-            )
+            // Table(
+            //   defaultColumnWidth: FixedColumnWidth(120.0),
+            //   border: TableBorder.all(
+            //       color: Colors.black, style: BorderStyle.solid, width: 2),
+            //   children: [
+            //     TableRow(children: [
+            //       Column(children: const [
+            //         Text('Material', style: TextStyle(fontSize: 20.0))
+            //       ]),
+            //       Column(children: const [
+            //         Text('Quantity', style: TextStyle(fontSize: 20.0))
+            //       ]),
+            //     ]),
+            //     TableRow(children: [
+            //       Column(children: const [Text('Brick (pcs)')]),
+            //       Column(children: [Text('$_brickQuantity')]),
+            //     ]),
+            //     TableRow(children: [
+            //       Column(children: const [Text('Cement (kg)')]),
+            //       Column(children: [Text('$_cementQuantity')]),
+            //     ]),
+            //     TableRow(children: [
+            //       Column(children: const [Text('Metal (sqft)')]),
+            //       Column(children: [Text('$_metalQuantity')]),
+            //     ]),
+            //     TableRow(children: [
+            //       Column(children: const [Text('Sand (kg)')]),
+            //       Column(children: [Text('$_sandQuantity')]),
+            //     ]),
+            //   ],
+            // )
+
+            // Card(
+            //   elevation: 4,
+            //   margin: EdgeInsets.symmetric(horizontal: 16),
+            //   child: Padding(
+            //     padding: EdgeInsets.all(16),
+            //     child: Container(
+            //       width: double.infinity,
+            //       child: Table(
+            //         columnWidths: {
+            //           0: FlexColumnWidth(2),
+            //           1: FlexColumnWidth(1),
+            //         },
+            //         border: TableBorder.all(
+            //           color: Colors.grey.withOpacity(0.5),
+            //           width: 1,
+            //         ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: Card(
+                elevation: 4,
+                margin: EdgeInsets.symmetric(horizontal: 16),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  child: Table(
+                    columnWidths: {
+                      0: FlexColumnWidth(2),
+                      1: FlexColumnWidth(1),
+                    },
+                    border: TableBorder.all(
+                      color: Colors.grey.withOpacity(0.5),
+                      width: 1,
+                    ),
+                    children: [
+                      TableRow(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                        ),
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Material',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Quantity',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Brick (pcs)',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                '$_brickQuantity',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                        ),
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Cement (kg)',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                '$_cementQuantity',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Metal (sqft)',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                '$_metalQuantity',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                        ),
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Sand (kg)',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                '$_sandQuantity',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
             // final int quantity = int.parse(_quantityController.text);
           ],
         ),
@@ -207,7 +389,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ProfileScreen(authToken: authToken,),
+                      builder: (context) => ProfileScreen(
+                        authToken: authToken,
+                      ),
                     ),
                   );
                   // Navigator.pop(context);

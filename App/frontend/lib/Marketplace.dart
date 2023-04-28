@@ -35,7 +35,8 @@ Future<List<MarketPlacePost>> getMarketPlace(authToken) async {
     // then parse the JSON.
     // logger.d(response.body);
     Iterable l = json.decode(response.body);
-    posts = List<MarketPlacePost>.from(l.map((model) => MarketPlacePost.fromJson(model)));
+    posts = List<MarketPlacePost>.from(
+        l.map((model) => MarketPlacePost.fromJson(model)));
     logger.d(posts);
     return posts;
   } else {
@@ -72,7 +73,6 @@ class MarketPlacePost {
 }
 
 class _MarketplaceScreenState extends State<MarketplaceScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,9 +104,10 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
       ),
       body: FutureBuilder<List<MarketPlacePost>>(
         future: getMarketPlace(widget.authToken),
-        builder: (BuildContext context, AsyncSnapshot<List<MarketPlacePost>> snapshot) {
-          if (snapshot.hasData){
-            List <MarketPlacePost> posts = snapshot.data!;
+        builder: (BuildContext context,
+            AsyncSnapshot<List<MarketPlacePost>> snapshot) {
+          if (snapshot.hasData) {
+            List<MarketPlacePost> posts = snapshot.data!;
             return ListView.builder(
               itemCount: posts.length,
               itemBuilder: (BuildContext context, int index) {
@@ -119,43 +120,43 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                     ),
                   ),
                   margin: const EdgeInsets.all(10),
-                  child: ListTile(
-                    title: Text(posts[index].material),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          posts[index].username,
-                          style: const TextStyle(
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold,
+                  child: Card(
+                    child: ListTile(
+                      title: Text(posts[index].material),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            posts[index].username,
+                            style: const TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Price: ${posts[index].price}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
+                          Text(
+                            'Price: ${posts[index].price}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Quantity: ${posts[index].quantity}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
+                          Text(
+                            'Quantity: ${posts[index].quantity}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
               },
             );
-          }
-          else if (snapshot.hasError) {
+          } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
-          }
-          else {
+          } else {
             return const Center(child: CircularProgressIndicator());
           }
         },
@@ -258,7 +259,9 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ProfileScreen(authToken: authToken,),
+                      builder: (context) => ProfileScreen(
+                        authToken: authToken,
+                      ),
                     ),
                   );
                   // Navigator.pop(context);
