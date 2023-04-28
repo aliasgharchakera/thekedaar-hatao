@@ -18,6 +18,7 @@ class ForumScreen extends StatefulWidget {
   _ForumScreen createState() => _ForumScreen();
 }
 
+List<ForumPost> posts = [];
 Future<List<ForumPost>> getForumAll(authToken) async {
   final response = await http.get(
     Uri.parse('http://127.0.0.1:8000/forum/'),
@@ -30,10 +31,10 @@ Future<List<ForumPost>> getForumAll(authToken) async {
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    logger.d(response.body);
+    // logger.d(response.body);
     Iterable l = json.decode(response.body);
-    List<ForumPost> posts =
-        List<ForumPost>.from(l.map((model) => ForumPost.fromJson(model)));
+    posts = List<ForumPost>.from(l.map((model) => ForumPost.fromJson(model)));
+    // logger.d(posts[0].title);
     return posts;
   } else {
     // If the server did not return a 200 OK response,
@@ -61,8 +62,23 @@ class ForumPost {
 
 class _ForumScreen extends State<ForumScreen> {
   List<int> _likesCount = List.generate(20, (index) => 0);
+  // getForumAll(authToken);
+  // String? _errorMessage;
+  // void _getForumAll() async {
+  //   List<ForumPost> posts = await getForumAll(authToken);
+  //   if (posts == true) {
+  //   } else {
+  //     setState(() {
+  //       _errorMessage = 'Invalid username or password';
+  //     });
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
+    getForumAll(authToken);
+    // logger.d(posts);
+    // logger.d(posts[0].title);
     return Scaffold(
       backgroundColor: Colors.orange,
       appBar: AppBar(
@@ -94,7 +110,7 @@ class _ForumScreen extends State<ForumScreen> {
         ],
       ),
       body: ListView.builder(
-        itemCount: 2, // number of posts
+        itemCount: 3, // number of posts
 
         itemBuilder: (BuildContext context, int index) {
           return Card(
@@ -137,7 +153,7 @@ class _ForumScreen extends State<ForumScreen> {
                           // setState(() {
                           //   _likesCount[index]++;
                           // });
-                          getForumAll(authToken);
+                          // getForumAll(authToken);
                         },
                         icon: const Icon(Icons.comment),
                       ),
