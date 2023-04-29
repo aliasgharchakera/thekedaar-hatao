@@ -129,7 +129,7 @@ class _LoginScreen extends State<MyApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Login',
+              'Welcome to Thekedaar Hatao',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -165,18 +165,6 @@ class _LoginScreen extends State<MyApp> {
               ),
             Column(
               children: [
-                // const SizedBox(height: 2),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.end,
-                //   children: [
-                //     TextButton(
-                //       onPressed: () {
-                //         logger.d('Forgot password');
-                //       },
-                //       child: const Text('Forgot password?'),
-                //     ),
-                //   ],
-                // ),
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity, // Make button wider
