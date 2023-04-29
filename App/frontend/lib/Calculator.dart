@@ -5,6 +5,7 @@ import 'homescreen.dart';
 import 'main.dart';
 import 'Profile.dart';
 import 'HelpCenter.dart';
+import 'Drawer.dart';
 
 class CalculatorScreen extends StatefulWidget {
   final String authToken;
@@ -170,66 +171,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           ],
         ),
       ),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.white,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.orange,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Menu',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Select an option',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.person),
-                title: const Text('Profile'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProfileScreen(authToken: authToken,),
-                    ),
-                  );
-                  // Navigator.pop(context);
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.help),
-                title: const Text('Help Center'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const HelpCenterScreen(),
-                    ),
-                  );
-                  // Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: const CustomDrawer(),
     );
   }
 }

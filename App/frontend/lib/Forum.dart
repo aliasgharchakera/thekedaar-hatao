@@ -9,6 +9,7 @@ import 'Profile.dart';
 import 'HelpCenter.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'Drawer.dart';
 import 'package:http/http.dart' as http;
 
 class ForumScreen extends StatefulWidget {
@@ -248,66 +249,7 @@ class _ForumScreen extends State<ForumScreen> {
           ],
         ),
       ),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.white,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.orange,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Menu',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Select an option',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.person),
-                title: const Text('Profile'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProfileScreen(authToken: authToken,),
-                    ),
-                  );
-                  // Navigator.pop(context);
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.help),
-                title: const Text('Help Center'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const HelpCenterScreen(),
-                    ),
-                  );
-                  // Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: const CustomDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final success = await Navigator.push(

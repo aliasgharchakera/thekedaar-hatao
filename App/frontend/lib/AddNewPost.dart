@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfrontend/main.dart';
 import 'Forum.dart';
+import 'Drawer.dart';
 
 class AddNewPostScreen extends StatefulWidget {
   final String authToken;
@@ -78,6 +79,7 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
           ),
         ],
       ),
+      drawer: const CustomDrawer(),
     );
   }
 }

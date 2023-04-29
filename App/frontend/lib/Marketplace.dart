@@ -7,9 +7,12 @@ import './Calculator.dart';
 import './main.dart';
 import 'Profile.dart';
 import './HelpCenter.dart';
+import 'drawer.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+
+
 
 class MarketplaceScreen extends StatefulWidget {
   final String authToken;
@@ -102,6 +105,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
           ),
         ],
       ),
+      drawer: const CustomDrawer(),
       body: FutureBuilder<List<MarketPlacePost>>(
         future: getMarketPlace(widget.authToken),
         builder: (BuildContext context, AsyncSnapshot<List<MarketPlacePost>> snapshot) {
@@ -221,66 +225,66 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
         child: const Icon(Icons.add),
         backgroundColor: Colors.black,
       ),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.white,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.orange,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Menu',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Select an option',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.person),
-                title: const Text('Profile'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProfileScreen(authToken: authToken,),
-                    ),
-                  );
-                  // Navigator.pop(context);
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.help),
-                title: const Text('Help Center'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const HelpCenterScreen(),
-                    ),
-                  );
-                  // Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      // drawer: Drawer(
+      //   child: Container(
+      //     color: Colors.white,
+      //     child: ListView(
+      //       padding: EdgeInsets.zero,
+      //       children: <Widget>[
+      //         DrawerHeader(
+      //           decoration: const BoxDecoration(
+      //             color: Colors.orange,
+      //           ),
+      //           child: Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             children: const [
+      //               Text(
+      //                 'Menu',
+      //                 style: TextStyle(
+      //                   color: Colors.white,
+      //                   fontSize: 24,
+      //                 ),
+      //               ),
+      //               SizedBox(height: 8),
+      //               Text(
+      //                 'Select an option',
+      //                 style: TextStyle(
+      //                   color: Colors.white,
+      //                   fontSize: 16,
+      //                 ),
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //         ListTile(
+      //           leading: const Icon(Icons.person),
+      //           title: const Text('Profile'),
+      //           onTap: () {
+      //             Navigator.of(context).push(
+      //               MaterialPageRoute(
+      //                 builder: (context) => ProfileScreen(authToken: authToken,),
+      //               ),
+      //             );
+      //             // Navigator.pop(context);
+      //           },
+      //         ),
+      //         const Divider(),
+      //         ListTile(
+      //           leading: const Icon(Icons.help),
+      //           title: const Text('Help Center'),
+      //           onTap: () {
+      //             Navigator.of(context).push(
+      //               MaterialPageRoute(
+      //                 builder: (context) => const HelpCenterScreen(),
+      //               ),
+      //             );
+      //             // Navigator.pop(context);
+      //           },
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'Profile.dart';
 import 'HelpCenter.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'Drawer.dart';
 import 'package:http/http.dart' as http;
 
 class CreatePostScreen extends StatefulWidget {
@@ -99,6 +100,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           ),
         ),
       ),
+      drawer: const CustomDrawer(),
     );
   }
 }

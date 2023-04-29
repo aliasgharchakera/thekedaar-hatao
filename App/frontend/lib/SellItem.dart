@@ -3,6 +3,7 @@ import 'homescreen.dart';
 import 'main.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'Drawer.dart';
 import 'package:http/http.dart' as http;
 
 class SellItemScreen extends StatefulWidget {
@@ -107,8 +108,7 @@ class SellItemScreenState extends State<SellItemScreen> {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
                             final response = await http.post(
-                              Uri.parse(
-                                  '$URL/marketplace/create/'),
+                              Uri.parse('$URL/marketplace/create/'),
                               headers: <String, String>{
                                 'Content-Type':
                                     'application/json; charset=UTF-8',
@@ -139,6 +139,7 @@ class SellItemScreenState extends State<SellItemScreen> {
               )),
         ),
       ),
+      drawer: const CustomDrawer(),
     );
   }
 }

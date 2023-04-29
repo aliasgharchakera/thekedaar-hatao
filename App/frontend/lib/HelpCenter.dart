@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Drawer.dart';
 import 'main.dart';
 
 class HelpCenterScreen extends StatelessWidget {
@@ -68,6 +69,7 @@ class HelpCenterScreen extends StatelessWidget {
           ],
         ),
       ),
+      drawer: const CustomDrawer(),
     );
   }
 }
