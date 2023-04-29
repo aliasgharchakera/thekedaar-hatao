@@ -16,22 +16,14 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
-  String? _selectedMaterial;
   final TextEditingController _quantityController = TextEditingController();
 
-  bool _isMenuOpen = false;
-  double _multipliedQuantity = 0;
   double _sandQuantity = 0;
   double _cementQuantity = 0;
   double _brickQuantity = 0;
   double _woodQuantity = 0;
   double _metalQuantity = 0;
 
-  void _toggleMenu() {
-    setState(() {
-      _isMenuOpen = !_isMenuOpen;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

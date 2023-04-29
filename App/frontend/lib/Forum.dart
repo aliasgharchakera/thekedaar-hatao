@@ -5,8 +5,6 @@ import './Calculator.dart';
 import './Marketplace.dart';
 import 'homescreen.dart';
 import './main.dart';
-import 'Profile.dart';
-import 'HelpCenter.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'Drawer.dart';
@@ -90,7 +88,7 @@ class ForumPost {
 }
 
 class _ForumScreen extends State<ForumScreen> {
-  List<int> _likesCount = List.generate(20, (index) => 0);
+  final List<int> _likesCount = List.generate(20, (index) => 0);
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +150,7 @@ class _ForumScreen extends State<ForumScreen> {
                         children: [
                           Text(
                             post.title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),
@@ -201,9 +199,9 @@ class _ForumScreen extends State<ForumScreen> {
               },
             );
           } else if (snapshot.hasError) {
-            return Center(child: Text('Failed to load forum'));
+            return const Center(child: Text('Failed to load forum'));
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

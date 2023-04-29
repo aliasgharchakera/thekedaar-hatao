@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfrontend/HelpCenter.dart';
 import 'Marketplace.dart';
 import 'main.dart';
 import 'Calculator.dart';
 import 'Forum.dart';
-import 'Marketplace.dart';
-import 'Profile.dart';
 import 'Drawer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -53,17 +50,17 @@ class HomeScreen extends StatelessWidget {
                       builder: (context) => CalculatorScreen(authToken: authToken,)),
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.calculate),
-                  const SizedBox(width: 8),
-                  const Text('Calculator'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(300, 60),
                 padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.calculate),
+                  SizedBox(width: 8),
+                  Text('Calculator'),
+                ],
               ),
             ),
             const SizedBox(height: 30),
@@ -74,17 +71,17 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (context) =>  ForumScreen(authToken: authToken,)),
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.forum),
-                  const SizedBox(width: 8),
-                  const Text('Forum'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(300, 60),
                 padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.forum),
+                  SizedBox(width: 8),
+                  Text('Forum'),
+                ],
               ),
             ),
             const SizedBox(height: 30),
@@ -96,17 +93,17 @@ class HomeScreen extends StatelessWidget {
                       builder: (context) =>  MarketplaceScreen(authToken: authToken,)),
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.shopping_basket),
-                  const SizedBox(width: 8),
-                  const Text('Marketplace'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(300, 60),
                 padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.shopping_basket),
+                  SizedBox(width: 8),
+                  Text('Marketplace'),
+                ],
               ),
             ),
           ],

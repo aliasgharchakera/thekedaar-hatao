@@ -21,9 +21,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _oldPasswordController = TextEditingController();
-  final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
   String? _errorMessage;
 
   @override
@@ -95,13 +92,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Change Password'),
+          title: const Text('Change Password'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
                 controller: _oldPasswordController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Old Password',
                 ),
                 obscureText: true,
@@ -109,14 +106,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SizedBox(height: 16),
               TextFormField(
                 onChanged: (value) => newPassword = value,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'New Password',
                 ),
                 obscureText: true,
               ),
               const SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Confirm New Password',
                 ),
                 obscureText: true,
@@ -134,7 +131,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () async {
@@ -166,7 +163,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   }
                 }
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ],
         );
@@ -178,7 +175,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text('Edit Profile'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -190,7 +187,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               if (_errorMessage != null)
                 Text(
                   _errorMessage!,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
                   ),
@@ -198,7 +195,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SizedBox(height: 16.0),
               TextFormField(
                 controller: _firstNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'First Name',
                 ),
                 validator: (value) {
@@ -211,7 +208,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SizedBox(height: 16.0),
               TextFormField(
                 controller: _lastNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Last Name',
                 ),
                 validator: (value) {
@@ -221,17 +218,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   return null;
                 },
               ),
-              // Text(
-              //   'Email',
-              //   style: TextStyle(
-              //     fontSize: 16,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Enter your email',
                   border: OutlineInputBorder(),
                 ),
@@ -249,15 +239,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ElevatedButton(
                   onPressed: _updatePassword,
                   child: const Text('Change Password')),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    //TODO: implement update profile logic
                     _updateUser();
                   }
                 },
-                child: Text('Update Profile'),
+                child: const Text('Update Profile'),
               ),
             ],
           ),

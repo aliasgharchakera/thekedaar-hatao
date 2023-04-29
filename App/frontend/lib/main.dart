@@ -7,12 +7,12 @@ import 'signup.dart';
 import 'homescreen.dart';
 
 final logger = Logger();
-// const URL = 'https://aliasgharchakera.pythonanywhere.com/';
-const URL = 'http://127.0.0.1:8000/';
+const URL = 'https://aliasgharchakera.pythonanywhere.com/';
+// const URL = 'http://127.0.0.1:8000/';
 
 void main() {
   runApp(
-    MaterialApp(
+    const MaterialApp(
       home: MyApp(),
     ),
   );

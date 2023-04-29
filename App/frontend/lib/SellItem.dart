@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'homescreen.dart';
 import 'main.dart';
-import 'dart:async';
 import 'dart:convert';
 import 'Drawer.dart';
 import 'package:http/http.dart' as http;
@@ -39,16 +37,6 @@ class SellItemScreenState extends State<SellItemScreen> {
                     value: dropdownValue, // Added this line to specify value
                     onChanged: (String? newValue) {
                       setState(() {
-                        // if (newValue == null ||
-                        //     newValue.isEmpty ||
-                        //     newValue == 'Select Material') {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     const SnackBar(
-                        //       content: Text('Please select a material'),
-                        //     ),
-                        //   );
-                        //   return;
-                        // }
                         dropdownValue = newValue!;
                         material =
                             newValue; // Added this line to update material value
@@ -124,8 +112,8 @@ class SellItemScreenState extends State<SellItemScreen> {
                               Navigator.pop(context, true);
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: const Text('Failed to create post'),
+                                const SnackBar(
+                                  content: Text('Failed to create post'),
                                 ),
                               );
                             }

@@ -134,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => MyApp()),
+                MaterialPageRoute(builder: (context) => const MyApp()),
               );
             },
           ),
@@ -155,7 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         user.username,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
@@ -163,14 +163,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 8),
                       Text(
                         '${user.first_name} ${user.last_name}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         user.email,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
@@ -200,9 +200,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 );
               } else if (snapshot.hasError) {
-                return Center(child: Text('Failed to load user'));
+                return const Center(child: Text('Failed to load user'));
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
             },
           ),
@@ -241,7 +241,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           Text(
                             post.title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),
@@ -253,11 +253,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                            ],
-                          ),
                         ],
                       ),
                     ),
@@ -266,9 +261,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             );
           } else if (snapshot.hasError) {
-            return Center(child: Text('Failed to load posts'));
+            return const Center(child: Text('Failed to load posts'));
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
