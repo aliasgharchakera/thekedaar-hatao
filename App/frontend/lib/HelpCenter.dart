@@ -114,6 +114,7 @@ class HelpCenterScreen extends StatelessWidget {
           ),
         ),
       ),
+      // bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       drawer: const CustomDrawer(),
     );
   }

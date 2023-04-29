@@ -112,6 +112,7 @@ import 'HelpCenter.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'appbar.dart';
 
 class CreatePostScreen extends StatefulWidget {
   final String authToken;
@@ -204,6 +205,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       drawer: const CustomDrawer(),
     );
   }

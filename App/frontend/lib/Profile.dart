@@ -5,6 +5,7 @@ import 'main.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'Drawer.dart';
+import 'appbar.dart';
 import 'package:http/http.dart' as http;
 
 class ProfileScreen extends StatefulWidget {
@@ -255,6 +256,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ]),
+      bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       drawer: const CustomDrawer(),
     );
   }

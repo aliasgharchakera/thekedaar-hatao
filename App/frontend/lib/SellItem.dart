@@ -3,6 +3,7 @@ import 'main.dart';
 import 'dart:convert';
 import 'Drawer.dart';
 import 'package:http/http.dart' as http;
+import 'appbar.dart';
 
 class SellItemScreen extends StatefulWidget {
   final String authToken;
@@ -127,6 +128,7 @@ class SellItemScreenState extends State<SellItemScreen> {
               )),
         ),
       ),
+      bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       drawer: const CustomDrawer(),
     );
   }

@@ -3,6 +3,7 @@ import 'CreatePostScreen.dart';
 import './Calculator.dart';
 import './Marketplace.dart';
 import 'homescreen.dart';
+import 'appbar.dart';
 import './main.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -190,50 +191,7 @@ class _ForumScreen extends State<ForumScreen> {
           }
         },
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.orange,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HomeScreen(
-                            authToken: widget.authToken,
-                          )),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.calculate),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CalculatorScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.shopping_cart),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MarketplaceScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       drawer: const CustomDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {

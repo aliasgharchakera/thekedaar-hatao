@@ -3,6 +3,7 @@ import 'Marketplace.dart';
 import 'main.dart';
 import 'Calculator.dart';
 import 'Forum.dart';
+import 'appbar.dart';
 import 'Drawer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -108,7 +109,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      ),     
       drawer: const CustomDrawer(),
     );
   }

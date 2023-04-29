@@ -6,6 +6,7 @@ import 'main.dart';
 import 'Profile.dart';
 import 'HelpCenter.dart';
 import 'Drawer.dart';
+import 'appbar.dart';
 
 class CalculatorScreen extends StatefulWidget {
   final String authToken;
@@ -257,55 +258,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 ),
               ),
             ),
-
-            // final int quantity = int.parse(_quantityController.text);
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.orange,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HomeScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.forum),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ForumScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.shopping_cart),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MarketplaceScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       drawer: const CustomDrawer(),
     );
   }

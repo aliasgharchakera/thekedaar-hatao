@@ -240,6 +240,7 @@ import './main.dart';
 import 'Profile.dart';
 import './HelpCenter.dart';
 import 'dart:async';
+import 'appbar.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -386,50 +387,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
           }
         },
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.orange,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HomeScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.calculate),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CalculatorScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.forum),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ForumScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final success = await Navigator.push(
