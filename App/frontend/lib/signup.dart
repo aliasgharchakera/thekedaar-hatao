@@ -76,7 +76,7 @@ class _SignUpScreen extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 32.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _usernameController,
                 decoration: const InputDecoration(
@@ -85,7 +85,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   filled: true,
                 ),
               ),
-              const SizedBox(height: 32.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _firstnameController,
                 decoration: const InputDecoration(
@@ -94,7 +94,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   filled: true,
                 ),
               ),
-              const SizedBox(height: 32.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _lastnameController,
                 decoration: const InputDecoration(
@@ -132,7 +132,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   filled: true,
                 ),
               ),
-              const SizedBox(height: 32.0),
+              const SizedBox(height: 16.0),
               Center(
                 child: SizedBox(
                   // width: 91.5,

@@ -26,17 +26,17 @@ class HomeScreen extends StatelessWidget {
             );
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const MyApp()),
-              );
-            },
-          )
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.logout),
+        //     onPressed: () {
+        //       Navigator.pushReplacement(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => const MyApp()),
+        //       );
+        //     },
+        //   )
+        // ],
       ),
       body: Center(
         child: Column(

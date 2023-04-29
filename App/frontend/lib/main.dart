@@ -165,19 +165,19 @@ class _LoginScreen extends State<MyApp> {
               ),
             Column(
               children: [
-                const SizedBox(height: 2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        logger.d('Forgot password');
-                      },
-                      child: const Text('Forgot password?'),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
+                // const SizedBox(height: 2),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     TextButton(
+                //       onPressed: () {
+                //         logger.d('Forgot password');
+                //       },
+                //       child: const Text('Forgot password?'),
+                //     ),
+                //   ],
+                // ),
+                const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity, // Make button wider
                   child: ElevatedButton(
@@ -230,7 +230,9 @@ class _LoginScreen extends State<MyApp> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomeScreen(authToken: authToken,),
+                          builder: (context) => HomeScreen(
+                            authToken: authToken,
+                          ),
                         ),
                       );
                     },

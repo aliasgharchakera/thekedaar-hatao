@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './AddNewPost.dart';
 import 'CreatePostScreen.dart';
 import './Calculator.dart';
 import './Marketplace.dart';
@@ -107,20 +106,6 @@ class _ForumScreen extends State<ForumScreen> {
             );
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AddNewPostScreen(
-                          authToken: authToken,
-                        )),
-              );
-            },
-          ),
-        ],
       ),
       body: FutureBuilder<List<ForumPost>>(
         future: getForumAll(widget.authToken),
@@ -253,19 +238,20 @@ class _ForumScreen extends State<ForumScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           if (authToken.isNotEmpty) {
-          final success = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  CreatePostScreen(authToken: widget.authToken),
-            ),
-          );
-          if (success == true) {
-            setState(() {
-              posts.clear();
-            });
+            final success = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    CreatePostScreen(authToken: widget.authToken),
+              ),
+            );
+            if (success == true) {
+              setState(() {
+                posts.clear();
+              });
+            }
           }
-        }},
+        },
         child: const Icon(Icons.add),
       ),
     );
@@ -287,27 +273,60 @@ class _PostScreenState extends State<PostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.orange,
       appBar: AppBar(
-        title: Text(widget.post.title),
+        title: const Text('Comment Section'),
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(widget.post.content),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text("Comments"),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: SizedBox(
+              width: 510.0, // Replace with your desired width
+              child: Card(
+                margin: const EdgeInsets.all(8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.post.username,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(widget.post.content),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
           Expanded(
             child: ListView.builder(
               itemCount: widget.post.comments.length,
               itemBuilder: (BuildContext context, int index) {
                 Comment comment = widget.post.comments[index];
-                return ListTile(
-                  title: Text(comment.username),
-                  subtitle: Text(comment.comment),
+                return Card(
+                  margin: const EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Username: ${comment.username}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        Text(comment.comment),
+                      ],
+                    ),
+                  ),
                 );
               },
             ),
@@ -325,43 +344,32 @@ class _PostScreenState extends State<PostScreen> {
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              if (authToken.isEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Please login to comment'),
-                  ),
-                );
-              }
-              else if (comment.isNotEmpty && authToken.isNotEmpty) {
-                // call your API endpoint to create a comment
-                int id = widget.post.id;
-                final response = await http.post(
-                  Uri.parse('$URL/forum/$id/create/'),
-                  headers: <String, String>{
-                    'Authorization': 'Token $authToken'
-                  },
-                  body: {
-                    'comment': comment,
-                  },
-                );
-                comment = '';
-                // refresh the page to show the new comment
-                setState(() {
-                  widget.post.comments
-                      .add(Comment.fromJson(json.decode(response.body)));
-                });
-              }
-              else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Please enter a comment'),
-                  ),
-                );
-              }
-            },
-            child: const Text('Comment'),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: ElevatedButton(
+              onPressed: () async {
+                if (comment.isNotEmpty) {
+                  // call your API endpoint to create a comment
+                  int id = widget.post.id;
+                  final response = await http.post(
+                    Uri.parse('$URL/forum/$id/create/'),
+                    headers: <String, String>{
+                      'Authorization': 'Token $authToken'
+                    },
+                    body: {
+                      'comment': comment,
+                    },
+                  );
+                  comment = '';
+                  // refresh the page to show the new comment
+                  setState(() {
+                    widget.post.comments
+                        .add(Comment.fromJson(json.decode(response.body)));
+                  });
+                }
+              },
+              child: const Text('Comment'),
+            ),
           ),
         ],
       ),
