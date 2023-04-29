@@ -116,7 +116,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.1),
                         ),
-                        children: [
+                        children: const [
                           TableCell(
                             child: Padding(
                               padding: EdgeInsets.all(16),
@@ -145,7 +145,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       ),
                       TableRow(
                         children: [
-                          TableCell(
+                          const TableCell(
                             child: Padding(
                               padding: EdgeInsets.all(16),
                               child: Text(
@@ -161,7 +161,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               padding: EdgeInsets.all(16),
                               child: Text(
                                 '$_brickQuantity',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                 ),
                               ),
@@ -174,7 +174,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           color: Colors.grey.withOpacity(0.1),
                         ),
                         children: [
-                          TableCell(
+                          const TableCell(
                             child: Padding(
                               padding: EdgeInsets.all(16),
                               child: Text(
@@ -190,7 +190,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               padding: EdgeInsets.all(16),
                               child: Text(
                                 '$_cementQuantity',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                 ),
                               ),
@@ -200,7 +200,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       ),
                       TableRow(
                         children: [
-                          TableCell(
+                          const TableCell(
                             child: Padding(
                               padding: EdgeInsets.all(16),
                               child: Text(
@@ -216,7 +216,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               padding: EdgeInsets.all(16),
                               child: Text(
                                 '$_metalQuantity',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                 ),
                               ),
@@ -229,7 +229,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           color: Colors.grey.withOpacity(0.1),
                         ),
                         children: [
-                          TableCell(
+                          const TableCell(
                             child: Padding(
                               padding: EdgeInsets.all(16),
                               child: Text(
@@ -242,10 +242,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           ),
                           TableCell(
                             child: Padding(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               child: Text(
                                 '$_sandQuantity',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                 ),
                               ),
