@@ -29,7 +29,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'Select an option',
+                  username,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,

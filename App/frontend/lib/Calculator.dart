@@ -51,17 +51,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             );
           },
         ),
-        // actions: [
-        //   IconButton(
-        //     icon: const Icon(Icons.logout),
-        //     onPressed: () {
-        //       Navigator.pushReplacement(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => const MyApp()),
-        //       );
-        //     },
-        //   )
-        // ],
       ),
       body: Center(
         child: Column(
@@ -98,12 +87,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               padding: const EdgeInsets.only(top: 16.0),
               child: Card(
                 elevation: 4,
-                margin: EdgeInsets.symmetric(horizontal: 16),
+                margin: const EdgeInsets.symmetric(horizontal: 16),
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Table(
-                    columnWidths: {
+                    columnWidths: const {
                       0: FlexColumnWidth(2),
                       1: FlexColumnWidth(1),
                     },

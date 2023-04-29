@@ -267,23 +267,20 @@ class _PostScreenState extends State<PostScreen> {
               itemCount: widget.post.comments.length,
               itemBuilder: (BuildContext context, int index) {
                 Comment comment = widget.post.comments[index];
-                return Card(
-                  margin: const EdgeInsets.all(8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Username: ${comment.username}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        comment.username,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
-                        const SizedBox(height: 8.0),
-                        Text(comment.comment),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(comment.comment),
+                    ],
                   ),
                 );
               },
