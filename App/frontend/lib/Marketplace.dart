@@ -12,8 +12,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-
-
 class MarketplaceScreen extends StatefulWidget {
   final String authToken;
   const MarketplaceScreen({Key? key, required this.authToken})
@@ -29,7 +27,7 @@ Future<List<MarketPlacePost>> getMarketPlace(authToken) async {
     Uri.parse('$URL/marketplace/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token $authToken'
+      // 'Authorization': 'Token $authToken'
     },
   );
 
@@ -38,7 +36,8 @@ Future<List<MarketPlacePost>> getMarketPlace(authToken) async {
     // then parse the JSON.
     // logger.d(response.body);
     Iterable l = json.decode(response.body);
-    posts = List<MarketPlacePost>.from(l.map((model) => MarketPlacePost.fromJson(model)));
+    posts = List<MarketPlacePost>.from(
+        l.map((model) => MarketPlacePost.fromJson(model)));
     logger.d(posts);
     return posts;
   } else {
@@ -75,7 +74,6 @@ class MarketPlacePost {
 }
 
 class _MarketplaceScreenState extends State<MarketplaceScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,9 +106,10 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
       drawer: const CustomDrawer(),
       body: FutureBuilder<List<MarketPlacePost>>(
         future: getMarketPlace(widget.authToken),
-        builder: (BuildContext context, AsyncSnapshot<List<MarketPlacePost>> snapshot) {
-          if (snapshot.hasData){
-            List <MarketPlacePost> posts = snapshot.data!;
+        builder: (BuildContext context,
+            AsyncSnapshot<List<MarketPlacePost>> snapshot) {
+          if (snapshot.hasData) {
+            List<MarketPlacePost> posts = snapshot.data!;
             return ListView.builder(
               itemCount: posts.length,
               itemBuilder: (BuildContext context, int index) {
@@ -155,11 +154,9 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                 );
               },
             );
-          }
-          else if (snapshot.hasError) {
+          } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
-          }
-          else {
+          } else {
             return const Center(child: CircularProgressIndicator());
           }
         },
@@ -210,81 +207,24 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final success = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SellItemScreen(authToken: widget.authToken),
-            ),
-          );
-          if (success == true) {
-            setState(() {
-              posts.clear();
-            });
+          if (authToken.isNotEmpty) {
+            final success = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    SellItemScreen(authToken: widget.authToken),
+              ),
+            );
+            if (success == true) {
+              setState(() {
+                posts.clear();
+              });
+            }
           }
         },
-        child: const Icon(Icons.add),
         backgroundColor: Colors.black,
+        child: const Icon(Icons.add),
       ),
-      // drawer: Drawer(
-      //   child: Container(
-      //     color: Colors.white,
-      //     child: ListView(
-      //       padding: EdgeInsets.zero,
-      //       children: <Widget>[
-      //         DrawerHeader(
-      //           decoration: const BoxDecoration(
-      //             color: Colors.orange,
-      //           ),
-      //           child: Column(
-      //             crossAxisAlignment: CrossAxisAlignment.start,
-      //             children: const [
-      //               Text(
-      //                 'Menu',
-      //                 style: TextStyle(
-      //                   color: Colors.white,
-      //                   fontSize: 24,
-      //                 ),
-      //               ),
-      //               SizedBox(height: 8),
-      //               Text(
-      //                 'Select an option',
-      //                 style: TextStyle(
-      //                   color: Colors.white,
-      //                   fontSize: 16,
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //         ListTile(
-      //           leading: const Icon(Icons.person),
-      //           title: const Text('Profile'),
-      //           onTap: () {
-      //             Navigator.of(context).push(
-      //               MaterialPageRoute(
-      //                 builder: (context) => ProfileScreen(authToken: authToken,),
-      //               ),
-      //             );
-      //             // Navigator.pop(context);
-      //           },
-      //         ),
-      //         const Divider(),
-      //         ListTile(
-      //           leading: const Icon(Icons.help),
-      //           title: const Text('Help Center'),
-      //           onTap: () {
-      //             Navigator.of(context).push(
-      //               MaterialPageRoute(
-      //                 builder: (context) => const HelpCenterScreen(),
-      //               ),
-      //             );
-      //             // Navigator.pop(context);
-      //           },
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

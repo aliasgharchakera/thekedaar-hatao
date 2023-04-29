@@ -26,7 +26,7 @@ Future<List<ForumPost>> getForumAll(authToken) async {
     Uri.parse('$URL/forum/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token $authToken'
+      // 'Authorization': 'Token $authToken'
     },
   );
 
@@ -44,7 +44,6 @@ Future<List<ForumPost>> getForumAll(authToken) async {
     throw Exception('Failed to load forum');
   }
 }
-
 
 class Comment {
   final String comment;
@@ -179,12 +178,15 @@ class _ForumScreen extends State<ForumScreen> {
                               Text('${_likesCount[index]} likes'),
                               IconButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PostScreen(post: post),
-                                    ),
-                                  );
+                                  if (authToken.isNotEmpty) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PostScreen(post: post),
+                                      ),
+                                    );
+                                  }
                                 },
                                 icon: const Icon(Icons.comment),
                               ),
@@ -252,10 +254,12 @@ class _ForumScreen extends State<ForumScreen> {
       drawer: const CustomDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          if (authToken.isNotEmpty) {
           final success = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CreatePostScreen(authToken: widget.authToken),
+              builder: (context) =>
+                  CreatePostScreen(authToken: widget.authToken),
             ),
           );
           if (success == true) {
@@ -263,7 +267,7 @@ class _ForumScreen extends State<ForumScreen> {
               posts.clear();
             });
           }
-        },
+        }},
         child: const Icon(Icons.add),
       ),
     );
@@ -325,14 +329,21 @@ class _PostScreenState extends State<PostScreen> {
           ),
           ElevatedButton(
             onPressed: () async {
-              if (comment.isNotEmpty) {
+              if (authToken.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please login to comment'),
+                  ),
+                );
+              }
+              else if (comment.isNotEmpty && authToken.isNotEmpty) {
                 // call your API endpoint to create a comment
                 int id = widget.post.id;
                 final response = await http.post(
                   Uri.parse('$URL/forum/$id/create/'),
                   headers: <String, String>{
-      'Authorization': 'Token $authToken'
-    },
+                    'Authorization': 'Token $authToken'
+                  },
                   body: {
                     'comment': comment,
                   },
@@ -340,8 +351,16 @@ class _PostScreenState extends State<PostScreen> {
                 comment = '';
                 // refresh the page to show the new comment
                 setState(() {
-                  widget.post.comments.add(Comment.fromJson(json.decode(response.body)));
+                  widget.post.comments
+                      .add(Comment.fromJson(json.decode(response.body)));
                 });
+              }
+              else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please enter a comment'),
+                  ),
+                );
               }
             },
             child: const Text('Comment'),

@@ -14,69 +14,75 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.orange,
+            decoration: const BoxDecoration(
+              color: Colors.orange,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Menu',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Menu',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Select an option',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
+                SizedBox(height: 8),
+                Text(
+                  'Select an option',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.person),
-                title: const Text('Home'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(authToken: authToken,),
+              ],
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Home'),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen(
+                    authToken: authToken,
+                  ),
+                ),
+              );
+              // Navigator.pop(context);
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Profile'),
+            onTap: () {
+              if (authToken.isNotEmpty) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(
+                      authToken: authToken,
                     ),
-                  );
-                  // Navigator.pop(context);
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.person),
-                title: const Text('Profile'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProfileScreen(authToken: authToken,),
-                    ),
-                  );
-                  // Navigator.pop(context);
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.help),
-                title: const Text('Help Center'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const HelpCenterScreen(),
-                    ),
-                  );
-                  // Navigator.pop(context);
-                },
-              ),
-              const Divider(),
+                  ),
+                );
+                // Navigator.pop(context);
+              }
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.help),
+            title: const Text('Help Center'),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const HelpCenterScreen(),
+                ),
+              );
+              // Navigator.pop(context);
+            },
+          ),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Log Out'),
@@ -87,7 +93,7 @@ class CustomDrawer extends StatelessWidget {
               );
             },
           ),
-            ],
+        ],
       ),
     );
   }

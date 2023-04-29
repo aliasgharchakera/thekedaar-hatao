@@ -98,8 +98,7 @@ def create_post_comment(request, pk):
     return Response(serializer.data, status = 201)
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny],)
 def get_forum_posts(request):
     forumPosts= ForumPost.objects.all()
     serializer = ForumPostSerializer(forumPosts,many=True)
@@ -141,8 +140,7 @@ def get_user_posts(request):
 
 '''Market Place Views'''
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny],)
 def get_marketplace_posts(request):
     marketPlacePosts= MarketPlacePost.objects.all()
     serializer = MarketPlacePostSerializer(marketPlacePosts,many=True)

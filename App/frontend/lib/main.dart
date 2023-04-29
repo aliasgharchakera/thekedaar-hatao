@@ -7,7 +7,8 @@ import 'signup.dart';
 import 'homescreen.dart';
 
 final logger = Logger();
-const URL = 'https://aliasgharchakera.pythonanywhere.com/';
+// const URL = 'https://aliasgharchakera.pythonanywhere.com/';
+const URL = 'http://127.0.0.1:8000/';
 
 void main() {
   runApp(
@@ -23,7 +24,7 @@ class MyApp extends StatefulWidget {
   _LoginScreen createState() => _LoginScreen();
 }
 
-String authToken = "";
+String authToken = '';
 Future<bool> login(username, password) async {
   final response = await http.post(
     Uri.parse('$URL/login/'),
@@ -181,15 +182,6 @@ class _LoginScreen extends State<MyApp> {
                   width: double.infinity, // Make button wider
                   child: ElevatedButton(
                     onPressed: _login,
-                    // final String username = _usernameController.text;
-                    // final String password = _passwordController.text;
-                    // // logger.d('Username: $username, Password: $password');
-                    // logger.d(login(username, password));
-                    // // Navigator.push(
-                    // //   context,
-                    // //   MaterialPageRoute(builder: (context) => HomeScreen()),
-                    // // );
-                    // },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
                           Colors.lightBlue, // Set the background color
@@ -223,6 +215,32 @@ class _LoginScreen extends State<MyApp> {
                     ),
                     child: const Text(
                       'Sign up',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                SizedBox(
+                  width: double.infinity, // Make button wider
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // logger.d('Sign up');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(authToken: authToken,),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.lightBlue,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 91.5),
+                    ),
+                    child: const Text(
+                      'Continue as guest',
                       style: TextStyle(
                         fontSize: 20,
                       ),
