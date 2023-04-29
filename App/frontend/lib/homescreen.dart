@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.orange,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.orange,
         elevation: 0,
         leading: Builder(
           builder: (BuildContext context) {
@@ -39,77 +39,6 @@ class HomeScreen extends StatelessWidget {
             },
           )
         ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CalculatorScreen(authToken: authToken,)),
-                );
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.calculate),
-                  const SizedBox(width: 8),
-                  const Text('Calculator'),
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(300, 60),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-              ),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>  ForumScreen(authToken: authToken,)),
-                );
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.forum),
-                  const SizedBox(width: 8),
-                  const Text('Forum'),
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(300, 60),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-              ),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>  MarketplaceScreen(authToken: authToken,)),
-                );
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.shopping_basket),
-                  const SizedBox(width: 8),
-                  const Text('Marketplace'),
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(300, 60),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-              ),
-            ),
-          ],
-        ),
       ),
       drawer: Drawer(
         child: Container(
@@ -148,7 +77,9 @@ class HomeScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ProfileScreen(authToken: authToken,),
+                      builder: (context) => ProfileScreen(
+                        authToken: authToken,
+                      ),
                     ),
                   );
                   // Navigator.pop(context);
@@ -169,6 +100,104 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+      body:
+          // Container(
+          //   decoration: const BoxDecoration(
+          //     gradient: LinearGradient(
+          //       begin: Alignment.topRight,
+          //       end: Alignment.bottomLeft,
+          //       stops: [
+          //         0,
+          //         0.4,
+          //         0.6,
+          //         1,
+          //       ],
+          //       colors: [
+          //         Color.fromARGB(255, 226, 255, 59),
+          //         Colors.yellow,
+          //         Colors.orange,
+          //         Colors.red,
+          //       ],
+          //     ),
+          //   ),
+          Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CalculatorScreen(
+                            authToken: authToken,
+                          )),
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.calculate),
+                  const SizedBox(width: 8),
+                  const Text('Calculator'),
+                ],
+              ),
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(300, 60),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ForumScreen(
+                            authToken: authToken,
+                          )),
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.forum),
+                  const SizedBox(width: 8),
+                  const Text('Forum'),
+                ],
+              ),
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(300, 60),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MarketplaceScreen(
+                            authToken: authToken,
+                          )),
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.shopping_basket),
+                  const SizedBox(width: 8),
+                  const Text('Marketplace'),
+                ],
+              ),
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(300, 60),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+            ),
+          ],
         ),
       ),
     );

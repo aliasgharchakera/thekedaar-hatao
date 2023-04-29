@@ -82,11 +82,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               onPressed: () {
                 final double quantity = double.parse(_quantityController.text);
                 setState(() {
-                  _brickQuantity = quantity * 2.5;
-                  _cementQuantity = quantity * 0.5;
-                  _woodQuantity = quantity * 0.5;
-                  _sandQuantity = quantity * 0.5;
-                  _metalQuantity = quantity * 0.5;
+                  _brickQuantity = quantity *
+                      4.2; // considering the length of the brick is 8" and the width is 4"
+                  _cementQuantity = quantity * 0.2;
+                  _woodQuantity = quantity * 15;
+                  _sandQuantity = quantity * 3.9;
+                  _metalQuantity = quantity * 0.32;
                 });
               },
               child: const Text('Calculate'),
@@ -223,7 +224,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             child: Padding(
                               padding: EdgeInsets.all(16),
                               child: Text(
-                                'Cement (kg)',
+                                'Cement (per bag)',
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -249,7 +250,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             child: Padding(
                               padding: EdgeInsets.all(16),
                               child: Text(
-                                'Metal (sqft)',
+                                'Metal (per ton)',
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -278,7 +279,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             child: Padding(
                               padding: EdgeInsets.all(16),
                               child: Text(
-                                'Sand (kg)',
+                                'Sand (c.ft)',
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),

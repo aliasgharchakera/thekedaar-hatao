@@ -112,13 +112,6 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
               itemCount: posts.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                  ),
                   margin: const EdgeInsets.all(10),
                   child: Card(
                     child: ListTile(
@@ -127,10 +120,10 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            posts[index].username,
+                            'Username: ${posts[index].username}',
                             style: const TextStyle(
-                              color: Colors.black54,
                               fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
                             ),
                           ),
                           Text(

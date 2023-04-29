@@ -347,37 +347,32 @@ class _PostScreenState extends State<PostScreen> {
     return Scaffold(
       backgroundColor: Colors.orange,
       appBar: AppBar(
-          // title: Text(widget.post.title),
-          title: const Text('Comment Section')),
+        title: const Text('Comment Section'),
+      ),
       body: Column(
         children: [
           Card(
-              margin: const EdgeInsets.all(8.0),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                // Padding(
-                //   padding: const EdgeInsets.all(16.0),
-                child: Text(widget.post.content),
-                // )
-              )),
-          // const Padding(
-          //   padding: EdgeInsets.all(16.0),
-          //   child: Text("Comment Section"),
-          // ),
-          Expanded(
-              child: Card(
             margin: const EdgeInsets.all(8.0),
-            child: ListView.builder(
-              itemCount: widget.post.comments.length,
-              itemBuilder: (BuildContext context, int index) {
-                Comment comment = widget.post.comments[index];
-                return ListTile(
-                  title: Text(comment.username),
-                  subtitle: Text(comment.comment),
-                );
-              },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(widget.post.content),
             ),
-          )),
+          ),
+          Expanded(
+            child: Card(
+              margin: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: widget.post.comments.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Comment comment = widget.post.comments[index];
+                  return ListTile(
+                    title: Text(comment.username),
+                    subtitle: Text(comment.comment),
+                  );
+                },
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
@@ -391,29 +386,32 @@ class _PostScreenState extends State<PostScreen> {
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              if (comment.isNotEmpty) {
-                // call your API endpoint to create a comment
-                int id = widget.post.id;
-                final response = await http.post(
-                  Uri.parse('$URL/forum/$id/create/'),
-                  headers: <String, String>{
-                    'Authorization': 'Token $authToken'
-                  },
-                  body: {
-                    'comment': comment,
-                  },
-                );
-                comment = '';
-                // refresh the page to show the new comment
-                setState(() {
-                  widget.post.comments
-                      .add(Comment.fromJson(json.decode(response.body)));
-                });
-              }
-            },
-            child: const Text('Comment'),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: ElevatedButton(
+              onPressed: () async {
+                if (comment.isNotEmpty) {
+                  // call your API endpoint to create a comment
+                  int id = widget.post.id;
+                  final response = await http.post(
+                    Uri.parse('$URL/forum/$id/create/'),
+                    headers: <String, String>{
+                      'Authorization': 'Token $authToken'
+                    },
+                    body: {
+                      'comment': comment,
+                    },
+                  );
+                  comment = '';
+                  // refresh the page to show the new comment
+                  setState(() {
+                    widget.post.comments
+                        .add(Comment.fromJson(json.decode(response.body)));
+                  });
+                }
+              },
+              child: const Text('Comment'),
+            ),
           ),
         ],
       ),
