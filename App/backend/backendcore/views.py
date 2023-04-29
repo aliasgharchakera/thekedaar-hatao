@@ -105,3 +105,16 @@ def getForumPosts(request):
     forumPosts= ForumPost.objects.all()
     serializer = ForumPostSerializer(forumPosts,many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny],)
+def getForumPost(request,pk):
+    forumPost= ForumPost.objects.get(id=pk)
+    comments = ForumPost.comments.all()
+    context = {
+        'post': ForumPost,
+        'comments': comments
+    }
+    serializer = ForumPostSerializer(context,many=False)
+    return Response(serializer.data)

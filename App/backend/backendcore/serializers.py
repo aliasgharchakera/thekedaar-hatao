@@ -45,7 +45,16 @@ class RegisterSerializer(serializers.ModelSerializer):
     user.save()
     return user
   
+class CommentSerializer(serializers.ModelSerializer):
+  class Meta:
+    model= Comment
+    fields = '__all__'
+
+
 class ForumPostSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True,read_only=True)
+
     class Meta:
         model = ForumPost
-        fields = '__all__'
+        fields = ('id', 'title', 'content', 'author', 'created_at', 'likes', 'comments')
+

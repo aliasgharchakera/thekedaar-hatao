@@ -6,4 +6,5 @@ urlpatterns = [
     path('example/',example_view),
     path('forum/create/', createForumPost),
     path('forum/', getForumPosts),
+    path('forumpost/<str:pk>/', getForumPost)
 ]

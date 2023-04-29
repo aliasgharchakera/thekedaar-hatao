@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.timezone import now
+from django.utils import timezone
+
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -18,33 +20,50 @@ def ready(self):
     for user in User.objects.all():
         Token.objects.get_or_create(user=user)
     
-#parent model
-class Post(models.Model):
-    user = models.ForeignKey(User,blank=False,on_delete=models.CASCADE)
-    topic= models.CharField(max_length=300)
-    description = models.CharField(max_length=1000,blank=True)
-    link = models.CharField(max_length=100 ,null =True)
-    date_created=models.DateTimeField(auto_now_add=True,null=True)
+# #parent model
+# class Post(models.Model):
+#     user = models.ForeignKey(User,blank=False,on_delete=models.CASCADE)
+#     topic= models.CharField(max_length=300)
+#     description = models.CharField(max_length=1000,blank=True)
+#     link = models.CharField(max_length=100 ,null =True)
+#     date_created=models.DateTimeField(auto_now_add=True,null=True)
     
-    def __str__(self):
-        return str(self.topic)
- 
-#child model
-class Comment(models.Model):
-    Post = models.ForeignKey(Post,blank=True,on_delete=models.CASCADE)
-    comment = models.CharField(max_length=1000)
- 
-    def __str__(self):
-        return str(self.Post)
+#     def __str__(self):
+#         return str(self.topic)
     
+
 
 class ForumPost(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    likes = models.IntegerField(default=0)
+    # comments = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True, default=None)
     # modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
+    
+#child model
+# class Comment(models.Model):
+#     ForumPost = models.ForeignKey(ForumPost,blank=True,on_delete=models.CASCADE)
+#     author = models.ForeignKey(User, on_delete=models.CASCADE)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     comment = models.CharField(max_length=1000)
+ 
+#     def __str__(self):
+#         return str(self.Post)
+
+class Comment(models.Model):
+    # post = models.ForeignKey(ForumPost, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
+    post = models.ForeignKey(ForumPost, on_delete=models.CASCADE, null=True, default=None)
+    content = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=False,default=timezone.now)
+
+    def __str__(self):
+        return self.content
+
+
      
