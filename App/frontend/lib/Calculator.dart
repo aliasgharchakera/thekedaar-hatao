@@ -6,6 +6,7 @@ import 'main.dart';
 import 'Profile.dart';
 import 'HelpCenter.dart';
 import 'Drawer.dart';
+import 'appbar.dart';
 
 class CalculatorScreen extends StatefulWidget {
   final String authToken;
@@ -16,14 +17,22 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
+  String? _selectedMaterial;
   final TextEditingController _quantityController = TextEditingController();
 
+  bool _isMenuOpen = false;
+  double _multipliedQuantity = 0;
   double _sandQuantity = 0;
   double _cementQuantity = 0;
   double _brickQuantity = 0;
   double _woodQuantity = 0;
   double _metalQuantity = 0;
 
+  void _toggleMenu() {
+    setState(() {
+      _isMenuOpen = !_isMenuOpen;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +51,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             );
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const MyApp()),
-              );
-            },
-          )
-        ],
       ),
       body: Center(
         child: Column(
@@ -75,94 +73,184 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               onPressed: () {
                 final double quantity = double.parse(_quantityController.text);
                 setState(() {
-                  _brickQuantity = quantity * 2.5;
-                  _cementQuantity = quantity * 0.5;
-                  _woodQuantity = quantity * 0.5;
-                  _sandQuantity = quantity * 0.5;
-                  _metalQuantity = quantity * 0.5;
+                  _brickQuantity = quantity *
+                      4.2; // considering the length of the brick is 8" and the width is 4"
+                  _cementQuantity = quantity * 0.2;
+                  _woodQuantity = quantity * 15;
+                  _sandQuantity = quantity * 3.9;
+                  _metalQuantity = quantity * 0.32;
                 });
               },
               child: const Text('Calculate'),
             ),
-            Table(
-              defaultColumnWidth: FixedColumnWidth(120.0),
-              border: TableBorder.all(
-                  color: Colors.black, style: BorderStyle.solid, width: 2),
-              children: [
-                TableRow(children: [
-                  Column(children: const [
-                    Text('Material', style: TextStyle(fontSize: 20.0))
-                  ]),
-                  Column(children: const [
-                    Text('Quantity', style: TextStyle(fontSize: 20.0))
-                  ]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Brick (pcs)')]),
-                  Column(children: [Text('$_brickQuantity')]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Cement (kg)')]),
-                  Column(children: [Text('$_cementQuantity')]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Metal (sqft)')]),
-                  Column(children: [Text('$_metalQuantity')]),
-                ]),
-                TableRow(children: [
-                  Column(children: const [Text('Sand (kg)')]),
-                  Column(children: [Text('$_sandQuantity')]),
-                ]),
-              ],
-            )
-            // final int quantity = int.parse(_quantityController.text);
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: Card(
+                elevation: 4,
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  child: Table(
+                    columnWidths: const {
+                      0: FlexColumnWidth(2),
+                      1: FlexColumnWidth(1),
+                    },
+                    border: TableBorder.all(
+                      color: Colors.grey.withOpacity(0.5),
+                      width: 1,
+                    ),
+                    children: [
+                      TableRow(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                        ),
+                        children: const [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Material',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Quantity',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          const TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Brick (pcs)',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                '$_brickQuantity',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                        ),
+                        children: [
+                          const TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Cement (per bag)',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                '$_cementQuantity',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          const TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Metal (per ton)',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                '$_metalQuantity',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                        ),
+                        children: [
+                          const TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Sand (c.ft)',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Text(
+                                '$_sandQuantity',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.orange,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HomeScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.forum),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ForumScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.shopping_cart),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MarketplaceScreen(
-                            authToken: authToken,
-                          )),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       drawer: const CustomDrawer(),
     );
   }

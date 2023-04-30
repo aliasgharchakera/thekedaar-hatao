@@ -5,6 +5,7 @@ import 'main.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'Drawer.dart';
+import 'appbar.dart';
 import 'package:http/http.dart' as http;
 
 class ProfileScreen extends StatefulWidget {
@@ -14,7 +15,6 @@ class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
-
 
 List<UserPost> posts = [];
 Future<List<UserPost>> getUserPosts(authToken) async {
@@ -42,21 +42,21 @@ Future<List<UserPost>> getUserPosts(authToken) async {
 }
 
 Future<User> getUser() async {
-    final response = await http.get(
-      Uri.parse('$URL/user/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Token $authToken',
-      },
-    );
+  final response = await http.get(
+    Uri.parse('$URL/user/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Token $authToken',
+    },
+  );
 
-    if (response.statusCode == 200) {
-      final json = jsonDecode(response.body);
-      return User.fromJson(json);
-    } else {
-      throw Exception('Failed to load user');
-    }
+  if (response.statusCode == 200) {
+    final json = jsonDecode(response.body);
+    return User.fromJson(json);
+  } else {
+    throw Exception('Failed to load user');
   }
+}
 
 class User {
   final int id;
@@ -74,7 +74,6 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
-
     return User(
       id: json['id'],
       email: json['email'],
@@ -99,7 +98,6 @@ class UserPost {
   });
 
   factory UserPost.fromJson(Map<String, dynamic> json) {
-
     return UserPost(
       id: json['id'],
       title: json['title'],
@@ -110,7 +108,6 @@ class UserPost {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,148 +125,138 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const MyApp()),
-              );
-            },
-          ),
-        ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          FutureBuilder<User>(
-            future: getUser(),
-            builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        FutureBuilder<User>(
+          future: getUser(),
+          builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+            if (snapshot.hasData) {
+              User user = snapshot.data!;
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      user.username,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '${user.first_name} ${user.last_name}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      user.email,
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final success = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditProfileScreen(
+                                authToken: widget.authToken,
+                              ),
+                            ),
+                          );
+                          if (success == true) {
+                            setState(() {
+                              getUser();
+                            });
+                          }
+                        },
+                        child: Text('Edit Details'),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Failed to load user'));
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+        Expanded(
+          child: FutureBuilder<List<UserPost>>(
+            future: getUserPosts(widget.authToken),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<UserPost>> snapshot) {
               if (snapshot.hasData) {
-                User user = snapshot.data!;
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        user.username,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        '${user.first_name} ${user.last_name}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        user.email,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              final success = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EditProfileScreen(
-                                    authToken: widget.authToken,
-                                  ),
+                List<UserPost> posts = snapshot.data!;
+                return ListView.builder(
+                  itemCount: posts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    UserPost post = posts[index];
+                    return GestureDetector(
+                      onTap: () async {
+                        final response = await http.get(
+                          Uri.parse('$URL/forum/${post.id}/'),
+                          headers: <String, String>{
+                            'Content-Type': 'application/json; charset=UTF-8',
+                            'Authorization': 'Token $authToken'
+                          },
+                        );
+                        ForumPost forumpost =
+                            ForumPost.fromJson(jsonDecode(response.body));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PostScreen(post: forumpost),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        margin: const EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                post.title,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
                                 ),
-                              );
-                              if (success == true) {
-                                setState(() {
-                                  getUser();
-                                });
-                              }
-                            },
-                            child: Text('Edit Details'),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                post.content,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 8),
+                            ],
                           ),
                         ),
-                    ],
-                  ),
+                      ),
+                    );
+                  },
                 );
               } else if (snapshot.hasError) {
-                return const Center(child: Text('Failed to load user'));
+                return const Center(child: Text('Failed to load posts'));
               } else {
                 return const Center(child: CircularProgressIndicator());
               }
             },
           ),
-          Expanded(child: FutureBuilder<List<UserPost>>(
-        future: getUserPosts(widget.authToken),
-        builder:
-            (BuildContext context, AsyncSnapshot<List<UserPost>> snapshot) {
-          if (snapshot.hasData) {
-            List<UserPost> posts = snapshot.data!;
-            return ListView.builder(
-              itemCount: posts.length,
-              itemBuilder: (BuildContext context, int index) {
-                UserPost post = posts[index];
-                return GestureDetector(
-                  onTap: () async {
-                    final response = await http.get(
-                      Uri.parse('$URL/forum/${post.id}/'),
-                      headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token $authToken'
-    },
-  ); ForumPost forumpost = ForumPost.fromJson(jsonDecode(response.body));
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PostScreen(post: forumpost),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    margin: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            post.title,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            post.content,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 8),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            );
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Failed to load posts'));
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-          ),
-        ]
-      ),
+        ),
+      ]),
+      bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       drawer: const CustomDrawer(),
     );
   }

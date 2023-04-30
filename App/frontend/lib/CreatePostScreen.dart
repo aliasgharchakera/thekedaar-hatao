@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import './Calculator.dart';
+import './Marketplace.dart';
+import 'homescreen.dart';
 import './main.dart';
-import 'dart:convert';
 import 'Drawer.dart';
+import 'Profile.dart';
+import 'HelpCenter.dart';
+import 'dart:async';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'appbar.dart';
 
 class CreatePostScreen extends StatefulWidget {
   final String authToken;
@@ -21,6 +28,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.orange,
       appBar: AppBar(
         title: const Text('Create a new post'),
       ),
@@ -81,8 +89,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       Navigator.pop(context, true);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Failed to create post'),
+                        SnackBar(
+                          content: const Text('Failed to create post'),
                         ),
                       );
                     }
@@ -94,6 +102,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       drawer: const CustomDrawer(),
     );
   }

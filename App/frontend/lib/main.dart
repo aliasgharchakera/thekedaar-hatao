@@ -129,21 +129,54 @@ class _LoginScreen extends State<MyApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Login',
+              'Welcome to Thekedaar Hatao',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
+                fontFamily: 'times-new-roman'
               ),
             ),
+            Align(
+              alignment:Alignment.centerLeft,
+              child: const Text(
+              'Login',
+              style: TextStyle(
+                fontSize: 50,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontFamily:'Roboto',
+                
+              ),
+            ),
+            ),
+
+            Align(
+              alignment:Alignment.centerLeft,
+              child: const Text(
+              'Please sign in to continue.',
+              style: TextStyle(
+                fontSize: 15,
+                // fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 77, 160, 205),
+                
+              ),
+            ),
+            ),
+
+
+          
             const SizedBox(height: 20),
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(
                 labelText: 'Username',
-                labelStyle: TextStyle(color: Colors.white),
-                border: OutlineInputBorder(),
+                labelStyle: TextStyle(color: Colors.blue),
+                // contentPadding:  EdgeInsets.all,
+                // border: OutlineInputBorder(),
               ),
+              // textAlignVertical: TextAlignVertical.center,
+              // textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
             TextField(
@@ -151,8 +184,8 @@ class _LoginScreen extends State<MyApp> {
               obscureText: true,
               decoration: const InputDecoration(
                 labelText: 'Password',
-                labelStyle: TextStyle(color: Colors.white),
-                border: OutlineInputBorder(),
+                labelStyle: TextStyle(color: Colors.blue),
+                // border: OutlineInputBorder(),
               ),
             ),
             if (_errorMessage != null)
@@ -165,21 +198,12 @@ class _LoginScreen extends State<MyApp> {
               ),
             Column(
               children: [
-                const SizedBox(height: 2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        logger.d('Forgot password');
-                      },
-                      child: const Text('Forgot password?'),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 16),
+                Align(
+                  alignment:Alignment.centerRight,
+                  child:
                 SizedBox(
-                  width: double.infinity, // Make button wider
+                  width: 120, //double.infinity, // Make button wider
                   child: ElevatedButton(
                     onPressed: _login,
                     style: ElevatedButton.styleFrom(
@@ -187,66 +211,140 @@ class _LoginScreen extends State<MyApp> {
                           Colors.lightBlue, // Set the background color
                       padding: const EdgeInsets.symmetric(
                           vertical: 12,
-                          horizontal: 100), // Increase the vertical padding
+                          horizontal: 10),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(70),),
+                          
                     ),
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(fontSize: 20), // Increase the font size
-                    ),
+                    child:Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [Text('Login',style: TextStyle(fontSize: 16)),
+                    Icon(Icons.arrow_forward),]
+                    // child: const Text(
+                    //   'Login',
+                    //   style: TextStyle(fontSize: 20,), // Increase the font size
+                    // ),
                   ),
-                ),
-                const SizedBox(height: 6),
-                SizedBox(
-                  width: double.infinity, // Make button wider
-                  child: ElevatedButton(
-                    onPressed: () {
-                      logger.d('Sign up');
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SignUpScreen(),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightBlue,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 91.5),
-                    ),
-                    child: const Text(
-                      'Sign up',
-                      style: TextStyle(
-                        fontSize: 20,
+                  ),
+                ),),
+
+
+                // const Text('Don\'t have an account?',
+                //     style: TextStyle(fontSize: 20, color: Colors.white,height: 2)),
+                // const Text('Signup! It won\'t even take a minute!',
+                //     style: TextStyle(fontSize: 15, color: Colors.white)),
+                // const SizedBox(height: 6),
+                // SizedBox(
+                //   width: 120,//double.infinity, // Make button wider
+                //   child: ElevatedButton(
+                //     onPressed: () {
+                //       logger.d('Sign up');
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => SignUpScreen(),
+                //         ),
+                //       );
+                //     },
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Colors.lightBlue,
+                //       padding: const EdgeInsets.symmetric(
+                //           vertical: 12, horizontal: 10),
+                //       shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(50),)
+                //     ),
+                //     child: const Text(
+                //       'Sign Up',
+                //       style: TextStyle(
+                //         fontSize: 20,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                Container(
+                alignment: Alignment.bottomCenter,
+                padding: EdgeInsets.only(bottom: 2),
+                child: GestureDetector(
+                  onTap: () {
+                    logger.d('Sign up');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignUpScreen(),
                       ),
+                    );
+                  },
+                  child: Text(
+                    'Don\'t have an account? Sign Up!',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.lightBlue,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
-                const SizedBox(height: 6),
-                SizedBox(
-                  width: double.infinity, // Make button wider
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // logger.d('Sign up');
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomeScreen(authToken: authToken,),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightBlue,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 91.5),
-                    ),
-                    child: const Text(
-                      'Continue as guest',
-                      style: TextStyle(
-                        fontSize: 20,
+                ),
+
+
+                Container(
+                alignment: Alignment.bottomCenter,
+                padding: EdgeInsets.only(bottom: 2),
+                child: GestureDetector(
+                  onTap: () {
+                    logger.d('Sign up');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(
+                            authToken: authToken,
+                          ),
                       ),
+                    );
+                  },
+                  child: Text(
+                    'Don\'t want to Sign Up? Enter as guest',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.lightBlue,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
+                ),
+                // const Text(height:30),
+                // const Text('Don\'t want to signup?',
+                //     style: TextStyle(fontSize: 20, color: Colors.white,height: 2)),
+                // const Text('We got you covered!',
+                //     style: TextStyle(fontSize: 15, color: Colors.white)),
+                // const SizedBox(height: 5),
+                // SizedBox(
+                //   width: 200, // Make button wider
+                //   child: ElevatedButton(
+                //     onPressed: () {
+                //       // logger.d('Sign up');
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => HomeScreen(
+                //             authToken: authToken,
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Colors.lightBlue,
+                //       padding: const EdgeInsets.symmetric(
+                //           vertical: 12, horizontal: 10),
+                //       shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(50),),
+                //     ),
+                //     child: const Text(
+                //       'Continue as guest',
+                //       style: TextStyle(
+                //         fontSize: 20,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ],

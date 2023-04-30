@@ -4,6 +4,7 @@ import 'main.dart';
 import 'Drawer.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'appbar.dart';
 import 'package:http/http.dart' as http;
 
 class EditProfileScreen extends StatefulWidget {
@@ -252,6 +253,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       drawer: const CustomDrawer(),
     );
   }
