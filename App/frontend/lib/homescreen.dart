@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Icon(Icons.shopping_basket),
+                  Icon(Icons.shopping_cart),
                   SizedBox(width: 8),
                   Text('Marketplace'),
                 ],

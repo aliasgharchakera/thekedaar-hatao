@@ -57,7 +57,7 @@ class MyBottomNavigationBar extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.shop),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () {
               Navigator.pushReplacement(
                 context,

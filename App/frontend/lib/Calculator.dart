@@ -49,7 +49,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Quantity in sq/ft',
+                  labelText: 'Area in sq/ft',
                 ),
               ),
             ),
@@ -78,8 +78,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   padding: const EdgeInsets.all(16),
                   child: Table(
                     columnWidths: const {
-                      0: FlexColumnWidth(2),
-                      1: FlexColumnWidth(1),
+                      0: FlexColumnWidth(3),
+                      1: FlexColumnWidth(2),
                     },
                     border: TableBorder.all(
                       color: Colors.grey.withOpacity(0.5),
@@ -132,7 +132,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           ),
                           TableCell(
                             child: Padding(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               child: Text(
                                 '$_brickQuantity',
                                 style: const TextStyle(
@@ -161,7 +161,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           ),
                           TableCell(
                             child: Padding(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               child: Text(
                                 '$_cementQuantity',
                                 style: const TextStyle(
@@ -187,7 +187,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           ),
                           TableCell(
                             child: Padding(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               child: Text(
                                 '$_metalQuantity',
                                 style: const TextStyle(
@@ -208,6 +208,35 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               padding: EdgeInsets.all(16),
                               child: Text(
                                 'Sand (c.ft)',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Text(
+                                '$_woodQuantity',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                        ),
+                        children: [
+                          const TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                'Wood (c.ft)',
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),

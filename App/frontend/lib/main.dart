@@ -69,7 +69,7 @@ Future<bool> auth(username, password) async {
     // logger.d("Login successful");
     // return User.fromJson(jsonDecode(response.body));
     authToken = jsonDecode(response.body)['token'];
-    logger.d(authToken);
+    // logger.d(authToken);
     return true;
   } else {
     // If the server did not return a 201 CREATED response,
@@ -123,21 +123,29 @@ class _LoginScreen extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Welcome to Thekedaar Hatao',
+      appBar: AppBar(
+        backgroundColor: Colors.orange,
+        toolbarHeight: 50,
+        centerTitle: true,
+        elevation: 0,
+        title: const Text('Welcome to Thekedaar Hatao',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
-                height: 5,
                 fontFamily: 'times-new-roman'
+                ),
               ),
-            ),
+      ),
+      body: SingleChildScrollView(child: 
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 5),
+            Image.asset('assets/images/logo.png',
+            height: 200,),
             const Align(
               alignment:Alignment.centerLeft,
               child: Text(
@@ -224,11 +232,12 @@ class _LoginScreen extends State<MyApp> {
                 ),
                 ),
                 Container(
+                  height: 30,
                 alignment: Alignment.bottomCenter,
-                padding: const EdgeInsets.only(bottom: 2),
+                padding: const EdgeInsets.only(bottom: 2,),
                 child: GestureDetector(
                   onTap: () {
-                    logger.d('Sign up');
+                    // logger.d('Sign up');
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -251,7 +260,7 @@ class _LoginScreen extends State<MyApp> {
                 padding: EdgeInsets.only(bottom: 2),
                 child: GestureDetector(
                   onTap: () {
-                    logger.d('Sign up');
+                    // logger.d('Sign up');
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -276,6 +285,7 @@ class _LoginScreen extends State<MyApp> {
           ],
         ),
       ),
+    )
     );
   }
 }
