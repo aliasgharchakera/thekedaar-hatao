@@ -9,7 +9,7 @@ class HelpCenterScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.orange,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.orange,
         centerTitle: true,
         title: const Text(
           'Help Center',

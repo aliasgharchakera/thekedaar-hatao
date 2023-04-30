@@ -53,7 +53,7 @@ class SellItemScreenState extends State<SellItemScreen> {
                             newValue; // Added this line to update material value
                       });
                     },
-                    items: <String>['Metal', 'Sand', 'Brick', 'Cement']
+                    items: <String>['Metal', 'Sand', 'Brick', 'Cement', 'Wood']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -90,7 +90,7 @@ class SellItemScreenState extends State<SellItemScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter a title';
+                        return 'Please enter a quantity';
                       }
                       return null;
                     },
