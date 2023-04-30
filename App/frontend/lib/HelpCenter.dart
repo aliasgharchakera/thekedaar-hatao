@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
 import 'Drawer.dart';
 
 class HelpCenterScreen extends StatelessWidget {
@@ -10,7 +9,16 @@ class HelpCenterScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.orange,
       appBar: AppBar(
-        title: const Text('Help Center'),
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: const Text(
+          'Help Center',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -19,7 +27,7 @@ class HelpCenterScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(5),
@@ -41,9 +49,9 @@ class HelpCenterScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(5),
@@ -80,9 +88,9 @@ class HelpCenterScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               Container(
-                padding: EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(5),

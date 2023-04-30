@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'main.dart';
-import 'Drawer.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'appbar.dart';
@@ -177,7 +176,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.orange,
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        backgroundColor: Colors.orange,
+        centerTitle: true,
+        title: const Text(
+          'Edit Profile',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -255,7 +263,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
       ),
       bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
-      drawer: const CustomDrawer(),
+      // drawer: const CustomDrawer(),
     );
   }
 }

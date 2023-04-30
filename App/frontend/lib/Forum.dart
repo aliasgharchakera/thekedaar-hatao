@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'CreatePostScreen.dart';
-import './Calculator.dart';
-import './Marketplace.dart';
-import 'homescreen.dart';
 import 'appbar.dart';
 import './main.dart';
 import 'dart:async';
@@ -95,17 +92,15 @@ class _ForumScreen extends State<ForumScreen> {
     return Scaffold(
       backgroundColor: Colors.orange,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
+        backgroundColor: Colors.orange,
+        centerTitle: true,
+        title: const Text(
+          'Forum',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: FutureBuilder<List<ForumPost>>(
@@ -240,6 +235,7 @@ class _PostScreenState extends State<PostScreen> {
     return Scaffold(
       backgroundColor: Colors.orange,
       appBar: AppBar(
+        backgroundColor: Colors.orange,
         title: const Text('Comment Section'),
       ),
       body: Column(

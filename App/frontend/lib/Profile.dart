@@ -113,17 +113,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.orange,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
+        backgroundColor: Colors.orange,
+        centerTitle: true,
+        title: const Text(
+          'Profile',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -177,7 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             });
                           }
                         },
-                        child: Text('Edit Details'),
+                        child: const Text('Edit Details'),
                       ),
                     ),
                   ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './main.dart';
-import 'Drawer.dart';
+// import 'Drawer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'appbar.dart';
@@ -24,7 +24,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     return Scaffold(
       backgroundColor: Colors.orange,
       appBar: AppBar(
-        title: const Text('Create a new post'),
+        backgroundColor: Colors.orange,
+        centerTitle: true,
+        title: const Text(
+          'Create new post',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -97,7 +106,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         ),
       ),
       bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
-      drawer: const CustomDrawer(),
+      // drawer: const CustomDrawer(),
     );
   }
 }

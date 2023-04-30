@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'dart:convert';
-import 'Drawer.dart';
 import 'package:http/http.dart' as http;
 import 'appbar.dart';
 
@@ -24,7 +23,18 @@ class SellItemScreenState extends State<SellItemScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange,
-      appBar: AppBar(title: const Text('Add Item')),
+      appBar: AppBar(
+        backgroundColor: Colors.orange,
+        centerTitle: true,
+        title: const Text(
+          'Sell item',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -129,7 +139,7 @@ class SellItemScreenState extends State<SellItemScreen> {
         ),
       ),
       bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
-      drawer: const CustomDrawer(),
+      // drawer: const CustomDrawer(),
     );
   }
 }
