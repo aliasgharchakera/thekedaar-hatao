@@ -203,14 +203,13 @@ class _ForumScreen extends State<ForumScreen> {
                 posts.clear();
               });
             }
-          }
-          else {
+          } else {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Please login to create a post'),
               ),
             );
-            }
+          }
         },
         child: const Icon(Icons.add),
       ),
@@ -229,6 +228,8 @@ class PostScreen extends StatefulWidget {
 
 class _PostScreenState extends State<PostScreen> {
   String comment = '';
+  final _commentController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -292,6 +293,7 @@ class _PostScreenState extends State<PostScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              controller: _commentController,
               onChanged: (value) {
                 setState(() {
                   comment = value;
@@ -313,8 +315,7 @@ class _PostScreenState extends State<PostScreen> {
                     ),
                   );
                   return;
-                }
-                else if (comment.isNotEmpty) {
+                } else if (comment.isNotEmpty) {
                   // call your API endpoint to create a comment
                   int id = widget.post.id;
                   final response = await http.post(
@@ -327,13 +328,14 @@ class _PostScreenState extends State<PostScreen> {
                     },
                   );
                   comment = '';
+                  _commentController.clear();
                   // refresh the page to show the new comment
                   setState(() {
+                    comment = '';
                     widget.post.comments
                         .add(Comment.fromJson(json.decode(response.body)));
                   });
-                }
-                else {
+                } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Comment cannot be empty'),

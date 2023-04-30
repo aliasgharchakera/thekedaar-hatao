@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfrontend/Drawer.dart';
+import 'package:flutterfrontend/vendor.dart';
 import './SellItem.dart';
 import './main.dart';
 import 'dart:async';
@@ -47,6 +48,7 @@ class MarketPlacePost {
   final String material;
   final double price;
   final String username;
+  final int user_id;
   final int quantity;
 
   const MarketPlacePost({
@@ -55,6 +57,7 @@ class MarketPlacePost {
     required this.price,
     required this.username,
     required this.quantity,
+    required this.user_id,
   });
 
   factory MarketPlacePost.fromJson(Map<String, dynamic> json) {
@@ -64,6 +67,7 @@ class MarketPlacePost {
       price: json['price'],
       username: json['username'],
       quantity: json['quantity'],
+      user_id: json['user_id'],
     );
   }
 }
@@ -94,40 +98,52 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
             return ListView.builder(
               itemCount: posts.length,
               itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  margin: const EdgeInsets.all(10),
-                  child: Card(
-                    child: ListTile(
-                      title: Text(posts[index].material),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Username: ${posts[index].username}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
-                            ),
+                return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => VendorScreen(
+                            authToken: authToken,
+                            userId: posts[index].user_id,
                           ),
-                          Text(
-                            'Price: ${posts[index].price}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
-                            ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      child: Card(
+                        child: ListTile(
+                          title: Text(posts[index].material),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Username: ${posts[index].username}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              Text(
+                                'Price: ${posts[index].price}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              Text(
+                                'Quantity: ${posts[index].quantity}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            'Quantity: ${posts[index].quantity}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                );
+                    ));
               },
             );
           } else if (snapshot.hasError) {
@@ -140,26 +156,26 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
       bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          if (widget.authToken.isNotEmpty){
-          final success = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SellItemScreen(authToken: widget.authToken),
-            ),
-          );
-          if (success == true) {
-            setState(() {
-              posts.clear();
-            });
+          if (widget.authToken.isNotEmpty) {
+            final success = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    SellItemScreen(authToken: widget.authToken),
+              ),
+            );
+            if (success == true) {
+              setState(() {
+                posts.clear();
+              });
+            }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Please login to sell items'),
+              ),
+            );
           }
-        }
-        else{
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Please login to sell items'),
-            ),
-          );
-        }
         },
         backgroundColor: Colors.black,
         child: const Icon(Icons.add),

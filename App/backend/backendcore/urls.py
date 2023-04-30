@@ -16,4 +16,6 @@ urlpatterns = [
     path('user/update/', update_user),
     path('user/update_password/', update_password),
     path('user/posts/', get_user_posts),
+    path('vendor/<int:pk>/', get_vendor),
+    path('vendor/<int:pk>/posts/', get_vendor_posts),
 ]

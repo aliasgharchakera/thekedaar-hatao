@@ -63,6 +63,7 @@ class SellItemScreenState extends State<SellItemScreen> {
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       hintText: 'Price',
                       fillColor: Colors.white,
@@ -81,6 +82,7 @@ class SellItemScreenState extends State<SellItemScreen> {
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       hintText: 'Quantity',
                       fillColor: Colors.white,

@@ -66,6 +66,7 @@ def signup_view(request):
     return Response({'user created failed'}, status = 201)
 
      
+'''Forum Views'''
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -129,13 +130,6 @@ def get_post_comments(request, pk):
     serializer = PostCommentSerializer(postComments,many=True)
     return Response(serializer.data, status = 200)
 
-@api_view(['GET'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
-def get_user_posts(request):
-    forumPosts= ForumPost.objects.all().filter(user_id=request.user)
-    serializer = ForumPostSerializer(forumPosts,many=True)
-    return Response(serializer.data, status = 200)
 
 '''Market Place Views'''
 @api_view(['GET'])
@@ -158,6 +152,16 @@ def create_marketplace_post(request):
         )
     serializer = MarketPlacePostSerializer(marketPlacePost,many=False)
     return Response(serializer.data, status = 201)
+
+
+'''User Views'''
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_user_posts(request):
+    forumPosts= ForumPost.objects.all().filter(user_id=request.user)
+    serializer = ForumPostSerializer(forumPosts,many=True)
+    return Response(serializer.data, status = 200)
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
@@ -193,3 +197,17 @@ def update_password(request):
     else:
         return Response({'message': 'Old password is incorrect.'}, status=400)
 
+'''Vendor Views'''
+@api_view(['GET'])
+@permission_classes([AllowAny],)
+def get_vendor(request, pk):
+    user= User.objects.get(id=pk)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data, status = 200)
+
+@api_view(['GET'])
+@permission_classes([AllowAny],)
+def get_vendor_posts(request, pk):
+    marketPlacePosts= MarketPlacePost.objects.all().filter(user_id=pk)
+    serializer = MarketPlacePostSerializer(marketPlacePosts,many=True)
+    return Response(serializer.data, status = 200)
