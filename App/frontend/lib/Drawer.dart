@@ -87,6 +87,7 @@ class CustomDrawer extends StatelessWidget {
             leading: const Icon(Icons.logout),
             title: const Text('Log Out'),
             onTap: () {
+              authToken = '';
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const MyApp()),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Marketplace.dart';
-import 'main.dart';
 import 'Calculator.dart';
 import 'Forum.dart';
-import 'appbar.dart';
 import 'Drawer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,17 +25,6 @@ class HomeScreen extends StatelessWidget {
             );
           },
         ),
-        // actions: [
-        //   IconButton(
-        //     icon: const Icon(Icons.logout),
-        //     onPressed: () {
-        //       Navigator.pushReplacement(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => const MyApp()),
-        //       );
-        //     },
-        //   )
-        // ],
       ),
       body: Center(
         child: Column(

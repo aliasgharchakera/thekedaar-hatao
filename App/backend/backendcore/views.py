@@ -9,8 +9,7 @@ from rest_framework.views import APIView
 from rest_framework import generics
 
 from django.shortcuts import render,redirect
-from .models import * 
-from .forms import * 
+from .models import *
 from .serializers import *
 # Create your views here.
 from rest_framework.authtoken.views import ObtainAuthToken

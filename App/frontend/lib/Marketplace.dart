@@ -259,7 +259,7 @@ Future<List<MarketPlacePost>> getMarketPlace(authToken) async {
     Uri.parse('$URL/marketplace/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token $authToken'
+      // 'Authorization': 'Token $authToken'
     },
   );
 
@@ -270,7 +270,7 @@ Future<List<MarketPlacePost>> getMarketPlace(authToken) async {
     Iterable l = json.decode(response.body);
     posts = List<MarketPlacePost>.from(
         l.map((model) => MarketPlacePost.fromJson(model)));
-    logger.d(posts);
+    // logger.d(posts);
     return posts;
   } else {
     // If the server did not return a 200 OK response,
@@ -390,6 +390,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
       bottomNavigationBar: MyBottomNavigationBar(authToken: widget.authToken),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          if (widget.authToken.isNotEmpty){
           final success = await Navigator.push(
             context,
             MaterialPageRoute(
@@ -401,6 +402,14 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
               posts.clear();
             });
           }
+        }
+        else{
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Please login to sell items'),
+            ),
+          );
+        }
         },
         child: const Icon(Icons.add),
         backgroundColor: Colors.black,

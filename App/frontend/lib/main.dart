@@ -103,7 +103,7 @@ class _LoginScreen extends State<MyApp> {
     final String password = _passwordController.text;
     final user = await login(username, password);
     await auth(username, password);
-    logger.d(user);
+    // logger.d(user);
     if (user == true) {
       Navigator.push(
         context,
@@ -134,15 +134,17 @@ class _LoginScreen extends State<MyApp> {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
+                height: 5,
                 fontFamily: 'times-new-roman'
               ),
             ),
-            Align(
+            const Align(
               alignment:Alignment.centerLeft,
-              child: const Text(
+              child: Text(
               'Login',
               style: TextStyle(
-                fontSize: 50,
+                // height: 1,
+                fontSize: 40,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontFamily:'Roboto',
@@ -151,20 +153,18 @@ class _LoginScreen extends State<MyApp> {
             ),
             ),
 
-            Align(
+            const Align(
               alignment:Alignment.centerLeft,
-              child: const Text(
+              child: Text(
               'Please sign in to continue.',
               style: TextStyle(
                 fontSize: 15,
                 // fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 77, 160, 205),
-                
+                color: Colors.white,
+                height: 3,
               ),
             ),
             ),
-
-
           
             const SizedBox(height: 20),
             TextField(
@@ -217,74 +217,35 @@ class _LoginScreen extends State<MyApp> {
                           
                     ),
                     child:Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text('Login',style: TextStyle(fontSize: 16)),
+                    children:const [ Text('Login',style: TextStyle(fontSize: 16)),
                     Icon(Icons.arrow_forward),]
-                    // child: const Text(
-                    //   'Login',
-                    //   style: TextStyle(fontSize: 20,), // Increase the font size
-                    // ),
+                    ),
                   ),
-                  ),
-                ),),
-
-
-                // const Text('Don\'t have an account?',
-                //     style: TextStyle(fontSize: 20, color: Colors.white,height: 2)),
-                // const Text('Signup! It won\'t even take a minute!',
-                //     style: TextStyle(fontSize: 15, color: Colors.white)),
-                // const SizedBox(height: 6),
-                // SizedBox(
-                //   width: 120,//double.infinity, // Make button wider
-                //   child: ElevatedButton(
-                //     onPressed: () {
-                //       logger.d('Sign up');
-                //       Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //           builder: (context) => SignUpScreen(),
-                //         ),
-                //       );
-                //     },
-                //     style: ElevatedButton.styleFrom(
-                //       backgroundColor: Colors.lightBlue,
-                //       padding: const EdgeInsets.symmetric(
-                //           vertical: 12, horizontal: 10),
-                //       shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(50),)
-                //     ),
-                //     child: const Text(
-                //       'Sign Up',
-                //       style: TextStyle(
-                //         fontSize: 20,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                ),
+                ),
                 Container(
                 alignment: Alignment.bottomCenter,
-                padding: EdgeInsets.only(bottom: 2),
+                padding: const EdgeInsets.only(bottom: 2),
                 child: GestureDetector(
                   onTap: () {
                     logger.d('Sign up');
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SignUpScreen(),
+                        builder: (context) => const SignUpScreen(),
                       ),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'Don\'t have an account? Sign Up!',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.lightBlue,
+                      color: Colors.white,
                       decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
                 ),
-
-
                 Container(
                 alignment: Alignment.bottomCenter,
                 padding: EdgeInsets.only(bottom: 2),
@@ -300,51 +261,16 @@ class _LoginScreen extends State<MyApp> {
                       ),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'Don\'t want to Sign Up? Enter as guest',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.lightBlue,
+                      color: Colors.white,
                       decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
                 ),
-                // const Text(height:30),
-                // const Text('Don\'t want to signup?',
-                //     style: TextStyle(fontSize: 20, color: Colors.white,height: 2)),
-                // const Text('We got you covered!',
-                //     style: TextStyle(fontSize: 15, color: Colors.white)),
-                // const SizedBox(height: 5),
-                // SizedBox(
-                //   width: 200, // Make button wider
-                //   child: ElevatedButton(
-                //     onPressed: () {
-                //       // logger.d('Sign up');
-                //       Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //           builder: (context) => HomeScreen(
-                //             authToken: authToken,
-                //           ),
-                //         ),
-                //       );
-                //     },
-                //     style: ElevatedButton.styleFrom(
-                //       backgroundColor: Colors.lightBlue,
-                //       padding: const EdgeInsets.symmetric(
-                //           vertical: 12, horizontal: 10),
-                //       shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(50),),
-                //     ),
-                //     child: const Text(
-                //       'Continue as guest',
-                //       style: TextStyle(
-                //         fontSize: 20,
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ],

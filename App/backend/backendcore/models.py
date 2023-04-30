@@ -17,19 +17,6 @@ def ready(self):
             
     for user in User.objects.all():
         Token.objects.get_or_create(user=user)
-    
-#parent model
-class Post(models.Model):
-    user = models.ForeignKey(User,blank=False,on_delete=models.CASCADE)
-    topic= models.CharField(max_length=300)
-    description = models.CharField(max_length=1000,blank=True)
-    link = models.CharField(max_length=100 ,null =True)
-    date_created=models.DateTimeField(auto_now_add=True,null=True)
-    
-    def __str__(self):
-        return str(self.topic)
- 
-#child model
 
 class ForumPost(models.Model):
     id = models.AutoField(primary_key=True)
@@ -63,5 +50,5 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
  
     def __str__(self):
-        return str(self.Post)
+        return self.comment
     

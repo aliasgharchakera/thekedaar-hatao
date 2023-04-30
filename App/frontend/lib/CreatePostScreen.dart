@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import './Calculator.dart';
-import './Marketplace.dart';
-import 'homescreen.dart';
 import './main.dart';
 import 'Drawer.dart';
-import 'Profile.dart';
-import 'HelpCenter.dart';
-import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'appbar.dart';
@@ -89,8 +83,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       Navigator.pop(context, true);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text('Failed to create post'),
+                        const SnackBar(
+                          content: Text('Failed to create post'),
                         ),
                       );
                     }

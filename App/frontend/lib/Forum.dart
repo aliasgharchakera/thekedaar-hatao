@@ -209,6 +209,13 @@ class _ForumScreen extends State<ForumScreen> {
               });
             }
           }
+          else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Please login to create a post'),
+              ),
+            );
+            }
         },
         child: const Icon(Icons.add),
       ),
@@ -303,7 +310,15 @@ class _PostScreenState extends State<PostScreen> {
             padding: const EdgeInsets.only(bottom: 16.0),
             child: ElevatedButton(
               onPressed: () async {
-                if (comment.isNotEmpty) {
+                if (authToken.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('You must be logged in to comment'),
+                    ),
+                  );
+                  return;
+                }
+                else if (comment.isNotEmpty) {
                   // call your API endpoint to create a comment
                   int id = widget.post.id;
                   final response = await http.post(
@@ -321,6 +336,13 @@ class _PostScreenState extends State<PostScreen> {
                     widget.post.comments
                         .add(Comment.fromJson(json.decode(response.body)));
                   });
+                }
+                else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Comment cannot be empty'),
+                    ),
+                  );
                 }
               },
               child: const Text('Comment'),
