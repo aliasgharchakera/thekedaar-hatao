@@ -36,9 +36,11 @@ This endpoint allows users to create a new account on the app.
 \subsubsection{Parameters}
 
 \begin{itemize}
+\item username (required) - User name of user.    
 \item email (required) - The email address of the user.
 \item password (required) - The password for the user's account.
-\item name (optional) - The name of the user.
+\item first name (required) - First name of the user.
+\item last name (required) - Last name of the user.
 \end{itemize}
 
 \subsubsection{Example Request}
@@ -46,9 +48,11 @@ This endpoint allows users to create a new account on the app.
 \begin{verbatim}
 POST /signup
 {
+    "username": "BaberAzam"
     "email": "example@example.com",
     "password": "password123",
-    "name": "Babar Azam"
+    "first_name": "Babar",
+    "last_name": "Azam"
 }
 \end{verbatim}
 
@@ -56,8 +60,7 @@ POST /signup
 
 \begin{verbatim}
 {
-    "user_id": 123,
-    "message": "Account created successfully"
+    "user created successfully"
 }
 \end{verbatim}
 
@@ -70,7 +73,7 @@ This endpoint allows users to log in to their account on the app.
 \subsubsection{Parameters}
 
 \begin{itemize}
-\item email (required) - The email address of the user.
+\item username (required) - The user name of the user.
 \item password (required) - The password for the user's account.
 \end{itemize}
 
@@ -79,7 +82,7 @@ This endpoint allows users to log in to their account on the app.
 \begin{verbatim}
 POST /login
 {
-    "email": "example@example.com",
+    "username": "BaberAzam",
     "password": "password123"
 }
 \end{verbatim}
@@ -88,47 +91,46 @@ POST /login
 
 \begin{verbatim}
 {
-    "user_id": 123,
-    "message": "Login successful"
+    "Login successful"
 }
 \end{verbatim}
 
 If the email or password is incorrect, the API should return a 401 Unauthorized response with an appropriate error message.
 
-\section{Material Estimator}
+% \section{Material Estimator}
 
-\subsection{GET /estimate}
+% \subsection{GET /estimate}
 
-\subsubsection{Description}
+% \subsubsection{Description}
 
-This endpoint allows users to estimate the raw material required to build a house based on the area of land.
+% This endpoint allows users to estimate the raw material required to build a house based on the area of land.
 
-\subsubsection{Parameters}
+% \subsubsection{Parameters}
 
-\begin{itemize}
-  \item area (required) - The area of land in square feet.
-\end{itemize}
+% \begin{itemize}
+%   \item area (required) - The area of land in square feet.
+% \end{itemize}
 
-\subsubsection{Example Request}
+% \subsubsection{Example Request}
 
-\begin{verbatim}
-GET /estimate?area=1000
-\end{verbatim}
+% \begin{verbatim}
+% GET /estimate?area=1000
+% \end{verbatim}
 
-\subsubsection{Example Response}
+% \subsubsection{Example Response}
 
-\begin{verbatim}
-{
-    "materials": {
-        "bricks": 5000,
-        "cement": 20,
-        "sand": 1000,
-        "steel": 500,
-        "wood": 100
-    },
-    "cost": 45000
-}
-\end{verbatim}
+% \begin{verbatim}
+% {
+%     "materials": {
+%         "bricks": 5000,
+%         "cement": 20,
+%         "sand": 1000,
+%         "steel": 500,
+%         "wood": 100
+%     },
+%     "cost": 45000
+% }
+% \end{verbatim}
 
 \section{Forum}
 
