@@ -5,6 +5,8 @@
 
 ## Tech Stack
 ### Thekedaar Hatao uses Flutter for the frontend and Django Rest Framework for the backend. The application is available on both Android and iOS.
+### The backend API is hosted at https://aliasgharchakara.pythonanywhere.com/
+### The frontend compiled APK is available at https://github.com/aliasgharchakera/SE-Spring23-Project/tree/master/releases/app-release.apk
 
 ## Features
 ### Thekedaar Hatao offers the following features:
@@ -12,6 +14,7 @@
 - A calculator where the user can estimate the amount of material required for a particular job.
 - A forum where users can ask questions and get answers from other users.
 - A FAQ section where users can find answers to frequently asked questions.
+
 
 ## Contributors
 
