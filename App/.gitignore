@@ -70,3 +70,5 @@ app.*.map.json
 venv/
 
 .env
+
+*.zip
